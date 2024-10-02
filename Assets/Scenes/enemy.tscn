@@ -73,8 +73,8 @@ frame_progress = 0.236144
 script = ExtResource("2_v0apq")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, 16)
+position = Vector2(1.5, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.5, -9)
+position = Vector2(0, -9)
 shape = SubResource("CapsuleShape2D_mj2n6")
