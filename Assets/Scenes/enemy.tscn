@@ -64,7 +64,7 @@ animations = [{
 radius = 4.5
 height = 18.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+[node name="Enemy" type="AnimatedSprite2D"]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_2f8hu")
 autoplay = "default"

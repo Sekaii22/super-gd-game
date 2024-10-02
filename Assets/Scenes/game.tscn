@@ -1,21 +1,30 @@
-[gd_scene load_steps=4 format=3 uid="uid://cao8cinsjef6g"]
+[gd_scene load_steps=6 format=3 uid="uid://cao8cinsjef6g"]
 
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
 [ext_resource type="PackedScene" uid="uid://bxr5nepjs3meh" path="res://Assets/Scenes/enemy.tscn" id="2_vraee"]
 [ext_resource type="PackedScene" uid="uid://ce6mmtjnselhw" path="res://Assets/Scenes/temp-map.tscn" id="3_3p7se"]
+[ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="4_t1jmh"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 
 [node name="Node2D" type="Node2D"]
-position = Vector2(135, 172)
 
 [node name="Player" parent="." instance=ExtResource("1_djm4j")]
-position = Vector2(-135, -178)
+position = Vector2(-71, -2)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
 zoom = Vector2(4, 4)
+limit_bottom = 150
 
-[node name="AnimatedSprite2D" parent="." instance=ExtResource("2_vraee")]
-position = Vector2(-215, -190)
+[node name="Enemy" parent="." instance=ExtResource("2_vraee")]
+position = Vector2(-148, -16)
 
-[node name="map" parent="." instance=ExtResource("3_3p7se")]
-position = Vector2(-266, -170)
+[node name="Map" parent="." instance=ExtResource("3_3p7se")]
+position = Vector2(-211, 0)
+
+[node name="Killzone" parent="." instance=ExtResource("4_t1jmh")]
+position = Vector2(0, 107)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+shape = SubResource("WorldBoundaryShape2D_obkfb")
