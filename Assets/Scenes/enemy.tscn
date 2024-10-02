@@ -1,0 +1,80 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxr5nepjs3meh"]
+
+[ext_resource type="Texture2D" uid="uid://ti0b17c7wvcf" path="res://Assets/Sprites/Characters/Thief_anim.png" id="1_ot33t"]
+[ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="2_v0apq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_siceg"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mel7e"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43q1l"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4p4t"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_av1ty"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_760i5"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wr75w"]
+atlas = ExtResource("1_ot33t")
+region = Rect2(288, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2f8hu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_siceg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mel7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43q1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4p4t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_av1ty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_760i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wr75w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mj2n6"]
+radius = 4.5
+height = 18.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_2f8hu")
+autoplay = "default"
+frame = 1
+frame_progress = 0.236144
+script = ExtResource("2_v0apq")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.5, -9)
+shape = SubResource("CapsuleShape2D_mj2n6")

@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://xjxshr0c3you"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
+[ext_resource type="Texture2D" uid="uid://4vrnyiesatgs" path="res://Assets/Sprites/Characters/Soldier/Soldier/Soldier.png" id="2_20spc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_voneg"]
+atlas = ExtResource("2_20spc")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uq7ko"]
+atlas = ExtResource("2_20spc")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq5na"]
+atlas = ExtResource("2_20spc")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s6cf"]
+atlas = ExtResource("2_20spc")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofufq"]
+atlas = ExtResource("2_20spc")
+region = Rect2(400, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpkxr"]
+atlas = ExtResource("2_20spc")
+region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8inxj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_voneg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uq7ko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq5na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s6cf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofufq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpkxr")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uugn1"]
+radius = 4.0
+height = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_qd8uc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_8inxj")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_uugn1")
