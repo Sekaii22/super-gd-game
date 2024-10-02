@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxr5nepjs3meh"]
+[gd_scene load_steps=13 format=3 uid="uid://bxr5nepjs3meh"]
 
 [ext_resource type="Texture2D" uid="uid://ti0b17c7wvcf" path="res://Assets/Sprites/Characters/Thief_anim.png" id="1_ot33t"]
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="2_v0apq"]
+[ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="3_inkes"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_siceg"]
 atlas = ExtResource("1_ot33t")
@@ -72,9 +73,8 @@ frame = 1
 frame_progress = 0.236144
 script = ExtResource("2_v0apq")
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(1.5, 16)
+[node name="Killzone" parent="." instance=ExtResource("3_inkes")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -9)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(1.5, 7)
 shape = SubResource("CapsuleShape2D_mj2n6")

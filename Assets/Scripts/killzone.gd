@@ -1,4 +1,7 @@
 extends Area2D
 
+@export var damage: int = 100
+
 func _on_body_entered(body: Node2D) -> void:
-	print("You died!")
+	if body.name == "Player":
+		print("You take " + str(damage) + " damage!")
