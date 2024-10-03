@@ -3,7 +3,8 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var health = 100
 
@@ -26,17 +27,17 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = false
 	
 	# Animation
-	if animated_sprite.animation == "attack" and animated_sprite.is_playing():
+	if animation_player.current_animation == "attack" and animation_player.is_playing():
 		if is_on_floor():
 			velocity.x = 0
 	else:
 		if is_on_floor():
 			if direction == 0:
-				animated_sprite.play("idle")
+				animation_player.play("idle")
 			else:
-				animated_sprite.play("run")
+				animation_player.play("run")
 		else:
-			animated_sprite.play("jump")
+			animation_player.play("jump")
 			#Jump animation is temporary
 			
 		# Movement
@@ -46,6 +47,6 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 			
 	if Input.is_action_just_pressed("attack"):
-		animated_sprite.play("attack")
+		animation_player.play("attack")
 	
 	move_and_slide()

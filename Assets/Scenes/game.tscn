@@ -10,7 +10,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_djm4j")]
-position = Vector2(-71, -2)
+position = Vector2(-70, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
@@ -18,7 +18,7 @@ zoom = Vector2(4, 4)
 limit_bottom = 150
 
 [node name="Enemy" parent="." instance=ExtResource("2_vraee")]
-position = Vector2(-148, -16)
+position = Vector2(-203, 0)
 
 [node name="Map" parent="." instance=ExtResource("3_3p7se")]
 position = Vector2(-211, 0)
