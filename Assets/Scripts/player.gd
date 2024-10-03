@@ -5,6 +5,7 @@ const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var health = 100
 
