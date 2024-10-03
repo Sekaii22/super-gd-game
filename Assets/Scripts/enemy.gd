@@ -13,12 +13,3 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#position.x += delta * SPEED
 	pass
-	
-
-func _on_killzone_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
-		health -= 10
-		if health <= 0:
-			animation_player.play("death")
-		else:
-			animation_player.play("hurt")

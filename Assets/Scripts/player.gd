@@ -6,8 +6,12 @@ const JUMP_VELOCITY = -300.0
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var attack_area_collision_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 
-var health = 100
+@export var health = 100
+@export var damage = 10
+@export var attack_area_left: float
+@export var attack_area_right: float
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -24,8 +28,10 @@ func _physics_process(delta: float) -> void:
 	# Flip direction
 	if direction == -1:
 		animated_sprite.flip_h = true
+		attack_area_collision_shape.position.x = attack_area_left
 	elif direction == 1:
 		animated_sprite.flip_h = false
+		attack_area_collision_shape.position.x = attack_area_right
 	
 	# Animation
 	if animation_player.current_animation == "attack" and animation_player.is_playing():
@@ -51,3 +57,15 @@ func _physics_process(delta: float) -> void:
 		animation_player.play("attack")
 	
 	move_and_slide()
+
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print(area.get_parent().name)
+	
+	if area.get_parent().name == "Enemy":
+		area.get_parent().health -= damage
+		
+		if area.get_parent().health <= 0:
+			area.get_parent().animation_player.play("death")
+		else:
+			area.get_parent().animation_player.play("hurt")
