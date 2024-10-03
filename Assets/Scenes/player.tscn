@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=34 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://4vrnyiesatgs" path="res://Assets/Sprites/Characters/Soldier/Soldier/Soldier.png" id="2_20spc"]
@@ -27,22 +27,6 @@ region = Rect2(400, 200, 100, 100)
 atlas = ExtResource("2_20spc")
 region = Rect2(500, 200, 100, 100)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ejrnk"]
-atlas = ExtResource("2_20spc")
-region = Rect2(0, 500, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mnctn"]
-atlas = ExtResource("2_20spc")
-region = Rect2(100, 500, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jgull"]
-atlas = ExtResource("2_20spc")
-region = Rect2(200, 500, 100, 100)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m4t5e"]
-atlas = ExtResource("2_20spc")
-region = Rect2(300, 500, 100, 100)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_twqg6"]
 atlas = ExtResource("2_20spc")
 region = Rect2(0, 600, 100, 100)
@@ -58,6 +42,22 @@ region = Rect2(200, 600, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_btkbf"]
 atlas = ExtResource("2_20spc")
 region = Rect2(300, 600, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejrnk"]
+atlas = ExtResource("2_20spc")
+region = Rect2(0, 500, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnctn"]
+atlas = ExtResource("2_20spc")
+region = Rect2(100, 500, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgull"]
+atlas = ExtResource("2_20spc")
+region = Rect2(200, 500, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4t5e"]
+atlas = ExtResource("2_20spc")
+region = Rect2(300, 500, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voneg"]
 atlas = ExtResource("2_20spc")
@@ -82,6 +82,10 @@ region = Rect2(400, 0, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpkxr"]
 atlas = ExtResource("2_20spc")
 region = Rect2(500, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i48rx"]
+atlas = ExtResource("2_20spc")
+region = Rect2(100, 200, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dfvyj"]
 atlas = ExtResource("2_20spc")
@@ -137,25 +141,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_0fhlm")
 }],
 "loop": false,
-"name": &"Attack",
+"name": &"attack",
 "speed": 16.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ejrnk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mnctn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jgull")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m4t5e")
-}],
-"loop": false,
-"name": &"Damaged",
-"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -171,8 +158,25 @@ animations = [{
 "texture": SubResource("AtlasTexture_btkbf")
 }],
 "loop": false,
-"name": &"Death",
+"name": &"death",
 "speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ejrnk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnctn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgull")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4t5e")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -194,8 +198,16 @@ animations = [{
 "texture": SubResource("AtlasTexture_vpkxr")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"idle",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i48rx")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -223,7 +235,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_xfrtf")
 }],
 "loop": true,
-"name": &"Running",
+"name": &"run",
 "speed": 10.0
 }]
 
@@ -238,10 +250,8 @@ script = ExtResource("1_qd8uc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_8inxj")
-animation = &"Attack"
-autoplay = "Idle"
-frame = 5
-frame_progress = 1.0
+animation = &"attack"
+autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
