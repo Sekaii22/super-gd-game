@@ -221,9 +221,8 @@ height = 18.0
 [node name="Enemy" type="AnimatedSprite2D"]
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_2f8hu")
-animation = &"Running"
+animation = &"Attack"
 autoplay = "Idle"
-frame_progress = 0.971688
 script = ExtResource("2_v0apq")
 
 [node name="Killzone" parent="." instance=ExtResource("3_inkes")]
