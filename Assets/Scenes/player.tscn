@@ -1,7 +1,16 @@
-[gd_scene load_steps=43 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=53 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://4vrnyiesatgs" path="res://Assets/Sprites/Characters/Soldier/Soldier/Soldier.png" id="2_20spc"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_idle.gd" id="3_k816m"]
+[ext_resource type="Script" path="res://Assets/Scripts/state_machine.gd" id="3_vkndn"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_run.gd" id="5_n5l27"]
+[ext_resource type="Script" path="res://Assets/Scripts/state_label.gd" id="6_482wq"]
+[ext_resource type="FontFile" uid="uid://dythax5kmajwu" path="res://Assets/Fonts/Minecraft.ttf" id="6_d57le"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_jump.gd" id="8_vva0k"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_attack.gd" id="9_bbv55"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_hurt.gd" id="10_a4yoh"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_death.gd" id="11_g01rq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosvy"]
 atlas = ExtResource("2_20spc")
@@ -353,7 +362,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_28cf2"]
 resource_name = "hurt"
-length = 0.39
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -373,7 +382,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.0251582, 0.0539473, 0.0789803),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
@@ -478,7 +487,10 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwspq"]
 size = Vector2(13, 17.5)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="LabelSettings" id="LabelSettings_t7y7r"]
+font = ExtResource("6_d57le")
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 script = ExtResource("1_qd8uc")
 attack_area_left = -14.5
@@ -488,7 +500,6 @@ attack_area_right = 14.5
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_8inxj")
 animation = &"idle"
-autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
@@ -506,4 +517,45 @@ position = Vector2(14.5, -8.75)
 shape = SubResource("RectangleShape2D_iwspq")
 disabled = true
 
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_vkndn")
+initial_state = NodePath("idle")
+
+[node name="StateLabel" type="Label" parent="StateMachine" node_paths=PackedStringArray("state_machine")]
+offset_left = -12.0
+offset_top = -37.0
+offset_right = 17.0
+offset_bottom = -21.0
+text = "test"
+label_settings = SubResource("LabelSettings_t7y7r")
+script = ExtResource("6_482wq")
+state_machine = NodePath("..")
+
+[node name="idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_k816m")
+
+[node name="run" type="Node" parent="StateMachine"]
+script = ExtResource("5_n5l27")
+
+[node name="jump" type="Node" parent="StateMachine"]
+script = ExtResource("8_vva0k")
+
+[node name="attack" type="Node" parent="StateMachine"]
+script = ExtResource("9_bbv55")
+
+[node name="hurt" type="Node" parent="StateMachine"]
+script = ExtResource("10_a4yoh")
+
+[node name="death" type="Node" parent="StateMachine"]
+script = ExtResource("11_g01rq")
+
+[connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/run" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/jump" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/attack" method="_on_player_damage_taken"]
+[connection signal="death" from="." to="StateMachine/idle" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/run" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/jump" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/attack" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/hurt" method="_on_player_death"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_area_2d_area_entered"]

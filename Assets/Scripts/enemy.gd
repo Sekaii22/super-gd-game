@@ -13,3 +13,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	#position.x += delta * SPEED
 	pass
+
+# Call this method when you want the 
+func take_damage(dmg_taken: int):
+	health -= dmg_taken
+	
+	if health <= 0:
+		animation_player.play("death")
+	else:
+		animation_player.play("hurt")

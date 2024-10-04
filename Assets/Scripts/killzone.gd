@@ -5,10 +5,9 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		print("You take " + str(damage) + " damage!")
-		body.health -= damage
+		body.take_damage(damage)
+		
 		if body.health <= 0:
-			print("dead")
 			Engine.time_scale = 0.5
 			timer.start()
 

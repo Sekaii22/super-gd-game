@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
-
 const SPEED = 100.0
 const JUMP_VELOCITY = -300.0
+
+signal damage_taken
+signal death
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -18,14 +20,10 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
 	# direction = -1, 0, 1
 	var direction := Input.get_axis("move-left", "move-right")
 	
-	# Flip direction
+	# Flip sprite direction and attack collision area
 	if direction == -1:
 		animated_sprite.flip_h = true
 		attack_area_collision_shape.position.x = attack_area_left
@@ -33,39 +31,19 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = false
 		attack_area_collision_shape.position.x = attack_area_right
 	
-	# Animation
-	if animation_player.current_animation == "attack" and animation_player.is_playing():
-		if is_on_floor():
-			velocity.x = 0
-	else:
-		if is_on_floor():
-			if direction == 0:
-				animation_player.play("idle")
-			else:
-				animation_player.play("run")
-		else:
-			animation_player.play("jump")
-			#Jump animation is temporary
-			
-		# Movement
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			
-	if Input.is_action_just_pressed("attack"):
-		animation_player.play("attack")
-	
 	move_and_slide()
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print(area.get_parent().name)
-	
+func _on_area_2d_area_entered(area: Area2D) -> void:	
 	if area.get_parent().name == "Enemy":
-		area.get_parent().health -= damage
-		
-		if area.get_parent().health <= 0:
-			area.get_parent().animation_player.play("death")
-		else:
-			area.get_parent().animation_player.play("hurt")
+		area.get_parent().take_damage(damage)
+
+# Call this method when you want the player to take damage
+func take_damage(dmg_taken: int):
+	health -= dmg_taken
+	print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")
+	
+	if health <= 0:
+		death.emit()
+	else:
+		damage_taken.emit()
