@@ -19,14 +19,17 @@ func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
 	player.velocity.x = direction * player.SPEED
 	
-	if direction == 0:
+	if direction == 0 and player.velocity.y == 0:
 		Transition.emit(self, "idle")
 	
 	if Input.is_action_just_pressed("jump") and player.is_on_floor():
-		Transition.emit(self, "jump")
+		Transition.emit(self, "jump1")
 		
 	if Input.is_action_just_pressed("attack"):
 		Transition.emit(self, "attack")
+		
+	if player.velocity.y > 0:
+		Transition.emit(self, "fall1")
 
 
 func _on_player_damage_taken() -> void:

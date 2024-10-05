@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=56 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://4vrnyiesatgs" path="res://Assets/Sprites/Characters/Soldier/Soldier/Soldier.png" id="2_20spc"]
@@ -7,10 +7,13 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_run.gd" id="5_n5l27"]
 [ext_resource type="Script" path="res://Assets/Scripts/state_label.gd" id="6_482wq"]
 [ext_resource type="FontFile" uid="uid://dythax5kmajwu" path="res://Assets/Fonts/Minecraft.ttf" id="6_d57le"]
-[ext_resource type="Script" path="res://Assets/Scripts/States/player_jump.gd" id="8_vva0k"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_jump1.gd" id="8_vva0k"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_jump2.gd" id="9_36m1g"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_attack.gd" id="9_bbv55"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_hurt.gd" id="10_a4yoh"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_death.gd" id="11_g01rq"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_fall1.gd" id="13_eq6r6"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_fall2.gd" id="14_e06y0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosvy"]
 atlas = ExtResource("2_20spc")
@@ -537,8 +540,11 @@ script = ExtResource("3_k816m")
 [node name="run" type="Node" parent="StateMachine"]
 script = ExtResource("5_n5l27")
 
-[node name="jump" type="Node" parent="StateMachine"]
+[node name="jump1" type="Node" parent="StateMachine"]
 script = ExtResource("8_vva0k")
+
+[node name="jump2" type="Node" parent="StateMachine"]
+script = ExtResource("9_36m1g")
 
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("9_bbv55")
@@ -549,13 +555,25 @@ script = ExtResource("10_a4yoh")
 [node name="death" type="Node" parent="StateMachine"]
 script = ExtResource("11_g01rq")
 
+[node name="fall1" type="Node" parent="StateMachine"]
+script = ExtResource("13_eq6r6")
+
+[node name="fall2" type="Node" parent="StateMachine"]
+script = ExtResource("14_e06y0")
+
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_player_damage_taken"]
-[connection signal="damage_taken" from="." to="StateMachine/jump" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/jump1" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/jump2" method="_on_player_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/attack" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/fall1" method="_on_player_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/fall2" method="_on_player_damage_taken"]
 [connection signal="death" from="." to="StateMachine/idle" method="_on_player_death"]
 [connection signal="death" from="." to="StateMachine/run" method="_on_player_death"]
-[connection signal="death" from="." to="StateMachine/jump" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/jump1" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/jump2" method="_on_player_death"]
 [connection signal="death" from="." to="StateMachine/attack" method="_on_player_death"]
 [connection signal="death" from="." to="StateMachine/hurt" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/fall1" method="_on_player_death"]
+[connection signal="death" from="." to="StateMachine/fall2" method="_on_player_death"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_area_2d_area_entered"]

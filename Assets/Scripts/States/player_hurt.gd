@@ -22,13 +22,17 @@ func physics_update(_delta: float):
 	# TODO: Find a better way. This implementation is preventing the player from jumping and attacking
 	# when in the hurt state
 	if !animation_player.is_playing():
-		if direction == 0:
-			Transition.emit(self, "idle")
-		else:
-			Transition.emit(self, "run")
+		if player.velocity.y == 0:
+			if direction == 0:
+				Transition.emit(self, "idle")
+			else:
+				Transition.emit(self, "run")
+		elif player.velocity.y > 0:
+			Transition.emit(self, "fall1")
 		
+		# Problem: Not reachable code
 		if Input.is_action_just_pressed("jump") and player.is_on_floor():
-			Transition.emit(self, "jump")
+			Transition.emit(self, "jump1")
 			
 		if Input.is_action_just_pressed("attack"):
 			Transition.emit(self, "attack")

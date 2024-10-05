@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 100.0
-const JUMP_VELOCITY = -300.0
+const JUMP_VELOCITY = -310.0
 
 signal damage_taken
 signal death
@@ -39,6 +39,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		area.get_parent().take_damage(damage)
 
 # Call this method when you want the player to take damage
+# TODO: countdown timer until damage can be taken again
 func take_damage(dmg_taken: int):
 	health -= dmg_taken
 	print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")

@@ -1,13 +1,16 @@
 extends State
-class_name PlayerIdle
+class_name PlayerJump1
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
-	print("Entering player idle state")
-	animation_player.play("idle")
+	print("Entering player jump 1 state")
+	player.velocity.y = player.JUMP_VELOCITY
+	
+	# TODO: Change the jump animation
+	animation_player.play("jump")
 	
 func exit():
 	pass
@@ -17,20 +20,17 @@ func update(_delta: float):
 	
 func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
-	player.velocity.x = move_toward(player.velocity.x, 0, player.SPEED)
+	player.velocity.x = direction * player.SPEED
 	
-	if direction != 0 and player.velocity.y == 0:
-		Transition.emit(self, "run")
-	
-	if Input.is_action_just_pressed("jump") and player.is_on_floor():
-		Transition.emit(self, "jump1")
-		
-	if Input.is_action_just_pressed("attack"):
-		Transition.emit(self, "attack")
-		
 	if player.velocity.y > 0:
 		Transition.emit(self, "fall1")
-		
+	
+	if Input.is_action_just_pressed("jump"):
+		Transition.emit(self, "jump2")
+			
+	if Input.is_action_just_pressed("attack"):
+		Transition.emit(self, "attack")
+
 
 func _on_player_damage_taken() -> void:
 	Transition.emit(self, "hurt")
