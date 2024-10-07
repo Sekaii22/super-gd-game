@@ -1,8 +1,11 @@
-[gd_scene load_steps=39 format=3 uid="uid://bxr5nepjs3meh"]
+[gd_scene load_steps=43 format=3 uid="uid://bxr5nepjs3meh"]
 
 [ext_resource type="Texture2D" uid="uid://ti0b17c7wvcf" path="res://Assets/Sprites/Characters/Thief_anim.png" id="1_ot33t"]
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="2_v0apq"]
 [ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="3_inkes"]
+[ext_resource type="FontFile" uid="uid://dythax5kmajwu" path="res://Assets/Fonts/Minecraft.ttf" id="4_7ryd2"]
+[ext_resource type="Script" path="res://Assets/Scripts/state_machine.gd" id="4_23wk8"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/enemy_idle.gd" id="4_hjg5m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tn42v"]
 atlas = ExtResource("1_ot33t")
@@ -425,6 +428,9 @@ _data = {
 "run": SubResource("Animation_fh6i7")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_t7y7r"]
+font = ExtResource("4_7ryd2")
+
 [node name="Node2D" type="Node2D"]
 z_index = 1
 script = ExtResource("2_v0apq")
@@ -445,4 +451,18 @@ shape = SubResource("CapsuleShape2D_mj2n6")
 libraries = {
 "": SubResource("AnimationLibrary_7qj8l")
 }
-autoplay = "idle"
+
+[node name="StateMachine" type="Node2D" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_23wk8")
+initial_state = NodePath("enemyidle")
+
+[node name="StateLabel" type="Label" parent="StateMachine"]
+offset_left = -12.0
+offset_top = -37.0
+offset_right = 18.0
+offset_bottom = -14.0
+text = "test"
+label_settings = SubResource("LabelSettings_t7y7r")
+
+[node name="enemyidle" type="Node" parent="StateMachine"]
+script = ExtResource("4_hjg5m")
