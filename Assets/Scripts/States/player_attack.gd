@@ -26,12 +26,12 @@ func physics_update(_delta: float):
 	
 	# if attack animation is finished playing
 	if !animation_player.is_playing():
-		if player.velocity.y == 0:
+		if player.is_on_floor():
 			if direction == 0:
 				Transition.emit(self, "idle")
 			else:
 				Transition.emit(self, "run")
-		elif player.velocity.y > 0:
+		elif player.velocity.y > 0 and !player.is_on_floor():
 			Transition.emit(self, "fall1")
 
 

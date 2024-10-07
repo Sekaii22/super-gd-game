@@ -436,6 +436,7 @@ animation = &"idle"
 
 [node name="Killzone" parent="." instance=ExtResource("3_inkes")]
 position = Vector2(0, -16)
+knockback_str = 800.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 position = Vector2(1.5, 7)

@@ -20,7 +20,7 @@ func update(_delta: float):
 	
 func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
-	player.velocity.x = direction * player.SPEED
+	player.velocity.x = direction * player.SPEED + player.knockback.x
 	
 	if player.is_on_floor():
 		if direction == 0:

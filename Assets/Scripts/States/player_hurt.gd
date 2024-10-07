@@ -9,6 +9,9 @@ func enter():
 	print("Entering player hurt state")
 	animation_player.play("hurt")
 	
+	# TODO: Find a better way for upwards knockback pls
+	player.velocity.y -= 150
+	
 func exit():
 	pass
 	
@@ -17,17 +20,17 @@ func update(_delta: float):
 	
 func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
-	player.velocity.x = direction * player.SPEED
+	player.velocity.x = player.knockback.x
 	
 	# TODO: Find a better way. This implementation is preventing the player from jumping and attacking
 	# when in the hurt state
 	if !animation_player.is_playing():
-		if player.velocity.y == 0:
+		if player.is_on_floor():
 			if direction == 0:
 				Transition.emit(self, "idle")
 			else:
 				Transition.emit(self, "run")
-		elif player.velocity.y > 0:
+		elif player.velocity.y > 0 and !player.is_on_floor():
 			Transition.emit(self, "fall1")
 		
 		# Problem: Not reachable code

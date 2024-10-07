@@ -14,6 +14,7 @@ signal death
 @export var damage = 10
 @export var attack_area_left: float
 @export var attack_area_right: float
+var knockback = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -32,7 +33,7 @@ func _physics_process(delta: float) -> void:
 		attack_area_collision_shape.position.x = attack_area_right
 	
 	move_and_slide()
-
+	knockback = knockback.lerp(Vector2.ZERO, 0.1)
 
 func _on_area_2d_area_entered(area: Area2D) -> void:	
 	if area.get_parent().name == "Enemy":
@@ -48,3 +49,8 @@ func take_damage(dmg_taken: int):
 		death.emit()
 	else:
 		damage_taken.emit()
+		
+func take_knockback(body: Node2D, knockback_str: float):
+	var direction = body.global_position.direction_to(global_position)
+	knockback = direction * knockback_str
+	
