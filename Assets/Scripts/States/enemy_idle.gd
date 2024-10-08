@@ -3,7 +3,8 @@ class_name EnemyIdle
 
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var enemy: Node2D = $"../.."
-@onready var ray_cast_2d: RayCast2D = $"../../RayCast2D"
+@onready var player_tracker: RayCast2D = $"../../PlayerTracker"
+
 
 func enter():
 	#enemy = get_tree().get_first_node_in_group("Enemy")
@@ -23,4 +24,4 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 func _on_player_tracker_player_detected() -> void:
-	Transition.emit(self, "hurt")
+	Transition.emit(self, "alert")
