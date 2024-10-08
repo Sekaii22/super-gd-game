@@ -1,6 +1,7 @@
 extends State
 class_name EnemyAlert
 
+@onready var player_tracker: RayCast2D = $"../../PlayerTracker"
 @onready var enemy: Node2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
@@ -12,8 +13,11 @@ func exit():
 	pass
 
 func update(_delta: float):
-	if !animation_player.is_playing():
+	if !animation_player.is_playing() && player_tracker.player_close:
 		Transition.emit(self, "run")
+		#Player escapes from raycast before animation ends
+	if !animation_player.is_playing() && !player_tracker.player_close:
+		Transition.emit(self, "idle")
 
 func physics_update(_delta: float):
 	pass

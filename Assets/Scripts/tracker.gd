@@ -5,7 +5,7 @@ signal player_detected
 var player_close: bool = false
 var player
 var enemy
-@export var raycast_scale: float = 160
+@export var raycast_scale: float
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bxr5nepjs3meh"]
+[gd_scene load_steps=56 format=3 uid="uid://bxr5nepjs3meh"]
 
 [ext_resource type="Texture2D" uid="uid://6ttwswqoi600" path="res://Assets/Sprites/Characters/Thief_alert_anim.png" id="2_aapji"]
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="2_v0apq"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/enemy_death.gd" id="9_7bsus"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/enemy_alert.gd" id="10_daiyv"]
 [ext_resource type="Script" path="res://Assets/Scripts/tracker.gd" id="11_xfh3i"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/enemy_run.gd" id="12_xl12d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27wy8"]
 atlas = ExtResource("2_aapji")
@@ -550,6 +551,9 @@ script = ExtResource("9_7bsus")
 [node name="alert" type="Node" parent="StateMachine"]
 script = ExtResource("10_daiyv")
 
+[node name="run" type="Node" parent="StateMachine"]
+script = ExtResource("12_xl12d")
+
 [node name="AttackRange" type="Area2D" parent="."]
 collision_layer = 2
 
@@ -561,10 +565,13 @@ shape = SubResource("CircleShape2D_1kxxq")
 position = Vector2(4, -12)
 target_position = Vector2(30, 0)
 script = ExtResource("11_xfh3i")
+raycast_scale = 60.0
 
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/alert" method="_on_enemy_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/run" method="_on_enemy_damage_taken"]
 [connection signal="death" from="." to="StateMachine/idle" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/hurt" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/alert" method="_on_enemy_death"]
+[connection signal="death" from="." to="StateMachine/run" method="_on_enemy_death"]
 [connection signal="player_detected" from="PlayerTracker" to="StateMachine/idle" method="_on_player_tracker_player_detected"]
