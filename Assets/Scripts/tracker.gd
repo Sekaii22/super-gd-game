@@ -1,6 +1,7 @@
 extends RayCast2D
 
 signal player_detected
+signal player_escaped
 
 var player_close: bool = false
 var player
@@ -18,7 +19,13 @@ func _physics_process(delta: float) -> void:
 
 func check_player():
 	if is_colliding() && get_collider().name == "Player":
+		#print("raycast to player collision true" +get_collider().name)
 		player_close = true
 		player_detected.emit()
+	elif is_colliding() && get_collider().name != "Player":
+		#print("raycast to player collision false" +get_collider().name)
+		player_close = false
+		player_escaped.emit()
 	else:
 		player_close = false
+		player_escaped.emit()
