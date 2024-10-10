@@ -40,7 +40,7 @@ func physics_update(_delta: float):
 		player.jumps_left -= 1
 		Transition.emit(self, "fall")
 		
-	elif Input.is_action_just_pressed("dash"):
+	elif Input.is_action_just_pressed("dash") and player.can_dash():
 		Transition.emit(self, "dash")
 		
 

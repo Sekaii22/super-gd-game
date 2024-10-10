@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=67 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://bohh6tv515445" path="res://Assets/Sprites/Characters/Soldier/Soldier/Soldier-Attack01.png" id="2_0q6p4"]
@@ -17,8 +17,9 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_hurt.gd" id="10_a4yoh"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_death.gd" id="11_g01rq"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_fall.gd" id="13_eq6r6"]
-[ext_resource type="Texture2D" uid="uid://d2wnnehfo4g1k" path="res://Assets/Sprites/jump_particles.png" id="15_3xwxj"]
+[ext_resource type="Texture2D" uid="uid://d2wnnehfo4g1k" path="res://Assets/Sprites/Effects/jump_particles.png" id="15_3xwxj"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_dash.gd" id="15_5fwr0"]
+[ext_resource type="Texture2D" uid="uid://syklyo26onin" path="res://Assets/Sprites/Effects/dash_particle.png" id="20_v4out"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s07jg"]
 atlas = ExtResource("2_0q6p4")
@@ -517,11 +518,25 @@ gravity = Vector3(0, 30, 0)
 anim_speed_min = 0.6
 anim_speed_max = 0.6
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_e7i0s"]
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vgyyi"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-22, -12.5, 0)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_max = 0.7
+anim_speed_min = 1.2
+anim_speed_max = 1.2
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 script = ExtResource("1_qd8uc")
-attack_area_left = -14.5
-attack_area_right = 14.5
+attack_area_offset = 14.5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -6)
@@ -584,6 +599,8 @@ script = ExtResource("13_eq6r6")
 
 [node name="dash" type="Node" parent="StateMachine"]
 script = ExtResource("15_5fwr0")
+dash_left_particle_path = "res://Assets/Sprites/Effects/dash_particle_flipped.png"
+dash_right_particle_path = "res://Assets/Sprites/Effects/dash_particle.png"
 
 [node name="DoubleJumpParticle" type="GPUParticles2D" parent="."]
 show_behind_parent = true
@@ -595,6 +612,14 @@ texture = ExtResource("15_3xwxj")
 lifetime = 0.4
 one_shot = true
 fixed_fps = 27
+
+[node name="DashParticle" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_e7i0s")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_vgyyi")
+texture = ExtResource("20_v4out")
+one_shot = true
 
 [node name="GroundChecker" type="RayCast2D" parent="."]
 target_position = Vector2(0, 5)

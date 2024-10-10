@@ -25,19 +25,20 @@ func physics_update(_delta: float):
 	if player.is_on_floor():
 		# Reset jumps
 		player.jumps_left = player.no_of_jumps
+		player.reset_dash()
 		
 		if direction == 0:
 			Transition.emit(self, "idle")
 		else:
 			Transition.emit(self, "run")
 
-	elif Input.is_action_just_pressed("jump") and player.jumps_left > 0:
+	elif Input.is_action_just_pressed("jump") and player.can_jump():
 		Transition.emit(self, "jump")
 
 	elif Input.is_action_just_pressed("attack"):
 		Transition.emit(self, "attack")
 		
-	elif Input.is_action_just_pressed("dash"):
+	elif Input.is_action_just_pressed("dash") and player.can_dash():
 		Transition.emit(self, "dash")
 
 

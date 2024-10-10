@@ -16,7 +16,6 @@ func enter():
 	if player.jumps_left != player.no_of_jumps:
 		jump_particle.restart()
 	player.jumps_left -= 1
-	print(player.jumps_left)
 	
 func exit():
 	pass
@@ -31,13 +30,13 @@ func physics_update(_delta: float):
 	if player.velocity.y > 0:
 		Transition.emit(self, "fall")
 	
-	elif Input.is_action_just_pressed("jump") and player.jumps_left > 0:
+	elif Input.is_action_just_pressed("jump") and player.can_jump():
 		Transition.emit(self, "jump")
 			
 	elif Input.is_action_just_pressed("attack"):
 		Transition.emit(self, "attack")
 		
-	elif Input.is_action_just_pressed("dash"):
+	elif Input.is_action_just_pressed("dash") and player.can_dash():
 		Transition.emit(self, "dash")
 
 

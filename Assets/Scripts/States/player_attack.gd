@@ -36,7 +36,7 @@ func physics_update(_delta: float):
 			Transition.emit(self, "fall")
 	
 	# Allow dash to cancel attack
-	elif Input.is_action_just_pressed("dash"):
+	elif Input.is_action_just_pressed("dash") and player.can_dash():
 		Transition.emit(self, "dash")
 
 
