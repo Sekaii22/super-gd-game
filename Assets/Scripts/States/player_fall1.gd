@@ -6,10 +6,10 @@ var player: CharacterBody2D
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
-	print("Entering player fall 1 state")
 	
 	# TODO: Change the fall animation
 	# Placeholder animation
+	print("Entering player fall 1 state")
 	animation_player.play("jump")
 	
 func exit():

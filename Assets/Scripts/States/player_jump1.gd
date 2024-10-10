@@ -6,6 +6,7 @@ var player: CharacterBody2D
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
+	
 	print("Entering player jump 1 state")
 	player.velocity.y = player.JUMP_VELOCITY
 	

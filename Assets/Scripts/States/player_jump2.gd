@@ -3,14 +3,17 @@ class_name PlayerJump2
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
+@onready var jump_particle: GPUParticles2D = $"../../DoubleJumpParticle"
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
+	
 	print("Entering player jump 2 state")
 	player.velocity.y = player.JUMP_VELOCITY
 	
 	# TODO: Change the jump 2 animation
 	animation_player.play("jump")
+	jump_particle.restart()
 	
 func exit():
 	pass

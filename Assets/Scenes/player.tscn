@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=59 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://4vrnyiesatgs" path="res://Assets/Sprites/Characters/Soldier/Soldier/Soldier.png" id="2_20spc"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_death.gd" id="11_g01rq"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_fall1.gd" id="13_eq6r6"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_fall2.gd" id="14_e06y0"]
+[ext_resource type="Texture2D" uid="uid://d2wnnehfo4g1k" path="res://Assets/Sprites/jump_particles.png" id="15_3xwxj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosvy"]
 atlas = ExtResource("2_20spc")
@@ -493,6 +494,18 @@ size = Vector2(13, 17.5)
 [sub_resource type="LabelSettings" id="LabelSettings_t7y7r"]
 font = ExtResource("6_d57le")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_taebk"]
+particles_animation = true
+particles_anim_h_frames = 10
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vlsgk"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 30, 0)
+anim_speed_min = 0.6
+anim_speed_max = 0.6
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 script = ExtResource("1_qd8uc")
@@ -560,6 +573,17 @@ script = ExtResource("13_eq6r6")
 
 [node name="fall2" type="Node" parent="StateMachine"]
 script = ExtResource("14_e06y0")
+
+[node name="DoubleJumpParticle" type="GPUParticles2D" parent="."]
+show_behind_parent = true
+material = SubResource("CanvasItemMaterial_taebk")
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_vlsgk")
+texture = ExtResource("15_3xwxj")
+lifetime = 0.4
+one_shot = true
+fixed_fps = 27
 
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_player_damage_taken"]

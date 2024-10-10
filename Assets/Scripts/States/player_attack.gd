@@ -6,6 +6,7 @@ var player: CharacterBody2D
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
+	
 	print("Entering player attack state")
 	animation_player.play("attack")
 	

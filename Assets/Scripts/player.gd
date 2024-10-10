@@ -9,6 +9,7 @@ signal death
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area_collision_shape: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var jump_particle: GPUParticles2D = $DoubleJumpParticle
 
 @export var health = 100
 @export var damage = 10

@@ -6,11 +6,12 @@ var player: CharacterBody2D
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
+	
 	print("Entering player hurt state")
 	animation_player.play("hurt")
 	
 	# TODO: Find a better way for upwards knockback pls
-	player.velocity.y -= 150
+	player.velocity.y = 150
 	
 func exit():
 	pass
