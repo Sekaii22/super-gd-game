@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://cao8cinsjef6g"]
+[gd_scene load_steps=7 format=4 uid="uid://cao8cinsjef6g"]
 
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
 [ext_resource type="PackedScene" uid="uid://bxr5nepjs3meh" path="res://Assets/Scenes/enemy.tscn" id="2_vraee"]
 [ext_resource type="PackedScene" uid="uid://ce6mmtjnselhw" path="res://Assets/Scenes/temp-map.tscn" id="3_3p7se"]
 [ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="4_t1jmh"]
+[ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="5_1a3gd"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 
@@ -30,3 +31,6 @@ damage = 10000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_obkfb")
+
+[node name="Enemy2" parent="." groups=["Enemy"] instance=ExtResource("5_1a3gd")]
+position = Vector2(58, 0)
