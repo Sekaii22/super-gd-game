@@ -11,7 +11,7 @@ func enter():
 	print("Entering player jump 2 state")
 	player.velocity.y = player.JUMP_VELOCITY
 	
-	# TODO: Change the jump 2 animation
+	# Jump 2 animation
 	animation_player.play("jump")
 	jump_particle.restart()
 	

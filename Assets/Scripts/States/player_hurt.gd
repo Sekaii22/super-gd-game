@@ -11,7 +11,7 @@ func enter():
 	animation_player.play("hurt")
 	
 	# TODO: Find a better way for upwards knockback pls
-	player.velocity.y = 150
+	player.velocity.y = -150
 	
 func exit():
 	pass
@@ -32,14 +32,15 @@ func physics_update(_delta: float):
 			else:
 				Transition.emit(self, "run")
 		elif player.velocity.y > 0 and !player.is_on_floor():
-			Transition.emit(self, "fall1")
+			player.jumps_left -= 1
+			Transition.emit(self, "fall")
 		
 		# Problem: Not reachable code
-		if Input.is_action_just_pressed("jump") and player.is_on_floor():
-			Transition.emit(self, "jump1")
-			
-		if Input.is_action_just_pressed("attack"):
-			Transition.emit(self, "attack")
+		#if Input.is_action_just_pressed("jump") and player.is_on_floor():
+			#Transition.emit(self, "jump")
+			#
+		#if Input.is_action_just_pressed("attack"):
+			#Transition.emit(self, "attack")
 
 
 func _on_player_death() -> void:

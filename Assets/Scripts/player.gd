@@ -11,15 +11,24 @@ signal death
 @onready var attack_area_collision_shape: CollisionShape2D = $AttackArea/CollisionShape2D
 @onready var jump_particle: GPUParticles2D = $DoubleJumpParticle
 
+# TODO: Some of these can be placed under player class resource
 @export var health = 100
 @export var damage = 10
 @export var attack_area_left: float
 @export var attack_area_right: float
+@export var no_of_jumps: int = 2
+
 var knockback = Vector2.ZERO
+var jumps_left: int
+var face_direction_x: int = 1		# -1 = left, 1 = right
+var gravity_on: bool = true
+
+func _ready() -> void:
+	jumps_left = no_of_jumps
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and gravity_on:
 		velocity += get_gravity() * delta
 
 	# direction = -1, 0, 1
@@ -29,9 +38,11 @@ func _physics_process(delta: float) -> void:
 	if direction == -1:
 		animated_sprite.flip_h = true
 		attack_area_collision_shape.position.x = attack_area_left
+		face_direction_x = -1
 	elif direction == 1:
 		animated_sprite.flip_h = false
 		attack_area_collision_shape.position.x = attack_area_right
+		face_direction_x = 1
 	
 	move_and_slide()
 	knockback = knockback.lerp(Vector2.ZERO, 0.1)

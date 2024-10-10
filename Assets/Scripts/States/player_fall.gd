@@ -1,5 +1,5 @@
 extends State
-class_name PlayerFall1
+class_name PlayerFall
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
@@ -9,7 +9,7 @@ func enter():
 	
 	# TODO: Change the fall animation
 	# Placeholder animation
-	print("Entering player fall 1 state")
+	print("Entering player fall state")
 	animation_player.play("jump")
 	
 func exit():
@@ -23,16 +23,22 @@ func physics_update(_delta: float):
 	player.velocity.x = direction * player.SPEED + player.knockback.x
 	
 	if player.is_on_floor():
+		# Reset jumps
+		player.jumps_left = player.no_of_jumps
+		
 		if direction == 0:
 			Transition.emit(self, "idle")
 		else:
 			Transition.emit(self, "run")
 
-	if Input.is_action_just_pressed("jump"):
-			Transition.emit(self, "jump2")
-			
-	if Input.is_action_just_pressed("attack"):
+	elif Input.is_action_just_pressed("jump") and player.jumps_left > 0:
+		Transition.emit(self, "jump")
+
+	elif Input.is_action_just_pressed("attack"):
 		Transition.emit(self, "attack")
+		
+	elif Input.is_action_just_pressed("dash"):
+		Transition.emit(self, "dash")
 
 
 func _on_player_damage_taken() -> void:

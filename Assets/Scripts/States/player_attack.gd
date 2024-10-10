@@ -33,7 +33,11 @@ func physics_update(_delta: float):
 			else:
 				Transition.emit(self, "run")
 		elif player.velocity.y > 0 and !player.is_on_floor():
-			Transition.emit(self, "fall1")
+			Transition.emit(self, "fall")
+	
+	# Allow dash to cancel attack
+	elif Input.is_action_just_pressed("dash"):
+		Transition.emit(self, "dash")
 
 
 func _on_player_damage_taken() -> void:

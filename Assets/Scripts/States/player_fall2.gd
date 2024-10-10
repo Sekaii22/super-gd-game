@@ -23,6 +23,9 @@ func physics_update(_delta: float):
 	player.velocity.x = direction * player.SPEED + player.knockback.x
 	
 	if player.is_on_floor():
+		# Reset jumps
+		player.jumps_left = player.no_of_jumps
+		
 		if direction == 0:
 			Transition.emit(self, "idle")
 		else:

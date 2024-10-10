@@ -1,17 +1,22 @@
 extends State
-class_name PlayerJump1
+class_name PlayerJump
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
+@onready var jump_particle: GPUParticles2D = $"../../DoubleJumpParticle"
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	print("Entering player jump 1 state")
+	print("Entering player jump state")
 	player.velocity.y = player.JUMP_VELOCITY
 	
-	# TODO: Change the jump animation
+	# Jump animation and particle effect
 	animation_player.play("jump")
+	if player.jumps_left != player.no_of_jumps:
+		jump_particle.restart()
+	player.jumps_left -= 1
+	print(player.jumps_left)
 	
 func exit():
 	pass
@@ -24,13 +29,16 @@ func physics_update(_delta: float):
 	player.velocity.x = direction * player.SPEED
 	
 	if player.velocity.y > 0:
-		Transition.emit(self, "fall1")
+		Transition.emit(self, "fall")
 	
-	if Input.is_action_just_pressed("jump"):
-		Transition.emit(self, "jump2")
+	elif Input.is_action_just_pressed("jump") and player.jumps_left > 0:
+		Transition.emit(self, "jump")
 			
-	if Input.is_action_just_pressed("attack"):
+	elif Input.is_action_just_pressed("attack"):
 		Transition.emit(self, "attack")
+		
+	elif Input.is_action_just_pressed("dash"):
+		Transition.emit(self, "dash")
 
 
 func _on_player_damage_taken() -> void:
