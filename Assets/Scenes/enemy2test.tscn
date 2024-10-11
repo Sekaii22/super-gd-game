@@ -562,8 +562,6 @@ target_position = Vector2(30, 0)
 script = ExtResource("12_7f2ob")
 raycast_scale = 60.0
 
-[node name="Timer" type="Timer" parent="."]
-
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/alert" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_enemy_damage_taken"]

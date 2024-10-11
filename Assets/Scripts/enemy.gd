@@ -1,6 +1,7 @@
 extends Node2D
 
 const SPEED = 60
+const JUMP_VELOCITY = -310.0
 
 signal damage_taken
 signal death

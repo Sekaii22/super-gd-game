@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=4 uid="uid://cao8cinsjef6g"]
+[gd_scene load_steps=6 format=4 uid="uid://cao8cinsjef6g"]
 
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
-[ext_resource type="PackedScene" uid="uid://bxr5nepjs3meh" path="res://Assets/Scenes/enemy.tscn" id="2_vraee"]
 [ext_resource type="PackedScene" uid="uid://ce6mmtjnselhw" path="res://Assets/Scenes/temp-map.tscn" id="3_3p7se"]
 [ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="4_t1jmh"]
 [ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="5_1a3gd"]
@@ -18,9 +17,6 @@ position = Vector2(0, -7)
 zoom = Vector2(3, 3)
 limit_bottom = 150
 
-[node name="Enemy" parent="." instance=ExtResource("2_vraee")]
-position = Vector2(-203, 0)
-
 [node name="Map" parent="." instance=ExtResource("3_3p7se")]
 position = Vector2(-211, 0)
 tile_map_data = PackedByteArray("AAD//wAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAACAAEAAAASAAAAAAACAAEAAAATAAAAAAACAAEAAAAUAAAAAAACAAEAAAAVAAAAAAACAAEAAAAWAAAAAAACAAEAAAAXAAAAAAACAAEAAAAYAAAAAAACAAEAAAAZAAAAAAACAAEAAAAaAAAAAAACAAEAAAAbAAAAAAACAAEAAAASAP//AAASAAMAAAASAP7/AAASAAIAAAASAP3/AAASAAEAAAATAP3/AAATAAEAAAAUAP3/AAAUAAEAAAAVAP3/AAAVAAEAAAAVAP7/AAAVAAIAAAAVAP//AAAVAAMAAAAWAP//AAASAAMAAAAWAP7/AAATAAMAAAAWAP3/AAATAAMAAAAWAPz/AAATAAMAAAAWAPv/AAASAAEAAAAXAPv/AAATAAEAAAAYAPv/AAATAAEAAAAZAPv/AAATAAEAAAAaAPv/AAAVAAEAAAAaAP//AAAVAAMAAAAaAP7/AAAUAAMAAAAaAP3/AAAUAAMAAAAaAPz/AAAUAAMAAAAcAAAAAAADAAEAAAAPAP//AAAaAAMAAAALAP//AAAaAAIAAAAXAP//AAAYAAMAAAAYAP//AAAXAAMAAAAcAP//AAAYAAIAAAAHAP//AAAXAAEAAAACAP//AAAXAAEAAAAEAP//AAAYAAEAAAAAAP//AAAYAAEAAAARAP//AAAYAAEAAAAUAP//AAAYAAIAAAAOAP//AAAYAAMAAAA=")
@@ -33,4 +29,4 @@ damage = 10000
 shape = SubResource("WorldBoundaryShape2D_obkfb")
 
 [node name="Enemy2" parent="." groups=["Enemy"] instance=ExtResource("5_1a3gd")]
-position = Vector2(58, 0)
+position = Vector2(58, -1)
