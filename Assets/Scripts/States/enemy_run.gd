@@ -5,8 +5,9 @@ var from_run: bool = false
 var begin_storing: bool = false
 var direction
 var player
+var enemy: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
-@onready var enemy: CharacterBody2D = $"../.."
+#@onready var enemy: CharacterBody2D = $"../.."
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 
 
@@ -22,20 +23,20 @@ var player
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
+	enemy = get_tree().get_first_node_in_group("Enemy")
 	print("Entering enemy run state")
 	animation_player.play("run")
-	enemy.velocity.x = 1 * enemy.SPEED
 
 func exit():
-	pass
+	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
-	direction = player.position - enemy.position
-	if direction.x > 0:
+	direction = (player.position - enemy.position)/abs(player.position - enemy.position)
+	if direction.x == 1:
 		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = false
-	elif direction.x < 0:
-		enemy.velocity.x = -direction.x * enemy.SPEED
+	elif direction.x == -1:
+		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = true
 	#print("enemy run position" +str(enemy.position))
 	#vel = Vector2(direction.x, 0) #needs to be tweaked
@@ -44,19 +45,18 @@ func physics_update(_delta: float):
 
 	#enemy.velocity.x = direction.x * enemy.SPEED
 	print("enemy velocity is " +str(enemy.velocity))
-	print("enemy x direction is " +str(direction.x))
-	print("enemy y position is " +str(enemy.position.y))
+	#print("enemy x direction is " +str(direction.x))  #CHECKS
 
 	#check y position and determine whether enemy should jump
-	if direction.y < 0: # less than 0 for upwards direction
+	if direction.y == -1 and enemy.is_on_floor(): # less than 0 for upwards direction
 		print("jump")
 		enemy.velocity.y = enemy.JUMP_VELOCITY
 	
-func store_last_direction():
-	if begin_storing == true:
-		var direction2 = player.position - enemy.position
-		begin_storing = false
-		return direction2
+#func store_last_direction():
+	#if begin_storing == true:
+		#var direction2 = player.position - enemy.position
+		#begin_storing = false
+		#return direction2
 		
 	
 

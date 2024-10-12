@@ -7,6 +7,7 @@ class_name EnemyAlert
 
 func enter():
 	#enemy = get_tree().get_first_node_in_group("Enemy")
+	print("Entering enemy alert state")
 	animation_player.play("alert")
 
 func exit():

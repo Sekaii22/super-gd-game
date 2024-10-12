@@ -501,9 +501,10 @@ font = ExtResource("5_6cuf5")
 [sub_resource type="CircleShape2D" id="CircleShape2D_angtn"]
 radius = 15.5
 
-[node name="Enemy" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_2d") groups=["Enemy"]]
 z_index = 1
 script = ExtResource("1_owqi4")
+ray_cast_2d = NodePath("PlayerTracker")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, -9)
@@ -560,7 +561,7 @@ shape = SubResource("CircleShape2D_angtn")
 position = Vector2(4, -12)
 target_position = Vector2(30, 0)
 script = ExtResource("12_7f2ob")
-raycast_scale = 60.0
+raycast_scale = 120.0
 
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/alert" method="_on_enemy_damage_taken"]

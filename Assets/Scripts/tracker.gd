@@ -22,10 +22,10 @@ func check_player():
 		#print("raycast to player collision true" +get_collider().name)
 		player_close = true
 		player_detected.emit()
-	elif is_colliding() && get_collider().name != "Player":
-		#print("raycast to player collision false" +get_collider().name)
-		player_close = false
-		player_escaped.emit()
-	else:
-		player_close = false
-		player_escaped.emit()
+	#elif is_colliding() && get_collider().name != "Player":
+		##print("raycast to player collision false" +get_collider().name)
+		#player_close = false
+		#player_escaped.emit()
+	#else:
+		#player_close = false
+		#player_escaped.emit()
