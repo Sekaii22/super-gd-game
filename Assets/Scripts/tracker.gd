@@ -23,9 +23,9 @@ func check_player():
 		player_close = true
 		player_detected.emit()
 	#elif is_colliding() && get_collider().name != "Player":
-		##print("raycast to player collision false" +get_collider().name)
+		#print("raycast to player collision false" +get_collider().name)
 		#player_close = false
-		#player_escaped.emit()
+		#player_escaped.emit() #keeps hitting the map when enemy is above player
 	#else:
 		#player_close = false
 		#player_escaped.emit()

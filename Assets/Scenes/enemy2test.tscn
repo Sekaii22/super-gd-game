@@ -563,6 +563,9 @@ target_position = Vector2(30, 0)
 script = ExtResource("12_7f2ob")
 raycast_scale = 120.0
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/alert" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_enemy_damage_taken"]
@@ -571,3 +574,4 @@ raycast_scale = 120.0
 [connection signal="death" from="." to="StateMachine/run" method="_on_enemy_death"]
 [connection signal="player_detected" from="PlayerTracker" to="StateMachine/idle" method="_on_player_tracker_player_detected"]
 [connection signal="player_escaped" from="PlayerTracker" to="StateMachine/run" method="_on_player_tracker_player_escaped"]
+[connection signal="timeout" from="Timer" to="StateMachine/run" method="_on_timer_timeout"]

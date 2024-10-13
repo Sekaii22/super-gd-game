@@ -2,13 +2,15 @@ extends State
 class_name EnemyRun
 
 var from_run: bool = false
-var begin_storing: bool = false
+#var begin_storing: bool = false
+var jump_on_cooldown: bool = false
 var direction
 var player
 var enemy: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 #@onready var enemy: CharacterBody2D = $"../.."
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
+@onready var timer: Timer = $"../../Timer"
 
 
 ##JUMP VARIABLES
@@ -44,11 +46,13 @@ func physics_update(_delta: float):
 	#enemy.position.x += direction.x / enemy.SPEED
 
 	#enemy.velocity.x = direction.x * enemy.SPEED
-	print("enemy velocity is " +str(enemy.velocity))
+	#print("enemy velocity is " +str(enemy.velocity))
 	#print("enemy x direction is " +str(direction.x))  #CHECKS
 
 	#check y position and determine whether enemy should jump
-	if direction.y == -1 and enemy.is_on_floor(): # less than 0 for upwards direction
+	if direction.y == -1 and enemy.is_on_floor() and jump_on_cooldown == false: # less than 0 for upwards direction
+		jump_on_cooldown = true
+		timer.start()
 		print("jump")
 		enemy.velocity.y = enemy.JUMP_VELOCITY
 	
@@ -69,3 +73,7 @@ func _on_enemy_death() -> void:
 
 func _on_player_tracker_player_escaped() -> void:
 	Transition.emit(self, "idle")
+
+
+func _on_timer_timeout() -> void:
+	jump_on_cooldown = false
