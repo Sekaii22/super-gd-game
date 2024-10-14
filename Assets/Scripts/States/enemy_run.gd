@@ -36,12 +36,11 @@ func physics_update(_delta: float):
 	direction = (player.position - enemy.position)/abs(player.position - enemy.position)
 	if direction.x == 1:
 		enemy.velocity.x = direction.x * enemy.SPEED
-		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
+		animated_sprite.flip_h = false
 	elif direction.x == -1:
 		enemy.velocity.x = direction.x * enemy.SPEED
-		animated_sprite.flip_h = false
-	#print("enemy run position " +str(enemy.position))
-	#print("Player position " +str(player.position))
+		animated_sprite.flip_h = true
+	#print("enemy run position" +str(enemy.position))
 	#vel = Vector2(direction.x, 0) #needs to be tweaked
 	#enemy.translate(vel * enemy.SPEED)
 	#enemy.position.x += direction.x / enemy.SPEED
