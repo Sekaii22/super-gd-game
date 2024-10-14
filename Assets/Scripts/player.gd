@@ -9,6 +9,7 @@ signal death
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_area_collision_shape: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var coyote_timer: Timer = $CoyoteTimer
 
 # TODO: Some of these can be placed under player class resource
 @export var health = 100
@@ -48,7 +49,12 @@ func _physics_process(delta: float) -> void:
 		attack_area_collision_shape.position.x = attack_area_offset
 		face_direction_x = 1
 	
+	var was_on_floor = is_on_floor()
+	
 	move_and_slide()
+	
+	if was_on_floor and !is_on_floor():
+		coyote_timer.start()
 	
 	# Reduce knockback overtime
 	knockback = knockback.lerp(Vector2.ZERO, 0.1)
@@ -98,4 +104,10 @@ func can_dash() -> bool:
 func reset_dash():
 	dashes_left = no_of_dashes
 	dash_time_before_reset = dash_reset_time
+	
+func is_in_coyote_time() -> bool:
+	if !coyote_timer.is_stopped():
+		return true
+	else:
+		return false
 	
