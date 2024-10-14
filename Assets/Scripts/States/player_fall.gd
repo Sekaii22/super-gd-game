@@ -7,10 +7,9 @@ var player: CharacterBody2D
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	# TODO: Change the fall animation
-	# Placeholder animation
+	# Fall animation
 	print("Entering player fall state")
-	animation_player.play("jump")
+	animation_player.play("fall")
 	
 func exit():
 	pass
@@ -25,6 +24,8 @@ func physics_update(_delta: float):
 	if player.is_on_floor():
 		# Reset jumps
 		player.jumps_left = player.no_of_jumps
+		
+		# TODO: Transit to landing state
 		
 		if direction == 0:
 			Transition.emit(self, "idle")

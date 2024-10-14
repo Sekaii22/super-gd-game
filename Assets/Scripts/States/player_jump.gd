@@ -5,9 +5,11 @@ var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var jump_particle: GPUParticles2D = $"../../DoubleJumpParticle"
 
+# TODO: Put all these in a player class resource
 @export var min_time_in_jump: float = 0.2
 
 var jump_timer: float = 0
+var var_jump_factor: float = 2.0
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
@@ -34,7 +36,11 @@ func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
 	player.velocity.x = direction * player.SPEED
 	
-	if player.velocity.y > 0:
+	# Variable jump
+	if Input.is_action_just_released("jump") and player.jumps_left == player.no_of_jumps - 1:
+		player.velocity.y /= var_jump_factor
+	
+	if player.velocity.y >= 0:
 		Transition.emit(self, "fall")
 			
 	elif InputBuffer.is_action_press_buffered("attack"):

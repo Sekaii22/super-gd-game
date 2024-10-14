@@ -14,11 +14,12 @@ position = Vector2(-70, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -7)
-zoom = Vector2(3, 3)
+zoom = Vector2(2, 2)
 limit_bottom = 150
 
 [node name="Enemy" parent="." instance=ExtResource("2_vraee")]
 position = Vector2(-203, 0)
+health = 500
 
 [node name="Map" parent="." instance=ExtResource("3_3p7se")]
 position = Vector2(-211, 0)

@@ -5,17 +5,15 @@ var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var dash_particle: GPUParticles2D = $"../../DashParticle"
 
-var dash_timer: float = 0
-var dash_str: float = 0
-var left_dash_tex: ImageTexture
-var right_dash_tex: ImageTexture
-
 # TODO: Put all these in a player class resource
-@export var dash_factor: float = 5
-@export var min_time_in_dash: float = 0.2
+@export var dash_factor: float = 6
+@export var min_time_in_dash: float = 0.25
 @export var dash_left_particle_tex: Texture2D
 @export var dash_right_particle_tex: Texture2D
 @export var dash_particle_offset_x: int = -22
+
+var dash_timer: float = 0
+var dash_str: float = 0
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
@@ -27,12 +25,15 @@ func enter():
 		player.velocity.y = 0
 		player.gravity_on = false
 	
-	# TODO: Replace the dash animation and add dash effect
+	# Play dash animation
 	print("Entering player dash state")
-	animation_player.play("run")
+	animation_player.play("dash")
 	player.dashes_left -= 1
 	
-	# Set particle effect direction
+	# TODO: Change dash animation depending if player is on floor or air
+	# TODO: Change particle effect depending if player is on floor or air
+	
+	# Set dash particle effect direction
 	if player.face_direction_x == 1:
 		# Facing left
 		dash_particle.texture = dash_right_particle_tex

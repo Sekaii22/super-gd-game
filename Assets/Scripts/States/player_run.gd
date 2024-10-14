@@ -24,14 +24,14 @@ func physics_update(_delta: float):
 		Transition.emit(self, "idle")
 	
 	elif InputBuffer.is_action_press_buffered("jump") and \
-		(player.is_on_floor() or player.is_in_coyote_time()):
+		(player.is_on_floor() or player.in_coyote_time):
 		Transition.emit(self, "jump")
 		
 	elif InputBuffer.is_action_press_buffered("attack"):
 		Transition.emit(self, "attack")
 		
-	# Player must be falling, not on floor, and not in coyote time to transit to fall state
-	elif player.velocity.y > 0 and !player.is_on_floor() and !player.is_in_coyote_time():
+	# Player must be falling, not on floor, and coyote time has passed to transit to fall state
+	elif player.velocity.y > 0 and !player.is_on_floor() and !player.in_coyote_time:
 		player.jumps_left -= 1
 		Transition.emit(self, "fall")
 		
