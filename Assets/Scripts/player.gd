@@ -16,7 +16,7 @@ signal death
 @export var attack_area_offset: float
 @export var no_of_jumps: int = 2
 @export var no_of_dashes: int = 2
-@export var dash_reset_time: float = 0.7
+@export var dash_reset_time: float = 1
 
 var knockback = Vector2.ZERO
 var jumps_left: int

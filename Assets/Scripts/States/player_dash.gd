@@ -5,7 +5,7 @@ var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var dash_particle: GPUParticles2D = $"../../DashParticle"
 
-var timer: float = 0
+var dash_timer: float = 0
 var dash_str: float = 0
 var left_dash_tex: ImageTexture
 var right_dash_tex: ImageTexture
@@ -13,16 +13,9 @@ var right_dash_tex: ImageTexture
 # TODO: Put all these in a player class resource
 @export var dash_factor: float = 5
 @export var min_time_in_dash: float = 0.2
-@export var dash_left_particle_path: String
-@export var dash_right_particle_path: String
+@export var dash_left_particle_tex: Texture2D
+@export var dash_right_particle_tex: Texture2D
 @export var dash_particle_offset_x: int = -22
-
-func _ready() -> void:
-	# TODO: Maybe move this to player.gd
-	var left_dash_img = Image.load_from_file(dash_left_particle_path)
-	var right_dash_img = Image.load_from_file(dash_right_particle_path)
-	left_dash_tex = ImageTexture.create_from_image(left_dash_img)
-	right_dash_tex = ImageTexture.create_from_image(right_dash_img)
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
@@ -42,24 +35,24 @@ func enter():
 	# Set particle effect direction
 	if player.face_direction_x == 1:
 		# Facing left
-		dash_particle.texture = right_dash_tex
+		dash_particle.texture = dash_right_particle_tex
 		dash_particle.process_material.emission_shape_offset.x = dash_particle_offset_x
 	else:
 		# Facing right
-		dash_particle.texture = left_dash_tex
+		dash_particle.texture = dash_left_particle_tex
 		dash_particle.process_material.emission_shape_offset.x = -dash_particle_offset_x
 	dash_particle.restart()
 	
 	# Set up initial timer and dash strength
-	timer = min_time_in_dash
+	dash_timer = min_time_in_dash
 	dash_str = player.SPEED * dash_factor
 	
 func exit():
 	player.set_collision_layer_value(1, true)
 	
 func update(_delta: float):
-	if timer > 0:
-		timer -= _delta
+	if dash_timer > 0:
+		dash_timer -= _delta
 	
 func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
@@ -67,7 +60,7 @@ func physics_update(_delta: float):
 	dash_str = lerp(dash_str, 0.0, 0.1)
 	player.velocity.x = player.face_direction_x * dash_str
 	
-	if timer <= 0:
+	if dash_timer <= 0:
 		player.gravity_on = true
 		
 		if player.is_on_floor():
@@ -78,11 +71,13 @@ func physics_update(_delta: float):
 			
 		elif player.velocity.y > 0 and !player.is_on_floor():
 			Transition.emit(self, "fall")
+			
+		elif InputBuffer.is_action_press_buffered("dash") and player.can_dash():
+			Transition.emit(self, "dash")
 
 	# Allow attack to cancel dash
-	if Input.is_action_just_pressed("attack"):
+	if InputBuffer.is_action_press_buffered("attack"):
 		player.gravity_on = true
 		Transition.emit(self, "attack")
 		
-	elif Input.is_action_just_pressed("dash") and player.can_dash():
-			Transition.emit(self, "dash")
+	

@@ -3,6 +3,7 @@ class_name PlayerAttack
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
+@onready var attack_area: CollisionShape2D = $"../../AttackArea/CollisionShape2D"
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
@@ -11,7 +12,7 @@ func enter():
 	animation_player.play("attack")
 	
 func exit():
-	pass
+	attack_area.disabled = true
 	
 func update(_delta: float):
 	pass
@@ -36,7 +37,7 @@ func physics_update(_delta: float):
 			Transition.emit(self, "fall")
 	
 	# Allow dash to cancel attack
-	elif Input.is_action_just_pressed("dash") and player.can_dash():
+	elif InputBuffer.is_action_press_buffered("dash") and player.can_dash():
 		Transition.emit(self, "dash")
 
 
