@@ -46,6 +46,8 @@ func create_enemy(enemy_name: String, spawn_point: Node2D) -> Node:
 func spawn_next_wave() -> bool:
 	if current_wave_num < no_of_waves:
 		current_wave_num += 1
+		# for naming purpose
+		var enemy_counter = 1
 		
 		# temp_index is used becuase of 0-indexing of arrays
 		var temp_index = current_wave_num - 1
@@ -72,6 +74,8 @@ func spawn_next_wave() -> bool:
 					var enemy_name = wave[sp_num]
 					if enemy_name in enemy_dictionary.keys():
 						var enemy: Node2D = create_enemy(enemy_name, spawn_point)
+						enemy.name = "Enemy" + str(enemy_counter)
+						enemy_counter += 1
 						add_child(enemy)
 
 			# Wait abit before looping
