@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const SPEED = 60.0
+const SPEED = 50.0
 const JUMP_VELOCITY = -310.0
 
 signal damage_taken

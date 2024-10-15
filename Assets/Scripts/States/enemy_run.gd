@@ -10,7 +10,7 @@ var enemy: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 #@onready var enemy: CharacterBody2D = $"../.."
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
-@onready var timer: Timer = $"../../Timer"
+@onready var jump_cooldown: Timer = $"../../JumpCooldown"
 
 
 ##JUMP VARIABLES
@@ -28,16 +28,17 @@ func enter():
 	enemy = get_tree().get_first_node_in_group("Enemy")
 	print("Entering enemy run state")
 	animation_player.play("run")
+	jump_cooldown.start(2)
 
 func exit():
 	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
-	direction = (player.position - enemy.position)/abs(player.position - enemy.position)
-	if direction.x == 1:
+	direction = enemy.position.direction_to(player.position)
+	if direction.x > 0:
 		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
-	elif direction.x == -1:
+	elif direction.x < 0:
 		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = false
 	#print("enemy run position " +str(enemy.position))
@@ -51,11 +52,18 @@ func physics_update(_delta: float):
 	#print("enemy x direction is " +str(direction.x))  #CHECKS
 
 	#check y position and determine whether enemy should jump
-	if direction.y == -1 and enemy.is_on_floor() and jump_on_cooldown == false: # less than 0 for upwards direction
+	if direction.y < 0 and enemy.is_on_floor() and jump_on_cooldown == false: # less than 0 for upwards direction
 		jump_on_cooldown = true
-		timer.start()
+		jump_cooldown.start()
 		print("jump")
 		enemy.velocity.y = enemy.JUMP_VELOCITY
+	elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 16.0:
+		print("Attack")
+#if it is too close, it won't jump? Or if it is too close, it will jump over the player?
+	elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 16.0:
+		pass
+	#elif round(enemy.position.x) == round(player.position.x) and direction.y == 1:
+		#enemy.velocity = Vector2(0, 0) #GET OUT OF THE PLAYER'S HEAD, check is working but logic is not
 	
 #func store_last_direction():
 	#if begin_storing == true:
@@ -74,7 +82,6 @@ func _on_enemy_death() -> void:
 
 func _on_player_tracker_player_escaped() -> void:
 	Transition.emit(self, "idle")
-
 
 func _on_timer_timeout() -> void:
 	jump_on_cooldown = false
