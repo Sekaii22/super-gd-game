@@ -17,6 +17,7 @@ script = ExtResource("1_x2qa2")
 [node name="MapLoader" type="Node2D" parent="."]
 script = ExtResource("2_yc477")
 chunk_resources = Array[ExtResource("3_ohbnj")]([ExtResource("4_63yng")])
+chunks_per_map = 3
 
 [node name="BoundaryLeft" type="StaticBody2D" parent="MapLoader"]
 
