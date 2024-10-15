@@ -2,7 +2,6 @@ extends State
 class_name EnemyHurt
 
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
-@onready var enemy: Node2D = $"../.."
 #@onready var run: EnemyRun = $"../run"
 
 func enter():

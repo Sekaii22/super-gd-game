@@ -114,9 +114,9 @@ func set_attack_collision_position():
 	attack_area_collision_shape.position.y = attack_area_pos.y
 
 # Signal Handlers
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	if area.get_parent().name.containsn("Enemy"):
-		area.get_parent().take_damage(damage)
+#func _on_area_2d_area_entered(area: Area2D) -> void:
+	#if area.get_parent().name.containsn("Enemy"):
+		#area.get_parent().take_damage(damage)
 
 
 func _on_dash_reset_timer_timeout() -> void:
@@ -142,3 +142,8 @@ func _on_animation_player_animation_started(anim_name: StringName) -> void:
 	# resetting attacks in the middle of the next attack animation
 	if anim_name.begins_with("attack"):
 		attack_grace_timer.stop()
+
+
+func _on_attack_area_body_entered(body: Node2D) -> void:
+	if body.name.containsn("Enemy"):
+		body.take_damage(damage)

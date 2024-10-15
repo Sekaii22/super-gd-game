@@ -10,7 +10,7 @@ var enemy
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
-	enemy = get_tree().get_first_node_in_group("Enemy")
+	enemy = get_parent()
 
 func _physics_process(delta: float) -> void:
 	target_position = player.position - enemy.position
@@ -22,10 +22,9 @@ func check_player():
 		#print("raycast to player collision true" +get_collider().name)
 		player_close = true
 		player_detected.emit()
-	#elif is_colliding() && get_collider().name != "Player":
-		#print("raycast to player collision false" +get_collider().name)
-		#player_close = false
-		#player_escaped.emit() #keeps hitting the map when enemy is above player
-	#else:
-		#player_close = false
-		#player_escaped.emit()
+	elif is_colliding() && get_collider().name != "Player":
+		player_close = false
+		player_escaped.emit() #keeps hitting the map when enemy is above player
+	else:
+		player_close = false
+		player_escaped.emit()

@@ -2,11 +2,9 @@ extends State
 class_name EnemyAlert
 
 @onready var player_tracker: RayCast2D = $"../../PlayerTracker"
-@onready var enemy: Node2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
 func enter():
-	#enemy = get_tree().get_first_node_in_group("Enemy")
 	print("Entering enemy alert state")
 	animation_player.play("alert")
 

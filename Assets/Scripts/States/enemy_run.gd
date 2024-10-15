@@ -6,9 +6,8 @@ var from_run: bool = false
 var jump_on_cooldown: bool = false
 var direction
 var player
-var enemy: CharacterBody2D
+@onready var enemy: CharacterBody2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
-#@onready var enemy: CharacterBody2D = $"../.."
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 @onready var jump_cooldown: Timer = $"../../JumpCooldown"
 
@@ -25,7 +24,6 @@ var enemy: CharacterBody2D
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
-	enemy = get_tree().get_first_node_in_group("Enemy")
 	print("Entering enemy run state")
 	animation_player.play("run")
 	jump_cooldown.start(2)
@@ -57,8 +55,8 @@ func physics_update(_delta: float):
 		jump_cooldown.start()
 		print("jump")
 		enemy.velocity.y = enemy.JUMP_VELOCITY
-	elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 16.0:
-		print("Attack")
+	elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 64.0:
+		Transition.emit(self, "attack")
 #if it is too close, it won't jump? Or if it is too close, it will jump over the player?
 	elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 16.0:
 		pass

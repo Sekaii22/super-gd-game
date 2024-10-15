@@ -2,12 +2,11 @@ extends State
 class_name EnemyIdle
 
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
-@onready var enemy: Node2D = $"../.."
 @onready var player_tracker: RayCast2D = $"../../PlayerTracker"
+@onready var enemy: CharacterBody2D = $"../.."
 
 
 func enter():
-	#enemy = get_tree().get_first_node_in_group("Enemy")
 	print("Entering enemy idle state")
 	animation_player.play("idle")
 
@@ -24,4 +23,5 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 func _on_player_tracker_player_detected() -> void:
-	Transition.emit(self, "alert")
+	if enemy.exhausted == false:
+		Transition.emit(self, "alert")

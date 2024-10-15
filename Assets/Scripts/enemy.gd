@@ -6,8 +6,10 @@ const JUMP_VELOCITY = -310.0
 signal damage_taken
 signal death
 
+var exhausted: bool = false
 @export var health = 50
 @export var ray_cast_2d: RayCast2D
+@export var damage = 10
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 # Call this method when you want the 
@@ -36,3 +38,11 @@ func _physics_process(delta: float) -> void:
 	##position.x += delta * SPEED
 	#pass
 #
+
+func _on_attack_range_body_entered(body: Node2D) -> void:
+	if body.name.containsn("Player"):
+		body.take_damage(damage)
+
+
+func _on_exhaust_reset_timeout() -> void:
+	exhausted = false

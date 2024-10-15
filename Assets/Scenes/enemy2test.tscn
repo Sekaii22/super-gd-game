@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://c150bak61744y"]
+[gd_scene load_steps=59 format=3 uid="uid://c150bak61744y"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="1_owqi4"]
 [ext_resource type="Texture2D" uid="uid://ct0pmh7jd5ocv" path="res://Assets/Sprites/Characters/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_7dwal"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/enemy_alert.gd" id="10_wo0rq"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/enemy_run.gd" id="11_yrj0g"]
 [ext_resource type="Script" path="res://Assets/Scripts/tracker.gd" id="12_7f2ob"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/enemy_attack.gd" id="15_pcfyt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mj2n6"]
 radius = 4.5
@@ -506,6 +507,7 @@ radius = 15.5
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_2d") groups=["Enemy"]]
 z_index = 1
+collision_layer = 2
 script = ExtResource("1_owqi4")
 ray_cast_2d = NodePath("PlayerTracker")
 
@@ -553,12 +555,16 @@ script = ExtResource("10_wo0rq")
 [node name="run" type="Node" parent="StateMachine"]
 script = ExtResource("11_yrj0g")
 
+[node name="attack" type="Node" parent="StateMachine"]
+script = ExtResource("15_pcfyt")
+
 [node name="AttackRange" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_angtn")
+disabled = true
 
 [node name="PlayerTracker" type="RayCast2D" parent="."]
 position = Vector2(4, -12)
@@ -569,12 +575,27 @@ raycast_scale = 120.0
 [node name="JumpCooldown" type="Timer" parent="."]
 wait_time = 2.0
 
+[node name="ChargeAttack" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="AttackDuration" type="Timer" parent="."]
+one_shot = true
+
+[node name="ExhaustReset" type="Timer" parent="."]
+
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/alert" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_enemy_damage_taken"]
+[connection signal="damage_taken" from="." to="StateMachine/attack" method="_on_enemy_damage_taken"]
 [connection signal="death" from="." to="StateMachine/idle" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/alert" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/run" method="_on_enemy_death"]
+[connection signal="death" from="." to="StateMachine/attack" method="_on_enemy_death"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="player_detected" from="PlayerTracker" to="StateMachine/idle" method="_on_player_tracker_player_detected"]
 [connection signal="player_escaped" from="PlayerTracker" to="StateMachine/run" method="_on_player_tracker_player_escaped"]
 [connection signal="timeout" from="JumpCooldown" to="StateMachine/run" method="_on_timer_timeout"]
+[connection signal="timeout" from="ChargeAttack" to="StateMachine/attack" method="_on_charge_attack_timeout"]
+[connection signal="timeout" from="AttackDuration" to="StateMachine/attack" method="_on_attack_duration_timeout"]
+[connection signal="timeout" from="ExhaustReset" to="." method="_on_exhaust_reset_timeout"]
