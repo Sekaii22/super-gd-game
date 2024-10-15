@@ -7,7 +7,7 @@ var player: CharacterBody2D
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	print("Entering player run state")
+	#print("Entering player run state")
 	animation_player.play("run")
 	
 func exit():

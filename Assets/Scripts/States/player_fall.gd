@@ -8,7 +8,7 @@ func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
 	# Fall animation
-	print("Entering player fall state")
+	#print("Entering player fall state")
 	animation_player.play("fall")
 	
 func exit():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=83 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://2r3b4s6ii3n7" path="res://Assets/Sprites/Characters/High Forest Character/Attack-01/Attack-01-Sheet.png" id="2_cc3ae"]
@@ -20,7 +20,6 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_dash.gd" id="15_5fwr0"]
 [ext_resource type="Texture2D" uid="uid://c4i6f28lawil4" path="res://Assets/Sprites/Effects/dash_particle_flipped.png" id="19_sss8c"]
 [ext_resource type="Texture2D" uid="uid://o3dqdutgtlsm" path="res://Assets/Sprites/Effects/dash_particle.png" id="20_wncvm"]
-[ext_resource type="Script" path="res://Assets/Scripts/attack_timer_label.gd" id="21_6jgmh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qecqq"]
 atlas = ExtResource("2_cc3ae")
@@ -869,9 +868,6 @@ scale_max = 0.7
 anim_speed_min = 1.2
 anim_speed_max = 1.2
 
-[sub_resource type="LabelSettings" id="LabelSettings_qrcj5"]
-font = ExtResource("6_d57le")
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 script = ExtResource("1_qd8uc")
@@ -975,16 +971,6 @@ one_shot = true
 [node name="AttackGraceTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
-
-[node name="AttackTimerLabel" type="Label" parent="."]
-visible = false
-offset_left = -46.0
-offset_top = -87.0
-offset_right = 51.0
-offset_bottom = -64.0
-text = "attack timer"
-label_settings = SubResource("LabelSettings_qrcj5")
-script = ExtResource("21_6jgmh")
 
 [connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_player_damage_taken"]

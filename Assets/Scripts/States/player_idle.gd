@@ -8,7 +8,7 @@ var player: CharacterBody2D
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	print("Entering player idle state")
+	#print("Entering player idle state")
 	animation_player.play("idle")
 	
 func exit():

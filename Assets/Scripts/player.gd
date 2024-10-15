@@ -32,6 +32,7 @@ var dashes_left: int
 var gravity_on: bool = true
 var current_atk_seq: int = 0
 
+
 func _ready() -> void:
 	jumps_left = no_of_jumps
 	dashes_left = no_of_dashes
@@ -113,8 +114,8 @@ func set_attack_collision_position():
 	attack_area_collision_shape.position.y = attack_area_pos.y
 
 # Signal Handlers
-func _on_area_2d_area_entered(area: Area2D) -> void:	
-	if area.get_parent().name == "Enemy":
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if area.get_parent().name.containsn("Enemy"):
 		area.get_parent().take_damage(damage)
 
 

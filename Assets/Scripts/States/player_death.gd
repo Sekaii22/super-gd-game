@@ -7,7 +7,7 @@ var player: CharacterBody2D
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	print("Entering player death state")
+	#print("Entering player death state")
 	animation_player.play("death")
 	
 	# TODO: Put the game loop functionality here instead of killzone script. Reset scene on death after timer.

@@ -15,7 +15,7 @@ func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
 	player.current_atk_seq += 1
-	print("Entering player attack " + str(player.current_atk_seq) + " state")
+	#print("Entering player attack " + str(player.current_atk_seq) + " state")
 	animation_player.play("attack" + str(player.current_atk_seq))
 
 	# Setup initial atk timer

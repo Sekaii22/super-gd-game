@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=4 uid="uid://ce6mmtjnselhw"]
+[gd_scene load_steps=8 format=4 uid="uid://ce6mmtjnselhw"]
 
+[ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_qgawk"]
 [ext_resource type="Texture2D" uid="uid://bju2egag6u34u" path="res://Assets/Sprites/Background/tiles.png" id="1_wy6b4"]
 [ext_resource type="TileSet" uid="uid://3le78t55bgwj" path="res://Assets/Tileset/Overworld.tres" id="2_7hxl3"]
+[ext_resource type="PackedScene" uid="uid://bxr5nepjs3meh" path="res://Assets/Scenes/enemy.tscn" id="3_s31us"]
+[ext_resource type="PackedScene" path="res://Assets/Scenes/enemy_spawner.tscn" id="5_6u3xr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vyn4g"]
 texture = ExtResource("1_wy6b4")
@@ -93,14 +96,43 @@ texture = ExtResource("1_wy6b4")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_vyn4g")
 
-[node name="MapRoot" type="Node2D"]
+[node name="MapRoot" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
+script = ExtResource("1_qgawk")
+obj_node_to_be_tracked = NodePath("EnemySpawner")
 
 [node name="Map" type="TileMapLayer" parent="."]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAD//wAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAACAAEAAAASAAAAAAACAAEAAAATAAAAAAACAAEAAAAUAAAAAAACAAEAAAAVAAAAAAACAAEAAAAWAAAAAAACAAEAAAAXAAAAAAACAAEAAAAYAAAAAAACAAEAAAAZAAAAAAACAAEAAAAaAAAAAAACAAEAAAAbAAAAAAACAAEAAAAcAAAAAAADAAEAAAAPAP//AAAaAAMAAAALAP//AAAaAAIAAAAXAP//AAAYAAMAAAAYAP//AAAXAAMAAAAcAP//AAAYAAIAAAAHAP//AAAXAAEAAAACAP//AAAXAAEAAAADAP//AAAYAAEAAAAEAP//AAAYAAEAAAAAAP//AAAYAAEAAAARAP//AAAYAAEAAAAUAP//AAAYAAIAAAAOAP//AAAYAAMAAAA=")
+tile_map_data = PackedByteArray("AAD//wAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAACAAEAAAASAAAAAAACAAEAAAATAAAAAAACAAEAAAAUAAAAAAACAAEAAAAVAAAAAAACAAEAAAAWAAAAAAACAAEAAAAXAAAAAAACAAEAAAAYAAAAAAACAAEAAAAZAAAAAAACAAEAAAAaAAAAAAACAAEAAAAbAAAAAAACAAEAAAAcAAAAAAADAAEAAAAPAP//AAAaAAMAAAALAP//AAAaAAIAAAAXAP//AAAYAAMAAAAYAP//AAAXAAMAAAAcAP//AAAOAAEAAAAHAP//AAAXAAEAAAACAP//AAAXAAEAAAADAP//AAAYAAEAAAAEAP//AAAYAAEAAAAAAP//AAAYAAEAAAARAP//AAAYAAEAAAAUAP//AAAYAAIAAAAOAP//AAAYAAMAAAD/////AAAOAAEAAAA=")
 tile_set = SubResource("TileSet_kaxuj")
 
 [node name="Platform" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAASAP3/AAASAAEAAAATAP3/AAATAAEAAAAUAP3/AAAUAAEAAAAVAP3/AAAVAAEAAAAVAP7/AAAVAAIAAAAVAP//AAAVAAMAAAASAP7/AAASAAIAAAASAP//AAASAAMAAAAWAP//AAASAAMAAAAaAP//AAAVAAMAAAAWAP7/AAATAAMAAAAWAP3/AAATAAMAAAAWAPz/AAATAAMAAAAaAP7/AAAUAAMAAAAaAP3/AAAUAAMAAAAaAPz/AAAUAAMAAAAWAPv/AAASAAEAAAAXAPv/AAATAAEAAAAaAPv/AAAVAAEAAAAYAPv/AAATAAEAAAAZAPv/AAATAAEAAAA=")
 tile_set = ExtResource("2_7hxl3")
 metadata/OneWay = false
+
+[node name="EnemySpawner" parent="." instance=ExtResource("5_6u3xr")]
+on_spawner = false
+enemy_dictionary = {
+"thief": ExtResource("3_s31us")
+}
+no_of_waves = 1
+wave1 = {
+1: "thief",
+2: "thief",
+4: "thief"
+}
+wave1_loop_no = 2
+
+[node name="SpawnPoints" type="Node2D" parent="EnemySpawner"]
+
+[node name="SP_1" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(155, -18)
+
+[node name="SP_2" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(321, -72)
+
+[node name="SP_3" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(393, -111)
+
+[node name="SP_4" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(402, -20)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=4 uid="uid://c71d5brdhb7hw"]
+[gd_scene load_steps=3 format=4 uid="uid://c71d5brdhb7hw"]
 
 [ext_resource type="TileSet" uid="uid://3le78t55bgwj" path="res://Assets/Tileset/Overworld.tres" id="1_6wb12"]
+[ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_kwufo"]
 
 [node name="MapRoot" type="Node2D"]
+script = ExtResource("1_kwufo")
 
 [node name="Map" type="TileMapLayer" parent="."]
 use_parent_material = true

@@ -14,7 +14,7 @@ var var_jump_factor: float = 2.0
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	print("Entering player jump state")
+	#print("Entering player jump state")
 	player.velocity.y = player.JUMP_VELOCITY
 	
 	# Jump animation and particle effect

@@ -26,7 +26,7 @@ func enter():
 		player.gravity_on = false
 	
 	# Play dash animation
-	print("Entering player dash state")
+	#print("Entering player dash state")
 	animation_player.play("dash")
 	player.dashes_left -= 1
 	
