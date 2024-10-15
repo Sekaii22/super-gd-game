@@ -87,12 +87,3 @@ func move_right_boundary_to_next():
 
 func move_transition_area():
 	transition_area.position = boundary_vector_arr[current_right_boundary_index]
-
-# Debug code
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	print("Current right boundary ", current_right_boundary_index)
-	print("Current left boundary ", current_left_boundary_index)
-	move_right_boundary_to_next()
-	move_transition_area()
-	print("Current right boundary ", current_right_boundary_index)
-	print("Current left boundary ", current_left_boundary_index)

@@ -870,6 +870,7 @@ anim_speed_max = 1.2
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
+collision_layer = 33
 script = ExtResource("1_qd8uc")
 no_of_basic_atks = 2
 

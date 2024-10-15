@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_qgawk"]
 [ext_resource type="Texture2D" uid="uid://bju2egag6u34u" path="res://Assets/Sprites/Background/tiles.png" id="1_wy6b4"]
 [ext_resource type="TileSet" uid="uid://3le78t55bgwj" path="res://Assets/Tileset/Overworld.tres" id="2_7hxl3"]
-[ext_resource type="PackedScene" uid="uid://bxr5nepjs3meh" path="res://Assets/Scenes/enemy.tscn" id="3_s31us"]
-[ext_resource type="PackedScene" path="res://Assets/Scenes/enemy_spawner.tscn" id="5_6u3xr"]
+[ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="5_3vxym"]
+[ext_resource type="PackedScene" uid="uid://dnhfe8ng1lfu1" path="res://Assets/Scenes/enemy_spawner.tscn" id="5_6u3xr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vyn4g"]
 texture = ExtResource("1_wy6b4")
@@ -111,17 +111,15 @@ tile_set = ExtResource("2_7hxl3")
 metadata/OneWay = false
 
 [node name="EnemySpawner" parent="." instance=ExtResource("5_6u3xr")]
-on_spawner = false
 enemy_dictionary = {
-"thief": ExtResource("3_s31us")
+"pig": ExtResource("5_3vxym")
 }
-no_of_waves = 1
-wave1 = {
-1: "thief",
-2: "thief",
-4: "thief"
-}
-wave1_loop_no = 2
+waves = Array[Dictionary]([{
+1: "pig",
+3: "pig",
+4: "pig"
+}])
+waves_loops = Array[int]([1])
 
 [node name="SpawnPoints" type="Node2D" parent="EnemySpawner"]
 
