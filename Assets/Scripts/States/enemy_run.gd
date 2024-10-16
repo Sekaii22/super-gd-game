@@ -1,7 +1,6 @@
 extends State
 class_name EnemyRun
 
-var from_run: bool = false
 #var begin_storing: bool = false
 var jump_on_cooldown: bool = false
 var direction
@@ -25,6 +24,7 @@ var player
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	print("Entering enemy run state")
+	enemy.from_run = false
 	animation_player.play("run")
 	jump_cooldown.start(2)
 
@@ -72,7 +72,7 @@ func physics_update(_delta: float):
 	
 
 func _on_enemy_damage_taken() -> void:
-	from_run = true
+	enemy.from_run = true
 	Transition.emit(self, "hurt")
 
 func _on_enemy_death() -> void:

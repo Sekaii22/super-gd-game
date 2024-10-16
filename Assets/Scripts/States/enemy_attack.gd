@@ -55,6 +55,7 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 
-
+#find a way to reset the timer everytime the attack scene is entered.
+#Right now, when re-entering attack, this timer continues and forces idle but the attack continues
 func _on_attack_duration_timeout() -> void:
 	Transition.emit(self, "idle")

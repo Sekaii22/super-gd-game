@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -310.0
 signal damage_taken
 signal death
 
+var from_run: bool = false
 var exhausted: bool = false
 @export var health = 50
 @export var ray_cast_2d: RayCast2D

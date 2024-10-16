@@ -2,7 +2,8 @@ extends State
 class_name EnemyHurt
 
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
-#@onready var run: EnemyRun = $"../run"
+@onready var enemy: CharacterBody2D = $"../.."
+
 
 func enter():
 	#enemy = get_tree().get_first_node_in_group("Enemy")
@@ -19,7 +20,10 @@ func update(_delta: float):
 	
 	#Also add checks for if player is nearby!! To go to alert/run state
 	if !animation_player.is_playing():
-		Transition.emit(self, "idle")
+		if enemy.from_run == true:
+			Transition.emit(self, "run")
+		else:
+			Transition.emit(self, "idle")
 
 func physics_update(_delta: float):
 	pass
