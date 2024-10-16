@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://ce6mmtjnselhw"]
+[gd_scene load_steps=9 format=4 uid="uid://ce6mmtjnselhw"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_qgawk"]
 [ext_resource type="Texture2D" uid="uid://bju2egag6u34u" path="res://Assets/Sprites/Background/tiles.png" id="1_wy6b4"]
@@ -96,6 +96,9 @@ texture = ExtResource("1_wy6b4")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_vyn4g")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bkms"]
+size = Vector2(473, 525.5)
+
 [node name="MapRoot" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
 script = ExtResource("1_qgawk")
 obj_node_to_be_tracked = NodePath("EnemySpawner")
@@ -118,8 +121,11 @@ waves = Array[Dictionary]([{
 1: "pig",
 3: "pig",
 4: "pig"
+}, {
+2: "pig",
+4: "pig"
 }])
-waves_loops = Array[int]([1])
+waves_loops = Array[int]([1, 1])
 
 [node name="SpawnPoints" type="Node2D" parent="EnemySpawner"]
 
@@ -134,3 +140,16 @@ position = Vector2(393, -111)
 
 [node name="SP_4" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
 position = Vector2(402, -20)
+
+[node name="ChunkArea" type="Area2D" parent="."]
+visible = false
+collision_mask = 96
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkArea"]
+position = Vector2(227.5, 0)
+shape = SubResource("RectangleShape2D_1bkms")
+
+[connection signal="body_entered" from="ChunkArea" to="." method="_on_chunk_area_body_entered"]
+[connection signal="body_exited" from="ChunkArea" to="." method="_on_chunk_area_body_exited"]
