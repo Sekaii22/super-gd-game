@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://c150bak61744y"]
+[gd_scene load_steps=57 format=3 uid="uid://c150bak61744y"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="1_owqi4"]
 [ext_resource type="Texture2D" uid="uid://ct0pmh7jd5ocv" path="res://Assets/Sprites/Characters/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_7dwal"]
@@ -69,21 +69,13 @@ region = Rect2(192, 96, 48, 48)
 atlas = ExtResource("3_rcuh5")
 region = Rect2(240, 96, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r28uq"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(0, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_lo1pp"]
+atlas = ExtResource("4_tk4bg")
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_a0vlc"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(48, 144, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dstv8"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(96, 144, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_krphj"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(144, 144, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qcxj"]
+atlas = ExtResource("4_tk4bg")
+region = Rect2(48, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jod0n"]
 atlas = ExtResource("4_tk4bg")
@@ -191,16 +183,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r28uq")
+"texture": SubResource("AtlasTexture_lo1pp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_a0vlc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dstv8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_krphj")
+"texture": SubResource("AtlasTexture_4qcxj")
 }],
 "loop": false,
 "name": &"death",
@@ -380,7 +366,7 @@ tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0.6),
+"times": PackedFloat32Array(0.233333),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -560,7 +546,6 @@ script = ExtResource("11_yrj0g")
 script = ExtResource("15_pcfyt")
 
 [node name="AttackRange" type="Area2D" parent="."]
-visible = false
 collision_layer = 8
 collision_mask = 32
 

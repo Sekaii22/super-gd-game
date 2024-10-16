@@ -22,7 +22,7 @@ func enter():
 	charge_attack.start()
 
 func exit():
-	attack_area.disabled = true
+	attack_area.set_deferred("disabled", true)
 	enemy.exhausted = true
 	exhaust_reset.start()
 	enemy.velocity = Vector2(0, 0)
