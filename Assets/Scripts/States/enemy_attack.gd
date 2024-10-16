@@ -25,6 +25,8 @@ func exit():
 	attack_area.set_deferred("disabled", true)
 	enemy.exhausted = true
 	exhaust_reset.start()
+	attack_duration.stop()
+	charge_attack.stop()
 	enemy.velocity = Vector2(0, 0)
 
 func update(_delta: float):
@@ -50,7 +52,6 @@ func _on_charge_attack_timeout() -> void:
 
 
 func _on_enemy_damage_taken() -> void:
-	attack_duration.stop()
 	Transition.emit(self, "hurt")
 
 

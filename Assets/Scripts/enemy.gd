@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name.containsn("Player"):
 		body.take_damage(damage)
-		attack_area.disabled = true
+		attack_area.set_deferred("disabled", true)
 
 
 func _on_exhaust_reset_timeout() -> void:
