@@ -13,8 +13,7 @@ func _ready() -> void:
 	enemy = get_parent()
 
 func _physics_process(delta: float) -> void:
-	target_position = player.position - enemy.position
-	target_position = target_position.normalized() * raycast_scale
+	target_position = enemy.global_position.direction_to(player.global_position) * raycast_scale
 	check_player()
 
 func check_player():

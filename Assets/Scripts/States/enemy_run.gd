@@ -32,7 +32,7 @@ func exit():
 	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
-	direction = enemy.position.direction_to(player.position)
+	direction = enemy.global_position.direction_to(player.global_position)
 	if direction.x > 0:
 		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
