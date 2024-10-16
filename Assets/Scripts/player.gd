@@ -16,10 +16,11 @@ signal death
 # TODO: Some of these can be placed under player class resource
 @export var health = 100
 @export var damage = 10
-@export var attack_area_pos: Vector2
 @export var no_of_jumps: int = 2
 @export var no_of_dashes: int = 1
 @export var no_of_basic_atks: int = 1
+## Not for editing
+@export var attack_area_pos: Vector2
 
 # GET only
 var knockback = Vector2.ZERO

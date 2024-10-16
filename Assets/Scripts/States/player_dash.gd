@@ -18,16 +18,15 @@ var dash_str: float = 0
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
-	# Invulnerability during dash
-	player.set_collision_layer_value(1, false)
-	
+	# Play dash animation
 	if !player.is_on_floor():
 		player.velocity.y = 0
 		player.gravity_on = false
+		animation_player.play("air_dash")
+	else:
+		animation_player.play("dash")
 	
-	# Play dash animation
 	#print("Entering player dash state")
-	animation_player.play("dash")
 	player.dashes_left -= 1
 	
 	# TODO: Change dash animation depending if player is on floor or air
@@ -49,7 +48,9 @@ func enter():
 	dash_str = player.SPEED * dash_factor
 	
 func exit():
-	player.set_collision_layer_value(1, true)
+	# In the case where attacks cancel the dash animation
+	player.set_collision_layer_value(6, true)
+	player.set_collision_layer_value(7, false)
 	
 func update(_delta: float):
 	if dash_timer > 0:

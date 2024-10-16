@@ -1,9 +1,10 @@
-extends Node2D
+extends ChunkObjective
 class_name EnemySpawner
 
 signal OnWaveCleared
-signal OnCleared
 
+## EnemySpawner node needs to have a SpawnPoints child node containing
+## spawn points marker node.
 @onready var spawn_point_parent: Node2D = $SpawnPoints
 
 ## Switch to turn on/off the spawner.
@@ -19,7 +20,7 @@ signal OnCleared
 ## Time between each loop
 @export var loop_wait_time: float = 2.5
 ## Time between each wave
-@export var wave_wait_timer: float = 3
+@export var wave_wait_timer: float = 1.0
 
 var spawn_points: Array[Node2D]
 var current_wave_num: int = 0
@@ -84,7 +85,8 @@ func spawn_next_wave() -> bool:
 			for sp_num in sp_nums_used_in_wave:
 
 				# Check if sp_num is a valid spawn point
-				if sp_num >= 0 and sp_num - 1 < spawn_points.size():
+				if sp_num > 0 and sp_num <= spawn_points.size():
+					# sp_num cause of 0-indexing of spawn_points array
 					var spawn_point: Node2D = spawn_points[sp_num - 1]
 					var enemy_name: String = wave[sp_num]
 

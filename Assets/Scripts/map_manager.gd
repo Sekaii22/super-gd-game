@@ -28,14 +28,12 @@ func _on_map_loader_chunk_spawned(chunk_instance: Node) -> void:
 func _on_chunk_objective_cleared():
 	print("Chunk cleared message received in map manager")
 	# TODO: Arrow pointing to the start point of next chunk
-
-
-func _on_transition_area_body_entered(body: Node2D) -> void:
+	
 	if current_chunk != null:
-		if current_chunk.value.objective_cleared and body.name == "Player":
+		if current_chunk.value.objective_cleared:
 			# Move right boundary and transition area
 			map_loader.move_right_boundary_to_next()
-			
+
 			# TODO: Add player transit animation to next chunk.
 			# TODO: Move camera right limit to the end point of the next chunk.
 			# TODO: Add camera shifts.
