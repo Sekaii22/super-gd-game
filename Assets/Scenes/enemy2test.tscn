@@ -1,8 +1,8 @@
-[gd_scene load_steps=57 format=3 uid="uid://c150bak61744y"]
+[gd_scene load_steps=55 format=3 uid="uid://c150bak61744y"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="1_owqi4"]
 [ext_resource type="Texture2D" uid="uid://ct0pmh7jd5ocv" path="res://Assets/Sprites/Characters/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_7dwal"]
-[ext_resource type="Texture2D" uid="uid://dnmhjmln5pu0f" path="res://Assets/Sprites/Characters/Thief_anim_fixed.png" id="3_rcuh5"]
+[ext_resource type="Texture2D" uid="uid://ci6llpgmeortc" path="res://Assets/Sprites/Characters/Mob/Boar/Attack-Sheet.png" id="3_wt01i"]
 [ext_resource type="Script" path="res://Assets/Scripts/state_machine.gd" id="4_bh11i"]
 [ext_resource type="Texture2D" uid="uid://bj0wjllo7madv" path="res://Assets/Sprites/Characters/Mob/Boar/Idle/Idle-Sheet.png" id="4_rhd1x"]
 [ext_resource type="Texture2D" uid="uid://1vtpd6mwdmkk" path="res://Assets/Sprites/Characters/Mob/Boar/Hit-Vanish/Hit-Sheet.png" id="4_tk4bg"]
@@ -45,29 +45,21 @@ region = Rect2(192, 0, 48, 48)
 atlas = ExtResource("2_7dwal")
 region = Rect2(240, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_441la"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(0, 96, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tedjw"]
+atlas = ExtResource("3_wt01i")
+region = Rect2(0, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3kvqo"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(48, 96, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytfac"]
+atlas = ExtResource("3_wt01i")
+region = Rect2(48, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_cxlne"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(96, 96, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pdefs"]
+atlas = ExtResource("3_wt01i")
+region = Rect2(96, 0, 48, 48)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_oj8f7"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(144, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oly4n"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(192, 96, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_g6dpd"]
-atlas = ExtResource("3_rcuh5")
-region = Rect2(240, 96, 48, 48)
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3pqb"]
+atlas = ExtResource("3_wt01i")
+region = Rect2(144, 0, 48, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lo1pp"]
 atlas = ExtResource("4_tk4bg")
@@ -160,22 +152,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_441la")
+"texture": SubResource("AtlasTexture_tedjw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3kvqo")
+"texture": SubResource("AtlasTexture_ytfac")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cxlne")
+"texture": SubResource("AtlasTexture_pdefs")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_oj8f7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oly4n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g6dpd")
+"texture": SubResource("AtlasTexture_m3pqb")
 }],
 "loop": false,
 "name": &"attack",
@@ -326,10 +312,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.266667, 0.366667, 0.466667),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.0666667, 0.166667, 0.266667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_ohs1x"]

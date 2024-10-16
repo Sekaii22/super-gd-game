@@ -18,7 +18,7 @@ var player
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	print("Entering enemy attack state")
-	animation_player.play("run")
+	animation_player.play("attack")
 	charge_attack.start()
 
 func exit():
@@ -36,7 +36,7 @@ func physics_update(_delta: float):
 func _on_charge_attack_timeout() -> void:
 	attack_duration.start()
 	attack_area.disabled = false
-	animation_player.play("attack")
+	animation_player.play("run")
 	direction = enemy.position.direction_to(player.position)
 	if direction.x > 0:
 		enemy.velocity.x = direction.x * 150
