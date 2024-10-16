@@ -60,29 +60,24 @@ func _ready() -> void:
 		boundary_vector_arr.append(Vector2(start.x, start.y))
 
 	# Setup left right boundaries
-	boundary_left.position.x = boundary_vector_arr[0].x
-	boundary_right.position.x = boundary_vector_arr[1].x
+	boundary_left.position = boundary_vector_arr[0]
+	boundary_right.position = boundary_vector_arr[1]
 
 	# Setup transition area
 	move_transition_area()
 
 
-func _physics_process(_delta: float) -> void:
-	# Shifts boundary gradually
-	boundary_left.position.x = lerp(boundary_left.position.x, \
-		boundary_vector_arr[current_left_boundary_index].x, 0.05)
-	boundary_right.position.x = lerp(boundary_right.position.x, \
-		boundary_vector_arr[current_right_boundary_index].x, 0.05)
-
-
 func move_left_boundary_to_next():
 	if current_left_boundary_index < current_right_boundary_index - 1:
 		current_left_boundary_index += 1
+		boundary_left.position = boundary_vector_arr[current_left_boundary_index]
 
 
 func move_right_boundary_to_next():
 	if current_right_boundary_index < boundary_vector_arr.size() - 1:
 		current_right_boundary_index += 1
+		boundary_right.position = boundary_vector_arr[current_right_boundary_index]
+		move_transition_area()
 
 
 func move_transition_area():

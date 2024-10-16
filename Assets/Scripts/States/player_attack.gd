@@ -22,7 +22,7 @@ func enter():
 	atk_timer = min_time_in_atk
 
 func exit():
-	attack_area.disabled = true
+	attack_area.set_deferred("disabled", true)
 	
 	# Reset attack sequence after if this is the last in the sequence
 	if player.current_atk_seq == player.no_of_basic_atks:

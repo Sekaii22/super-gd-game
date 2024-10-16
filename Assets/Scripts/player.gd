@@ -73,8 +73,7 @@ func _physics_process(delta: float) -> void:
 
 
 # Call this method when you want the player to take damage
-# TODO: countdown timer until damage can be taken again
-func take_damage(dmg_taken: int):
+func take_damage(dmg_taken: int, timescale_duration = 0.8):
 	health -= dmg_taken
 	print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")
 	
@@ -82,7 +81,12 @@ func take_damage(dmg_taken: int):
 		death.emit()
 	else:
 		damage_taken.emit()
-
+	
+	# Adjust timescale for more impact, duration < 0.8 is almost unnoticable
+	Engine.time_scale = 0.01
+	await get_tree().create_timer(timescale_duration * 0.01).timeout
+	Engine.time_scale = 1
+	
 
 # Call this method when you want to give player some knockback
 func take_knockback(body: Node2D, knockback_str: float):
@@ -146,4 +150,5 @@ func _on_animation_player_animation_started(anim_name: StringName) -> void:
 
 func _on_attack_area_body_entered(body: Node2D) -> void:
 	if body.name.containsn("Enemy"):
+		print(body.name)
 		body.take_damage(damage)

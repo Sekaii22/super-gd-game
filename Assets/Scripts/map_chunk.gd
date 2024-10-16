@@ -4,7 +4,6 @@ class_name MapChunk
 ## Represents the overall objective of the chunk.
 ## When all objective components are cleared, [b]ChunkObjectiveCleared[/b] signal is emitted.
 
-
 enum OBJECTIVE_TYPE {KILL_ENEMIES, PLATFORMER}
 
 signal ChunkObjectiveCleared

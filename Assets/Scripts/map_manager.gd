@@ -35,10 +35,10 @@ func _on_transition_area_body_entered(body: Node2D) -> void:
 		if current_chunk.value.objective_cleared and body.name == "Player":
 			# Move right boundary and transition area
 			map_loader.move_right_boundary_to_next()
-			map_loader.move_transition_area()
 			
-			# TODO: Add player transit animation.
+			# TODO: Add player transit animation to next chunk.
 			# TODO: Move camera right limit to the end point of the next chunk.
 			# TODO: Add camera shifts.
+			# map_loader.move_left_boundary_to_next()
 			# TODO: Move camera left limit to start point of next chunk.
 			current_chunk = current_chunk.next

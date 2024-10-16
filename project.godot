@@ -68,6 +68,8 @@ dash={
 2d_physics/layer_4="Enemy Attack"
 2d_physics/layer_5="Interactable"
 2d_physics/layer_6="Player"
+2d_physics/layer_7="Player Invulnerable"
+2d_physics/layer_8="Boundary"
 
 [rendering]
 

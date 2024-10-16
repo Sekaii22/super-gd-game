@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5s1h7agcy8re"]
+[gd_scene load_steps=9 format=3 uid="uid://c5s1h7agcy8re"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/map_manager.gd" id="1_x2qa2"]
 [ext_resource type="Script" path="res://Assets/Scripts/map_loader.gd" id="2_yc477"]
@@ -6,7 +6,13 @@
 [ext_resource type="Resource" uid="uid://dbbfwt6dp6sxm" path="res://Assets/Resources/MapResource/Stage1/temp_map_chunk.tres" id="4_63yng"]
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="5_u5qhp"]
 
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lxtxn"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2nnoy"]
+a = Vector2(300, 0)
+b = Vector2(-300, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_rc2wn"]
+a = Vector2(300, 0)
+b = Vector2(-300, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mn2p3"]
 size = Vector2(79, 107)
@@ -20,20 +26,25 @@ chunk_resources = Array[ExtResource("3_ohbnj")]([ExtResource("4_63yng")])
 chunks_per_map = 3
 
 [node name="BoundaryLeft" type="StaticBody2D" parent="MapLoader"]
+collision_mask = 96
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapLoader/BoundaryLeft"]
+position = Vector2(-1.5, 0)
 rotation = 1.5708
-shape = SubResource("WorldBoundaryShape2D_lxtxn")
+shape = SubResource("SegmentShape2D_2nnoy")
 
 [node name="BoundaryRight" type="StaticBody2D" parent="MapLoader"]
 position = Vector2(1000, 0)
+collision_mask = 96
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapLoader/BoundaryRight"]
+position = Vector2(1.5, 0)
 rotation = -1.5708
-shape = SubResource("WorldBoundaryShape2D_lxtxn")
+shape = SubResource("SegmentShape2D_rc2wn")
 
 [node name="TransitionArea" type="Area2D" parent="MapLoader"]
 position = Vector2(997, 0)
+collision_mask = 96
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MapLoader/TransitionArea"]
 position = Vector2(-39.5, -54)
