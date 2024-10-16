@@ -46,8 +46,11 @@ func _on_charge_attack_timeout() -> void:
 		animated_sprite.flip_h = false
 
 
+#I want to continue attack after escaping raycast? Should I?
+
 
 func _on_enemy_damage_taken() -> void:
+	attack_duration.stop()
 	Transition.emit(self, "hurt")
 
 
@@ -55,7 +58,5 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 
-#find a way to reset the timer everytime the attack scene is entered.
-#Right now, when re-entering attack, this timer continues and forces idle but the attack continues
 func _on_attack_duration_timeout() -> void:
 	Transition.emit(self, "idle")
