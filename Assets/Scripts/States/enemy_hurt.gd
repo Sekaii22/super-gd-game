@@ -27,3 +27,9 @@ func update(_delta: float):
 
 func physics_update(_delta: float):
 	pass
+
+
+
+
+func _on_enemy_death() -> void:
+	Transition.emit(self, "death")

@@ -564,6 +564,7 @@ one_shot = true
 [connection signal="damage_taken" from="." to="StateMachine/run" method="_on_enemy_damage_taken"]
 [connection signal="damage_taken" from="." to="StateMachine/attack" method="_on_enemy_damage_taken"]
 [connection signal="death" from="." to="StateMachine/idle" method="_on_enemy_death"]
+[connection signal="death" from="." to="StateMachine/hurt" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/alert" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/run" method="_on_enemy_death"]
 [connection signal="death" from="." to="StateMachine/attack" method="_on_enemy_death"]

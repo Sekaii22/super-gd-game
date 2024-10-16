@@ -12,6 +12,8 @@ var exhausted: bool = false
 @export var ray_cast_2d: RayCast2D
 @export var damage = 10
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var attack_area: CollisionShape2D = $AttackRange/CollisionShape2D
+
 
 # Call this method when you want the 
 func take_damage(dmg_taken: int):
@@ -43,6 +45,7 @@ func _physics_process(delta: float) -> void:
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.name.containsn("Player"):
 		body.take_damage(damage)
+		attack_area.disabled = true
 
 
 func _on_exhaust_reset_timeout() -> void:
