@@ -18,8 +18,8 @@
 [ext_resource type="Script" path="res://Assets/Scripts/States/enemy_attack.gd" id="15_pcfyt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mj2n6"]
-radius = 4.5
-height = 18.0
+radius = 12.0
+height = 36.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g1366"]
 atlas = ExtResource("2_7dwal")
@@ -512,7 +512,8 @@ script = ExtResource("1_owqi4")
 ray_cast_2d = NodePath("PlayerTracker")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, -9)
+position = Vector2(0, -12)
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_mj2n6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -559,6 +560,7 @@ script = ExtResource("11_yrj0g")
 script = ExtResource("15_pcfyt")
 
 [node name="AttackRange" type="Area2D" parent="."]
+visible = false
 collision_layer = 8
 collision_mask = 32
 
