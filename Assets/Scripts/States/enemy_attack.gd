@@ -37,7 +37,7 @@ func _on_charge_attack_timeout() -> void:
 	attack_duration.start()
 	attack_area.disabled = false
 	animation_player.play("run")
-	direction = enemy.position.direction_to(player.position)
+	direction = enemy.global_position.direction_to(player.global_position)
 	if direction.x > 0:
 		enemy.velocity.x = direction.x * 150
 		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
