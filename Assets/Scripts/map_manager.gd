@@ -8,6 +8,7 @@ extends Node2D
 ## Emits [b]StageObjectiveCleared[/b] when all chunks objective are cleared.
 
 signal StageObjectiveCleared
+signal PlayerEnteredTransitionZone(Player)
 
 @onready var map_loader: Node2D = $MapLoader
 
@@ -23,6 +24,7 @@ func _on_map_loader_chunk_spawned(chunk_instance: Node) -> void:
 		current_chunk.push_to_end(chunk_instance)
 		
 	chunk_instance.connect("ChunkObjectiveCleared", _on_chunk_objective_cleared)
+	chunk_instance.connect("PlayerExitedChunk", _on_map_chunk_player_exited)
 
 
 func _on_chunk_objective_cleared():
@@ -31,12 +33,18 @@ func _on_chunk_objective_cleared():
 	
 	if current_chunk != null:
 		if current_chunk.value.objective_cleared:
-			# Move right boundary and transition area
+			# Move right boundary and enable transition area
 			map_loader.move_right_boundary_to_next()
-
-			# TODO: Add player transit animation to next chunk.
-			# TODO: Move camera right limit to the end point of the next chunk.
-			# TODO: Add camera shifts.
-			# map_loader.move_left_boundary_to_next()
-			# TODO: Move camera left limit to start point of next chunk.
+			map_loader.enable_transition_area()
+			
 			current_chunk = current_chunk.next
+
+
+func _on_map_chunk_player_exited(chunk_exited: MapChunk):
+	map_loader.move_transition_area()
+	map_loader.move_left_boundary_to_next()
+
+
+func _on_transition_zone_body_entered(player: Node2D) -> void:
+	print("Player in transition zone")
+	PlayerEnteredTransitionZone.emit(player)

@@ -1,17 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://cao8cinsjef6g"]
+[gd_scene load_steps=8 format=3 uid="uid://cao8cinsjef6g"]
 
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
 [ext_resource type="PackedScene" uid="uid://c5s1h7agcy8re" path="res://Assets/Scenes/map_manager.tscn" id="3_bimks"]
-[ext_resource type="PackedScene" uid="uid://ebgb5ig3fl7t" path="res://Assets/Scenes/transition_manager.tscn" id="4_n3vwd"]
 [ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="4_t1jmh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 
-[sub_resource type="Animation" id="Animation_icoe4"]
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_trtlb"]
 resource_name = "chunk_transition"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StageAnimationPlayer/CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_icoe4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StageAnimationPlayer/CanvasModulate:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ntqc"]
 _data = {
@@ -25,14 +48,12 @@ _data = {
 position = Vector2(13, -51)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(154, 0)
+position = Vector2(154, -7)
 zoom = Vector2(1.2, 1.2)
 limit_bottom = 150
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
 
 [node name="Killzone" parent="." instance=ExtResource("4_t1jmh")]
-position = Vector2(0, 400)
+position = Vector2(0, 107)
 damage = 10000
 knockback_str = 0.0
 
@@ -46,4 +67,4 @@ libraries = {
 "": SubResource("AnimationLibrary_4ntqc")
 }
 
-[node name="TransitionManager" parent="." instance=ExtResource("4_n3vwd")]
+[node name="CanvasModulate" type="CanvasModulate" parent="StageAnimationPlayer"]

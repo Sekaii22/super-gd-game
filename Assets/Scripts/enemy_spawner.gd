@@ -25,7 +25,6 @@ signal OnWaveCleared
 var spawn_points: Array[Node2D]
 var current_wave_num: int = 0
 var wave_is_spawning: bool = false
-var finished: bool = false
 var initial_node_count: int = 0
 var current_node_count: int = 0
 var no_of_waves: int
@@ -60,6 +59,9 @@ func _process(_delta: float) -> void:
 
 
 func spawn_next_wave() -> bool:
+	if started == false:
+		started = true
+	
 	if current_wave_num < no_of_waves:
 		wave_is_spawning = true
 		current_wave_num += 1
@@ -107,10 +109,13 @@ func spawn_next_wave() -> bool:
 
 ## Instantiate enemy and put it in spawn_point position
 func create_enemy(enemy_name: String, spawn_point: Node2D) -> Node:
-	var enemy_scene = enemy_dictionary[enemy_name]
+	var enemy_scene: PackedScene = enemy_dictionary[enemy_name]
 	var enemy_instance: Node2D = enemy_scene.instantiate()
+	
 	# Local position is needed to be used here to get it to work
 	enemy_instance.position = spawn_point.position
+	
+	# TODO: Add spawn effects
 	return enemy_instance
 
 

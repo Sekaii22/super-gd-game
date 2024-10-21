@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=3 uid="uid://xjxshr0c3you"]
+[gd_scene load_steps=86 format=3 uid="uid://xjxshr0c3you"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://2r3b4s6ii3n7" path="res://Assets/Sprites/Characters/High Forest Character/Attack-01/Attack-01-Sheet.png" id="2_cc3ae"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d2wnnehfo4g1k" path="res://Assets/Sprites/Effects/jump_particles.png" id="15_3xwxj"]
 [ext_resource type="Script" path="res://Assets/Scripts/States/player_dash.gd" id="15_5fwr0"]
 [ext_resource type="Texture2D" uid="uid://c4i6f28lawil4" path="res://Assets/Sprites/Effects/dash_particle_flipped.png" id="19_sss8c"]
+[ext_resource type="Script" path="res://Assets/Scripts/States/player_chunk_transition.gd" id="20_cgr01"]
 [ext_resource type="Texture2D" uid="uid://o3dqdutgtlsm" path="res://Assets/Sprites/Effects/dash_particle.png" id="20_wncvm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qecqq"]
@@ -475,6 +476,47 @@ tracks/7/keys = {
 "values": [32]
 }
 
+[sub_resource type="Animation" id="Animation_f6csm"]
+resource_name = "air_dash"
+length = 0.4
+step = 0.02
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:collision_layer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [64, 32]
+}
+
 [sub_resource type="Animation" id="Animation_ne7tl"]
 resource_name = "attack1"
 length = 0.36
@@ -706,7 +748,7 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.016868, 0.0333333, 0.0580224, 0.0740671, 0.1, 0.132922, 0.166667, 0.4),
+"times": PackedFloat32Array(0, 0.016868, 0.0333333, 0.0580224, 0.0740671, 0.1, 0.133333, 0.266667, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
@@ -863,47 +905,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5, 6, 7]
 }
 
-[sub_resource type="Animation" id="Animation_f6csm"]
-resource_name = "air_dash"
-length = 0.4
-step = 0.02
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"run"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:collision_layer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [64, 32]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mqy4a"]
 _data = {
 "RESET": SubResource("Animation_qbv4w"),
@@ -1023,6 +1024,9 @@ script = ExtResource("15_5fwr0")
 dash_left_particle_tex = ExtResource("19_sss8c")
 dash_right_particle_tex = ExtResource("20_wncvm")
 
+[node name="chunk_transition" type="Node" parent="StateMachine"]
+script = ExtResource("20_cgr01")
+
 [node name="DoubleJumpParticle" type="GPUParticles2D" parent="."]
 show_behind_parent = true
 material = SubResource("CanvasItemMaterial_taebk")
@@ -1058,21 +1062,25 @@ one_shot = true
 wait_time = 0.3
 one_shot = true
 
-[connection signal="damage_taken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
-[connection signal="damage_taken" from="." to="StateMachine/run" method="_on_player_damage_taken"]
-[connection signal="damage_taken" from="." to="StateMachine/jump" method="_on_player_damage_taken"]
-[connection signal="damage_taken" from="." to="StateMachine/attack" method="_on_player_damage_taken"]
-[connection signal="damage_taken" from="." to="StateMachine/fall" method="_on_player_damage_taken"]
-[connection signal="death" from="." to="StateMachine/idle" method="_on_player_death"]
-[connection signal="death" from="." to="StateMachine/run" method="_on_player_death"]
-[connection signal="death" from="." to="StateMachine/jump" method="_on_player_death"]
-[connection signal="death" from="." to="StateMachine/attack" method="_on_player_death"]
-[connection signal="death" from="." to="StateMachine/hurt" method="_on_player_death"]
-[connection signal="death" from="." to="StateMachine/fall" method="_on_player_death"]
+[connection signal="ChunkTransition" from="." to="StateMachine/idle" method="_on_player_chunk_transition"]
+[connection signal="ChunkTransition" from="." to="StateMachine/run" method="_on_player_chunk_transition"]
+[connection signal="ChunkTransition" from="." to="StateMachine/jump" method="_on_player_chunk_transition"]
+[connection signal="ChunkTransition" from="." to="StateMachine/fall" method="_on_player_chunk_transition"]
+[connection signal="DamageTaken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
+[connection signal="DamageTaken" from="." to="StateMachine/run" method="_on_player_damage_taken"]
+[connection signal="DamageTaken" from="." to="StateMachine/jump" method="_on_player_damage_taken"]
+[connection signal="DamageTaken" from="." to="StateMachine/attack" method="_on_player_damage_taken"]
+[connection signal="DamageTaken" from="." to="StateMachine/fall" method="_on_player_damage_taken"]
+[connection signal="Death" from="." to="StateMachine/idle" method="_on_player_death"]
+[connection signal="Death" from="." to="StateMachine/run" method="_on_player_death"]
+[connection signal="Death" from="." to="StateMachine/jump" method="_on_player_death"]
+[connection signal="Death" from="." to="StateMachine/attack" method="_on_player_death"]
+[connection signal="Death" from="." to="StateMachine/hurt" method="_on_player_death"]
+[connection signal="Death" from="." to="StateMachine/fall" method="_on_player_death"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="area_entered" from="AttackArea" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="DashResetTimer" to="." method="_on_dash_reset_timer_timeout"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
-[connection signal="timeout" from="AttackGraceTimer" to="." method="_on_attack_reset_timer_timeout"]
+[connection signal="timeout" from="AttackGraceTimer" to="." method="_on_attack_grace_timer_timeout"]

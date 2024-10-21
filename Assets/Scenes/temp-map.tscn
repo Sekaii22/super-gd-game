@@ -102,10 +102,11 @@ size = Vector2(473, 525.5)
 [node name="MapRoot" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
 script = ExtResource("1_qgawk")
 obj_node_to_be_tracked = NodePath("EnemySpawner")
+disable_enemy_spawn = true
 
 [node name="Map" type="TileMapLayer" parent="."]
 use_parent_material = true
-tile_map_data = PackedByteArray("AAD//wAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAACAAEAAAASAAAAAAACAAEAAAATAAAAAAACAAEAAAAUAAAAAAACAAEAAAAVAAAAAAACAAEAAAAWAAAAAAACAAEAAAAXAAAAAAACAAEAAAAYAAAAAAACAAEAAAAZAAAAAAACAAEAAAAaAAAAAAACAAEAAAAbAAAAAAACAAEAAAAcAAAAAAADAAEAAAAPAP//AAAaAAMAAAALAP//AAAaAAIAAAAXAP//AAAYAAMAAAAYAP//AAAXAAMAAAAcAP//AAAOAAEAAAAHAP//AAAXAAEAAAACAP//AAAXAAEAAAADAP//AAAYAAEAAAAEAP//AAAYAAEAAAAAAP//AAAYAAEAAAARAP//AAAYAAEAAAAUAP//AAAYAAIAAAAOAP//AAAYAAMAAAD/////AAAOAAEAAAA=")
+tile_map_data = PackedByteArray("AAD//wAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAACAAEAAAASAAAAAAACAAEAAAATAAAAAAACAAEAAAAUAAAAAAACAAEAAAAVAAAAAAACAAEAAAAWAAAAAAACAAEAAAAXAAAAAAACAAEAAAAYAAAAAAACAAEAAAAZAAAAAAACAAEAAAAaAAAAAAACAAEAAAAbAAAAAAACAAEAAAAcAAAAAAADAAEAAAAPAP//AAAaAAMAAAALAP//AAAaAAIAAAAXAP//AAAYAAMAAAAYAP//AAAXAAMAAAAHAP//AAAXAAEAAAACAP//AAAXAAEAAAADAP//AAAYAAEAAAAEAP//AAAYAAEAAAAAAP//AAAYAAEAAAARAP//AAAYAAEAAAAUAP//AAAYAAIAAAAOAP//AAAYAAMAAAA=")
 tile_set = SubResource("TileSet_kaxuj")
 
 [node name="Platform" type="TileMapLayer" parent="."]
@@ -141,15 +142,18 @@ position = Vector2(393, -111)
 [node name="SP_4" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
 position = Vector2(402, -20)
 
-[node name="ChunkArea" type="Area2D" parent="."]
+[node name="ChunkZone" type="Area2D" parent="."]
 visible = false
 collision_mask = 96
 input_pickable = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkZone"]
 position = Vector2(227.5, 0)
 shape = SubResource("RectangleShape2D_1bkms")
 
-[connection signal="body_entered" from="ChunkArea" to="." method="_on_chunk_area_body_entered"]
-[connection signal="body_exited" from="ChunkArea" to="." method="_on_chunk_area_body_exited"]
+[node name="PlayerStartPoint" type="Marker2D" parent="."]
+position = Vector2(112, 0)
+
+[connection signal="body_entered" from="ChunkZone" to="." method="_on_chunk_zone_body_entered"]
+[connection signal="body_exited" from="ChunkZone" to="." method="_on_chunk_zone_body_exited"]

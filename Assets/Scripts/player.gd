@@ -1,10 +1,12 @@
 extends CharacterBody2D
+class_name Player
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -360.0
 
-signal damage_taken
-signal death
+signal DamageTaken
+signal Death
+signal ChunkTransition
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -79,9 +81,9 @@ func take_damage(dmg_taken: int, timescale_duration = 0.8):
 	print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")
 	
 	if health <= 0:
-		death.emit()
+		Death.emit()
 	else:
-		damage_taken.emit()
+		DamageTaken.emit()
 	
 	# Adjust timescale for more impact, duration < 0.8 is almost unnoticable
 	Engine.time_scale = 0.01
@@ -110,7 +112,7 @@ func can_dash() -> bool:
 	else:
 		return false
 
-
+# Set the position for the attack collision shape
 func set_attack_collision_position():
 	if face_direction_x == -1:
 		attack_area_collision_shape.position.x = -attack_area_pos.x
@@ -118,12 +120,13 @@ func set_attack_collision_position():
 		attack_area_collision_shape.position.x = attack_area_pos.x
 	attack_area_collision_shape.position.y = attack_area_pos.y
 
-# Signal Handlers
-#func _on_area_2d_area_entered(area: Area2D) -> void:
-	#if area.get_parent().name.containsn("Enemy"):
-		#area.get_parent().take_damage(damage)
+
+# Call this method when you want to put player in chunk transition state
+func enter_chunk_transition_state():
+	ChunkTransition.emit()
 
 
+## Signal Handlers
 func _on_dash_reset_timer_timeout() -> void:
 	dashes_left = no_of_dashes
 
@@ -132,7 +135,7 @@ func _on_coyote_timer_timeout() -> void:
 	in_coyote_time = false
 
 
-func _on_attack_reset_timer_timeout() -> void:
+func _on_attack_grace_timer_timeout() -> void:
 	current_atk_seq = 0
 
 

@@ -29,7 +29,6 @@ func enter():
 	#print("Entering player dash state")
 	player.dashes_left -= 1
 	
-	# TODO: Change dash animation depending if player is on floor or air
 	# TODO: Change particle effect depending if player is on floor or air
 	
 	# Set dash particle effect direction

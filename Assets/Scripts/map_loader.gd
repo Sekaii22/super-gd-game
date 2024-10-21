@@ -7,6 +7,7 @@ signal ChunkSpawned(chunk: Node)
 
 @onready var boundary_left: StaticBody2D = $BoundaryLeft
 @onready var boundary_right: StaticBody2D = $BoundaryRight
+@onready var transition_zone: Area2D = $TransitionZone
 
 ## Last element of chunk_resources is reserved for the boss chunk resource.
 @export var chunk_resources: Array[ChunkResource]
@@ -62,6 +63,9 @@ func _ready() -> void:
 	# Setup left right boundaries
 	boundary_left.position = boundary_vector_arr[0]
 	boundary_right.position = boundary_vector_arr[1]
+	
+	# Setup transition area position
+	transition_zone.position = boundary_vector_arr[1]
 
 
 func move_left_boundary_to_next():
@@ -74,3 +78,12 @@ func move_right_boundary_to_next():
 	if current_right_boundary_index < boundary_vector_arr.size() - 1:
 		current_right_boundary_index += 1
 		boundary_right.position = boundary_vector_arr[current_right_boundary_index]
+
+
+func move_transition_area():
+	transition_zone.get_child(0).set_deferred("disabled", true)
+	transition_zone.position = boundary_vector_arr[current_right_boundary_index]
+
+
+func enable_transition_area():
+	transition_zone.get_child(0).set_deferred("disabled", false)
