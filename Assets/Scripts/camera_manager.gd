@@ -13,6 +13,10 @@ func _on_map_manager_chunk_spawned(chunk_instance: Node2D) -> void:
 	camera.limit_left = chunk_instance.left_limit
 	camera.limit_right = chunk_instance.right_limit
 	
+	# Set first camera
+	if cameras.size() == 0:
+		update_camera(camera)
+	
 	cameras.append(camera)
 
 

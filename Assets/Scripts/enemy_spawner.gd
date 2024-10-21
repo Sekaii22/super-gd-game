@@ -9,11 +9,11 @@ signal OnWaveCleared
 
 ## Switch to turn on/off the spawner.
 @export var spawn_on_start: bool = false
-## Key = enemy names, Values = enemy scene
+## Key: string = enemy names, Values: object = enemy scene
 @export var enemy_dictionary: Dictionary
 ## An array of waves. Each element in the array is a dictionary 
 ## representing a single wave of enemy.
-## Key = spawn point number, Value = enemy names
+## Key: int = spawn point number, Value: string = enemy names
 @export var waves: Array[Dictionary]
 ## Number of times to loop the spawn of a particular wave of enemy.
 @export var waves_loops: Array[int]
@@ -66,7 +66,7 @@ func spawn_next_wave() -> bool:
 		wave_is_spawning = true
 		current_wave_num += 1
 
-		# temp_index is used becuase of 0-indexing of arrays
+		# temp_index is used because of 0-indexing of arrays
 		var temp_index = current_wave_num - 1
 
 		var wave: Dictionary

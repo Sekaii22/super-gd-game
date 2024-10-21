@@ -962,8 +962,11 @@ damage = 30
 no_of_basic_atks = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(203, 0)
 zoom = Vector2(1.7, 1.7)
-drag_right_margin = 0.05
+drag_vertical_enabled = true
+drag_left_margin = 0.0
+drag_right_margin = 0.0
 editor_draw_drag_margin = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]

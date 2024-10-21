@@ -28,7 +28,7 @@ func physics_update(_delta: float):
 		# Used for checking if the ground can be down-jumped
 		var ground_collider = ground_checker.get_collider()
 		
-		if Input.is_action_pressed("move-down") and ground_collider.name == "Platform":
+		if Input.is_action_pressed("move-down") and ground_collider.name.containsn("Platform"):
 			player.position.y += 2
 		else:
 			Transition.emit(self, "jump")

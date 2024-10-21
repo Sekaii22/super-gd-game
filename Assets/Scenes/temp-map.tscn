@@ -107,17 +107,19 @@ duration = 1.5
 transition = 1
 ease = 2
 
-[node name="MapRoot" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
+[node name="Map" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
 script = ExtResource("1_qgawk")
 obj_node_to_be_tracked = NodePath("EnemySpawner")
 disable_enemy_spawn = true
 
-[node name="Map" type="TileMapLayer" parent="."]
+[node name="TileMapLayers" type="Node2D" parent="."]
+
+[node name="Ground" type="TileMapLayer" parent="TileMapLayers"]
 use_parent_material = true
 tile_map_data = PackedByteArray("AAD//wAAAAABAAEAAAAAAAAAAAACAAEAAAABAAAAAAACAAEAAAACAAAAAAACAAEAAAADAAAAAAACAAEAAAAEAAAAAAACAAEAAAAFAAAAAAACAAEAAAAGAAAAAAACAAEAAAAHAAAAAAACAAEAAAAIAAAAAAACAAEAAAAJAAAAAAACAAEAAAAKAAAAAAACAAEAAAALAAAAAAACAAEAAAAMAAAAAAACAAEAAAANAAAAAAACAAEAAAAOAAAAAAACAAEAAAAPAAAAAAACAAEAAAAQAAAAAAACAAEAAAARAAAAAAACAAEAAAASAAAAAAACAAEAAAATAAAAAAACAAEAAAAUAAAAAAACAAEAAAAVAAAAAAACAAEAAAAWAAAAAAACAAEAAAAXAAAAAAACAAEAAAAYAAAAAAACAAEAAAAZAAAAAAACAAEAAAAaAAAAAAACAAEAAAAbAAAAAAACAAEAAAAPAP//AAAaAAMAAAALAP//AAAaAAIAAAAXAP//AAAYAAMAAAAYAP//AAAXAAMAAAAHAP//AAAXAAEAAAACAP//AAAXAAEAAAADAP//AAAYAAEAAAAEAP//AAAYAAEAAAAAAP//AAAYAAEAAAARAP//AAAYAAEAAAAUAP//AAAYAAIAAAAOAP//AAAYAAMAAAAcAAAAAAALAAEAAAAdAAAAAAALAAMAAAAeAAAAAAAMAAMAAAAfAAAAAAAMAAEAAAAgAAAAAAALAAEAAAAhAAAAAAALAAMAAAAiAAAAAAAMAAMAAAAjAAAAAAAMAAEAAAAkAAAAAAACAAEAAAAlAAAAAAACAAEAAAAmAAAAAAALAAEAAAAnAAAAAAAGAAMAAAAoAAAAAAAHAAIAAAApAAAAAAAIAAMAAAAqAAAAAAAMAAEAAAArAAAAAAACAAEAAAAsAAAAAAADAAEAAAAkAP//AAAaAAMAAAAlAP//AAAaAAMAAAAnAP7/AAAGAAEAAAAnAP//AAAGAAIAAAAoAP7/AAAHAAEAAAAoAP//AAAHAAIAAAApAP7/AAAIAAEAAAApAP//AAAIAAIAAAD/////AAAOAAEAAAAsAP//AAAOAAEAAAA=")
 tile_set = SubResource("TileSet_kaxuj")
 
-[node name="Platform" type="TileMapLayer" parent="."]
+[node name="Platform" type="TileMapLayer" parent="TileMapLayers"]
 tile_map_data = PackedByteArray("AAASAP3/AAASAAEAAAATAP3/AAATAAEAAAAUAP3/AAAUAAEAAAAVAP3/AAAVAAEAAAAVAP7/AAAVAAIAAAAVAP//AAAVAAMAAAASAP7/AAASAAIAAAASAP//AAASAAMAAAAWAP//AAASAAMAAAAaAP//AAAVAAMAAAAWAP7/AAATAAMAAAAWAP3/AAATAAMAAAAWAPz/AAATAAMAAAAaAP7/AAAUAAMAAAAaAP3/AAAUAAMAAAAaAPz/AAAUAAMAAAAWAPv/AAASAAEAAAAXAPv/AAATAAEAAAAaAPv/AAAVAAEAAAAYAPv/AAATAAEAAAAZAPv/AAATAAEAAAA=")
 tile_set = ExtResource("2_7hxl3")
 metadata/OneWay = false
@@ -151,7 +153,6 @@ position = Vector2(393, -111)
 position = Vector2(402, -20)
 
 [node name="ChunkZone" type="Area2D" parent="."]
-visible = false
 collision_mask = 96
 input_pickable = false
 monitorable = false
@@ -161,16 +162,15 @@ position = Vector2(352, 0)
 shape = SubResource("RectangleShape2D_1bkms")
 
 [node name="PhantomCamera" type="Node2D" parent="."]
-position = Vector2(338.824, 0)
 script = ExtResource("6_1ti7u")
-follow_mode = 1
+follow_mode = 2
 zoom = Vector2(1.7, 1.7)
 tween_resource = SubResource("Resource_14fwm")
 tween_on_load = false
 follow_damping = true
-dead_zone_width = 0.151
-dead_zone_height = 0.286
+follow_damping_value = Vector2(0.1, 0)
+dead_zone_width = 0.2
+dead_zone_height = 0.5
 show_viewfinder_in_play = true
-limit_left = 0
 
 [connection signal="body_entered" from="ChunkZone" to="." method="_on_chunk_zone_body_entered"]
