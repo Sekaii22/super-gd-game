@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
 [ext_resource type="PackedScene" uid="uid://c5s1h7agcy8re" path="res://Assets/Scenes/map_manager.tscn" id="3_bimks"]
-[ext_resource type="PackedScene" uid="uid://ebgb5ig3fl7t" path="res://Assets/Scenes/transition_manager.tscn" id="4_n3vwd"]
 [ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="4_t1jmh"]
+[ext_resource type="PackedScene" uid="uid://xv0o7bw8axls" path="res://Assets/Scenes/camera_manager.tscn" id="5_g8fgt"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 
@@ -19,17 +19,10 @@ _data = {
 "chunk_transition": SubResource("Animation_trtlb")
 }
 
-[node name="Stage1" type="Node2D"]
+[node name="game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_djm4j")]
 position = Vector2(13, -51)
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(154, 0)
-zoom = Vector2(1.2, 1.2)
-limit_bottom = 150
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
 
 [node name="Killzone" parent="." instance=ExtResource("4_t1jmh")]
 position = Vector2(0, 400)
@@ -46,4 +39,6 @@ libraries = {
 "": SubResource("AnimationLibrary_4ntqc")
 }
 
-[node name="TransitionManager" parent="." instance=ExtResource("4_n3vwd")]
+[node name="CameraManager" parent="." instance=ExtResource("5_g8fgt")]
+
+[connection signal="ChunkSpawned" from="MapManager" to="CameraManager" method="_on_map_manager_chunk_spawned"]

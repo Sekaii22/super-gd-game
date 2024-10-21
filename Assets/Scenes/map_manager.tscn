@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://c5s1h7agcy8re"]
+[gd_scene load_steps=7 format=3 uid="uid://c5s1h7agcy8re"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/map_manager.gd" id="1_x2qa2"]
-[ext_resource type="Script" path="res://Assets/Scripts/map_loader.gd" id="2_yc477"]
+[ext_resource type="Script" path="res://Assets/Scripts/map_manager.gd" id="2_yc477"]
 [ext_resource type="Script" path="res://Assets/Scripts/chunk_resource.gd" id="3_ohbnj"]
 [ext_resource type="Resource" uid="uid://dbbfwt6dp6sxm" path="res://Assets/Resources/MapResource/Stage1/temp_map_chunk.tres" id="4_63yng"]
 
@@ -17,39 +16,36 @@ b = Vector2(-300, 0)
 size = Vector2(102, 157)
 
 [node name="MapManager" type="Node2D" groups=["MapManager"]]
-script = ExtResource("1_x2qa2")
-
-[node name="MapLoader" type="Node2D" parent="."]
 script = ExtResource("2_yc477")
 chunk_resources = Array[ExtResource("3_ohbnj")]([ExtResource("4_63yng")])
 chunks_per_map = 3
 
-[node name="BoundaryLeft" type="StaticBody2D" parent="MapLoader"]
+[node name="BoundaryLeft" type="StaticBody2D" parent="."]
 collision_mask = 96
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapLoader/BoundaryLeft"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryLeft"]
 position = Vector2(-1.5, 0)
 rotation = 1.5708
 shape = SubResource("SegmentShape2D_2nnoy")
 
-[node name="BoundaryRight" type="StaticBody2D" parent="MapLoader"]
+[node name="BoundaryRight" type="StaticBody2D" parent="."]
 position = Vector2(1000, 0)
 collision_mask = 96
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapLoader/BoundaryRight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BoundaryRight"]
 position = Vector2(1.5, 0)
 rotation = -1.5708
 shape = SubResource("SegmentShape2D_rc2wn")
 
-[node name="TransitionZone" type="Area2D" parent="MapLoader"]
+[node name="TransitionZone" type="Area2D" parent="."]
+visible = false
 position = Vector2(995, 0)
 collision_layer = 128
 collision_mask = 96
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MapLoader/TransitionZone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionZone"]
 position = Vector2(-51, -78.5)
 shape = SubResource("RectangleShape2D_xjd1l")
 disabled = true
 
-[connection signal="ChunkSpawned" from="MapLoader" to="." method="_on_map_loader_chunk_spawned"]
-[connection signal="body_entered" from="MapLoader/TransitionZone" to="." method="_on_transition_zone_body_entered"]
+[connection signal="ChunkSpawned" from="." to="." method="_on_chunk_spawned"]

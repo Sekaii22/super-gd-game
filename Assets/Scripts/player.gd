@@ -34,9 +34,11 @@ var jumps_left: int
 var dashes_left: int
 var gravity_on: bool = true
 var current_atk_seq: int = 0
+var lock_direction: bool = false
 
 
 func _ready() -> void:
+	Global.player = self
 	jumps_left = no_of_jumps
 	dashes_left = no_of_dashes
 
@@ -50,10 +52,10 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move-left", "move-right")
 	
 	# Flip sprite direction and attack collision area
-	if direction == -1:
+	if direction == -1 and lock_direction == false:
 		animated_sprite.flip_h = true
 		face_direction_x = -1
-	elif direction == 1:
+	elif direction == 1 and lock_direction == false:
 		animated_sprite.flip_h = false
 		face_direction_x = 1
 	set_attack_collision_position()

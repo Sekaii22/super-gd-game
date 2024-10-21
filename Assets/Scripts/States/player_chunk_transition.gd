@@ -17,8 +17,13 @@ func enter():
 	
 	player.velocity.x = 1.0 * player.SPEED
 	
+	# lock player direction to facing right
+	player.lock_direction = true
+	player.face_direction_x = 1
+	
 func exit():
 	player.velocity.x = 0
+	player.lock_direction = false
 
 
 func update(_delta: float):

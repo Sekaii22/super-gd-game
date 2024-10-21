@@ -7,6 +7,4 @@
 script = ExtResource("1_2nqpd")
 chunk_scene = ExtResource("1_737q4")
 start_point = Vector2(-16, 0)
-end_point = Vector2(464, 0)
-no_of_enemies = 4
-objective = 0
+end_point = Vector2(720, 0)
