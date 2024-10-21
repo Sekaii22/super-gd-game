@@ -174,4 +174,3 @@ show_viewfinder_in_play = true
 limit_left = 0
 
 [connection signal="body_entered" from="ChunkZone" to="." method="_on_chunk_zone_body_entered"]
-[connection signal="body_exited" from="ChunkZone" to="." method="_on_chunk_zone_body_exited"]

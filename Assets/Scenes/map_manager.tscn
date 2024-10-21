@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5s1h7agcy8re"]
+[gd_scene load_steps=6 format=3 uid="uid://c5s1h7agcy8re"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/map_manager.gd" id="2_yc477"]
 [ext_resource type="Script" path="res://Assets/Scripts/chunk_resource.gd" id="3_ohbnj"]
@@ -11,9 +11,6 @@ b = Vector2(-300, 0)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_rc2wn"]
 a = Vector2(300, 0)
 b = Vector2(-300, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjd1l"]
-size = Vector2(102, 157)
 
 [node name="MapManager" type="Node2D" groups=["MapManager"]]
 script = ExtResource("2_yc477")
@@ -36,16 +33,5 @@ collision_mask = 96
 position = Vector2(1.5, 0)
 rotation = -1.5708
 shape = SubResource("SegmentShape2D_rc2wn")
-
-[node name="TransitionZone" type="Area2D" parent="."]
-visible = false
-position = Vector2(995, 0)
-collision_layer = 128
-collision_mask = 96
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TransitionZone"]
-position = Vector2(-51, -78.5)
-shape = SubResource("RectangleShape2D_xjd1l")
-disabled = true
 
 [connection signal="ChunkSpawned" from="." to="." method="_on_chunk_spawned"]

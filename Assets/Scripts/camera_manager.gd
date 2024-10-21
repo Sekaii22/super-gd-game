@@ -19,6 +19,7 @@ func _on_map_manager_chunk_spawned(chunk_instance: Node2D) -> void:
 func on_player_entered_chunk(chunk: MapChunk):
 	print("Player entered received in camera manager")
 	var camera = chunk.get_node("PhantomCamera")
+	Global.player_chunk_pos = chunk.chunk_pos
 	update_camera(camera)
 
 

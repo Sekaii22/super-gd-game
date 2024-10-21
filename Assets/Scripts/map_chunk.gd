@@ -6,14 +6,13 @@ class_name MapChunk
 
 signal ChunkObjectiveCleared
 signal PlayerEnteredChunk(MapChunk)
-signal PlayerExitedChunk(MapChunk)
 
 ## A node that implements the OnCleared signal.
 @export var obj_node_to_be_tracked: ChunkObjective
 @export var disable_enemy_spawn: bool = false
 
 var objective_cleared = false
-var chunk_pos = null
+var chunk_pos: int
 var left_limit: int
 var right_limit: int
 
@@ -30,7 +29,7 @@ func _on_cleared():
 	ChunkObjectiveCleared.emit()
 
 
-# Start the chunk objective, e.g. start spawning enemies.
+# Start the chunk objective on enter, e.g. start spawning enemies.
 func _on_chunk_zone_body_entered(_body: Node2D) -> void:
 	print("Entered ", self.name)
 	PlayerEnteredChunk.emit(self)
@@ -40,13 +39,10 @@ func _on_chunk_zone_body_entered(_body: Node2D) -> void:
 		if obj_node_to_be_tracked.objective == ChunkObjective.OBJECTIVE_TYPE.KILL_ENEMIES \
 			and obj_node_to_be_tracked.started == false:
 			await get_tree().create_timer(1.0).timeout
+			
+			# Start the enemy spawn
 			obj_node_to_be_tracked.spawn_next_wave()
 
 	# TODO: add for other objective type
 	#elif obj_node_to_be_tracked.objective == ChunkObjective.OBJECTIVE_TYPE.PLATFORMER:
 		#pass
-
-
-func _on_chunk_zone_body_exited(_body: Node2D) -> void:
-	print("Exited ", self.name)
-	PlayerExitedChunk.emit(self)

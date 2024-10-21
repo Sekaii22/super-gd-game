@@ -10,7 +10,6 @@ signal StageObjectiveCleared
 
 @onready var boundary_left: StaticBody2D = $BoundaryLeft
 @onready var boundary_right: StaticBody2D = $BoundaryRight
-#@onready var transition_zone: Area2D = $TransitionZone
 
 ## An array of chunks that can be loaded.
 ## Last element of chunk_resources is reserved for the boss chunk resource.
@@ -93,9 +92,6 @@ func load_map():
 	# Setup initial left right boundaries
 	boundary_left.position = boundary_vector_arr[0]
 	boundary_right.position = boundary_vector_arr[1]
-	
-	# Setup initial transition area position
-	#transition_zone.position = boundary_vector_arr[1]
 
 
 func move_left_boundary_to_next():
@@ -110,15 +106,6 @@ func move_right_boundary_to_next():
 		boundary_right.position = boundary_vector_arr[current_right_boundary_index]
 
 
-#func move_transition_area():
-	#transition_zone.get_child(0).set_deferred("disabled", true)
-	#transition_zone.position = boundary_vector_arr[current_right_boundary_index]
-
-
-#func enable_transition_area():
-	#transition_zone.get_child(0).set_deferred("disabled", false)
-
-
 # Signal Handlers
 func _on_chunk_spawned(chunk_instance: Node2D) -> void:
 	# Initialize chunk list
@@ -131,7 +118,6 @@ func _on_chunk_spawned(chunk_instance: Node2D) -> void:
 	
 	# Connect to objective cleared signal from each chunk
 	chunk_instance.connect("ChunkObjectiveCleared", _on_chunk_objective_cleared)
-	#chunk_instance.connect("PlayerExitedChunk", _on_map_chunk_player_exited)
 
 
 func _on_chunk_objective_cleared():
@@ -142,11 +128,10 @@ func _on_chunk_objective_cleared():
 		if current_chunk.objective_cleared:
 			# Move right boundary and enable transition area
 			move_right_boundary_to_next()
-			#enable_transition_area()
 			
 			no_of_chunks_completed += 1
 			
-			# Update chunk
+			# Update active chunk
 			if current_chunk_index + 1 <= chunks_list.size() - 1:
 				current_chunk_index += 1
 				current_chunk = chunks_list[current_chunk_index]
