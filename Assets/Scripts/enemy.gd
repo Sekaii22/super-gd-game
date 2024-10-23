@@ -9,7 +9,7 @@ signal death
 var from_run: bool = false
 var exhausted: bool = false
 @export var health = 50
-@export var ray_cast_2d: RayCast2D
+@export var player_tracker: RayCast2D
 @export var damage = 10
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_area: CollisionShape2D = $AttackRange/CollisionShape2D

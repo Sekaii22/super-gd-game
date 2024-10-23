@@ -11,7 +11,7 @@ func enter():
 	animation_player.play("idle")
 
 func exit():
-	pass
+	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
 	pass
