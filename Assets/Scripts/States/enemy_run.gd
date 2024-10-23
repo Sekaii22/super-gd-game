@@ -5,6 +5,7 @@ class_name EnemyRun
 var jump_on_cooldown: bool = false
 var direction
 var player
+@export var player_tracker: RayCast2D
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
@@ -32,7 +33,7 @@ func exit():
 	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
-	direction = enemy.global_position.direction_to(player.global_position)
+	direction = player_tracker.target_position.normalized()
 	if direction.x > 0:
 		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
@@ -80,6 +81,15 @@ func _on_enemy_death() -> void:
 
 func _on_player_tracker_player_escaped() -> void:
 	Transition.emit(self, "idle")
+	#direction = player_tracker.target_position.normalized()
+	#if direction.x > 0 and enemy.global_position != player_tracker.target_position:
+		#enemy.velocity.x = direction.x * enemy.SPEED
+		#animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
+	#elif direction.x < 0 and enemy.global_position != player_tracker.target_position:
+		#enemy.velocity.x = direction.x * enemy.SPEED
+		#animated_sprite.flip_h = false
+	#elif enemy.global_position == player_tracker.target_position:
+		#Transition.emit(self, "idle")
 
 func _on_timer_timeout() -> void:
 	jump_on_cooldown = false
