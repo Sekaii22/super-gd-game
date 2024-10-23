@@ -2,6 +2,7 @@ extends ChunkObjective
 class_name EnemySpawner
 
 signal OnWaveCleared
+signal OnEnemySpawned(Node2D)
 
 ## EnemySpawner node needs to have a SpawnPoints child node containing
 ## spawn points marker node.
@@ -96,6 +97,7 @@ func spawn_next_wave() -> bool:
 						var enemy: Node2D = create_enemy(enemy_name, spawn_point)
 						enemy.name = "Enemy_" + str(enemy.get_instance_id()) + "_" + enemy_name
 						add_child(enemy)
+						OnEnemySpawned.emit(enemy)
 
 			# Wait abit before looping
 			await get_tree().create_timer(loop_wait_time).timeout
