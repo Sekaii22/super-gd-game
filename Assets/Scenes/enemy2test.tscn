@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://c150bak61744y"]
+[gd_scene load_steps=56 format=3 uid="uid://c150bak61744y"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/enemy.gd" id="1_owqi4"]
 [ext_resource type="Texture2D" uid="uid://ct0pmh7jd5ocv" path="res://Assets/Sprites/Characters/Mob/Boar/Walk/Walk-Base-Sheet.png" id="2_7dwal"]
@@ -477,11 +477,14 @@ font = ExtResource("5_6cuf5")
 [sub_resource type="CircleShape2D" id="CircleShape2D_angtn"]
 radius = 15.5
 
-[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("ray_cast_2d") groups=["Enemy"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ria8m"]
+size = Vector2(168, 66)
+
+[node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("player_tracker") groups=["Enemy"]]
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_owqi4")
-ray_cast_2d = NodePath("PlayerTracker")
+player_tracker = NodePath("PlayerTracker")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -12)
@@ -522,11 +525,13 @@ script = ExtResource("8_h2icx")
 [node name="death" type="Node" parent="StateMachine"]
 script = ExtResource("9_8lymm")
 
-[node name="alert" type="Node" parent="StateMachine"]
+[node name="alert" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("10_wo0rq")
+enemy = NodePath("../..")
 
-[node name="run" type="Node" parent="StateMachine"]
+[node name="run" type="Node" parent="StateMachine" node_paths=PackedStringArray("player_tracker")]
 script = ExtResource("11_yrj0g")
+player_tracker = NodePath("../../PlayerTracker")
 
 [node name="attack" type="Node" parent="StateMachine"]
 script = ExtResource("15_pcfyt")
@@ -540,12 +545,25 @@ position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_angtn")
 disabled = true
 
-[node name="PlayerTracker" type="RayCast2D" parent="."]
+[node name="PlayerTracker" type="RayCast2D" parent="." node_paths=PackedStringArray("player_detection_range", "check_last_seen")]
 position = Vector2(4, -12)
 target_position = Vector2(30, 0)
 collision_mask = 96
 script = ExtResource("12_7f2ob")
-raycast_scale = 120.0
+player_detection_range = NodePath("PlayerDetectionRange")
+check_last_seen = NodePath("CheckLastSeen")
+
+[node name="PlayerDetectionRange" type="Area2D" parent="PlayerTracker"]
+position = Vector2(-4, 12)
+collision_layer = 0
+collision_mask = 96
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerTracker/PlayerDetectionRange"]
+position = Vector2(0, -33)
+shape = SubResource("RectangleShape2D_ria8m")
+
+[node name="CheckLastSeen" type="Timer" parent="PlayerTracker"]
+wait_time = 0.05
 
 [node name="JumpCooldown" type="Timer" parent="."]
 wait_time = 2.0
@@ -570,7 +588,11 @@ one_shot = true
 [connection signal="death" from="." to="StateMachine/attack" method="_on_enemy_death"]
 [connection signal="body_entered" from="AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="player_detected" from="PlayerTracker" to="StateMachine/idle" method="_on_player_tracker_player_detected"]
+[connection signal="player_escaped" from="PlayerTracker" to="StateMachine/alert" method="_on_player_tracker_player_escaped"]
 [connection signal="player_escaped" from="PlayerTracker" to="StateMachine/run" method="_on_player_tracker_player_escaped"]
+[connection signal="body_entered" from="PlayerTracker/PlayerDetectionRange" to="PlayerTracker" method="_on_player_detection_range_body_entered"]
+[connection signal="body_exited" from="PlayerTracker/PlayerDetectionRange" to="PlayerTracker" method="_on_player_detection_range_body_exited"]
+[connection signal="timeout" from="PlayerTracker/CheckLastSeen" to="PlayerTracker" method="_on_check_last_seen_timeout"]
 [connection signal="timeout" from="JumpCooldown" to="StateMachine/run" method="_on_timer_timeout"]
 [connection signal="timeout" from="ChargeAttack" to="StateMachine/attack" method="_on_charge_attack_timeout"]
 [connection signal="timeout" from="AttackDuration" to="StateMachine/attack" method="_on_attack_duration_timeout"]
