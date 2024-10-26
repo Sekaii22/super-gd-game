@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cao8cinsjef6g"]
+[gd_scene load_steps=18 format=3 uid="uid://cao8cinsjef6g"]
 
 [ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
 [ext_resource type="PackedScene" uid="uid://c5s1h7agcy8re" path="res://Assets/Scenes/map_manager.tscn" id="3_bimks"]
@@ -19,18 +19,6 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 
-[sub_resource type="Animation" id="Animation_icoe4"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_trtlb"]
-resource_name = "chunk_transition"
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ntqc"]
-_data = {
-"RESET": SubResource("Animation_icoe4"),
-"chunk_transition": SubResource("Animation_trtlb")
-}
-
 [node name="game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_djm4j")]
@@ -39,17 +27,11 @@ position = Vector2(13, -51)
 [node name="Killzone" parent="." instance=ExtResource("4_t1jmh")]
 position = Vector2(0, 400)
 damage = 10000
-knockback_str = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_obkfb")
 
 [node name="MapManager" parent="." instance=ExtResource("3_bimks")]
-
-[node name="StageAnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_4ntqc")
-}
 
 [node name="CameraManager" parent="." instance=ExtResource("5_g8fgt")]
 

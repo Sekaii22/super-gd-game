@@ -69,7 +69,8 @@ func _physics_process(delta: float) -> void:
 		in_coyote_time = true
 	
 	# Reduce knockback overtime
-	knockback = knockback.lerp(Vector2.ZERO, 0.1)
+	#knockback = knockback.lerp(Vector2.ZERO, 0.1)
+	knockback.x = lerp(knockback.x, 0.0, 0.1)
 	
 	# Only start dash reset timer when at least 1 dash is consumed
 	# and dash reset time is not started alr
@@ -78,7 +79,7 @@ func _physics_process(delta: float) -> void:
 
 
 # Call this method when you want the player to take damage
-func take_damage(dmg_taken: int, timescale_duration = 0.8):
+func take_damage(dmg_taken: int, timescale_duration = 0.7):
 	health -= dmg_taken
 	print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")
 	
@@ -94,9 +95,15 @@ func take_damage(dmg_taken: int, timescale_duration = 0.8):
 	
 
 # Call this method when you want to give player some knockback
-func take_knockback(body: Node2D, knockback_str: float):
+func take_knockback(body: Node2D, knockback_x_str: float = 150.0, \
+	knockback_y_str: float = 150.0):
 	var direction = body.global_position.direction_to(global_position)
-	knockback = direction * knockback_str
+	if direction.x < 0:
+		knockback.x = -1 * knockback_x_str
+	else:
+		knockback.x = 1 * knockback_x_str
+	
+	knockback.y = -1 * knockback_y_str
 
 
 # Returns a boolean indicating if player is able to jump

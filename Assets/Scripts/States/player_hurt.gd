@@ -3,15 +3,17 @@ class_name PlayerHurt
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
+@onready var animation_player_2: AnimationPlayer = $"../../AnimationPlayer2"
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
 	#print("Entering player hurt state")
 	animation_player.play("hurt")
+	animation_player_2.play("invulnerable")
 	
 	# TODO: Find a better way for upwards knockback pls
-	player.velocity.y = -150
+	player.velocity = player.knockback
 	
 func exit():
 	pass
@@ -21,6 +23,8 @@ func update(_delta: float):
 	
 func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
+	
+	# knockback x is lerped in player.gd while knockback y is taken care by gravity
 	player.velocity.x = player.knockback.x
 	
 	if !animation_player.is_playing():

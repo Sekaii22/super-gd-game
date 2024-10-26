@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://delsdx2wf73ef"]
+
+[ext_resource type="Texture2D" uid="uid://dirv5ob7yv2qp" path="res://Assets/Sprites/Background/High Forest/Tiles_16x16.png" id="1_btjjd"]
+[ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="2_ucps0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f8h7m"]
+size = Vector2(4, 20)
+
+[node name="Spike" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("1_btjjd")
+region_enabled = true
+region_rect = Rect2(351.963, 243.858, 16.9891, 23.5768)
+
+[node name="Killzone" parent="." instance=ExtResource("2_ucps0")]
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_f8h7m")

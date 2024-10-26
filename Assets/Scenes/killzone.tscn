@@ -6,8 +6,4 @@
 script = ExtResource("1_rrxt1")
 damage = 10
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.6
-
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

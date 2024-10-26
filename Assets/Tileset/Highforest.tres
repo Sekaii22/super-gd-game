@@ -1,10 +1,11 @@
-[gd_resource type="TileSet" load_steps=18 format=3 uid="uid://cmlrx70bhxuii"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://cmlrx70bhxuii"]
 
 [ext_resource type="Texture2D" uid="uid://dirv5ob7yv2qp" path="res://Assets/Sprites/Background/High Forest/Tiles_16x16.png" id="1_lecf4"]
 [ext_resource type="Texture2D" uid="uid://b3etpugovho2w" path="res://Assets/Sprites/Background/High Forest/Props-Rocks.png" id="2_khobl"]
 [ext_resource type="Texture2D" uid="uid://0dn80gvo7i6d" path="res://Assets/Sprites/Background/High Forest/Tree-Assets.png" id="3_dhgop"]
-[ext_resource type="PackedScene" uid="uid://delsdx2wf73ef" path="res://Assets/Scenes/spike.tscn" id="4_c3av4"]
+[ext_resource type="PackedScene" uid="uid://delsdx2wf73ef" path="res://Assets/Scenes/Traps/spike_long.tscn" id="4_c3av4"]
 [ext_resource type="Texture2D" uid="uid://cgiglsytk0bm4" path="res://Assets/Sprites/Background/High Forest/Trees/Green-Tree.png" id="4_qdysm"]
+[ext_resource type="PackedScene" uid="uid://dmgwkvxa3tdhu" path="res://Assets/Scenes/Traps/spike_short.tscn" id="6_ig2bu"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_xxx8c"]
 tile_data = PackedInt32Array(0, 131072, 10, 65536, 131072, 11, 1, 65536, 5, 65537, 65536, 6)
@@ -1220,7 +1221,9 @@ texture = ExtResource("4_qdysm")
 58:68/0/texture_origin = Vector2i(0, 48)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_eemt6"]
+resource_name = "Traps"
 scenes/1/scene = ExtResource("4_c3av4")
+scenes/2/scene = ExtResource("6_ig2bu")
 
 [resource]
 physics_layer_0/collision_layer = 1

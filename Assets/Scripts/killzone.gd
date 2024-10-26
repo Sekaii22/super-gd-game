@@ -1,18 +1,9 @@
 extends Area2D
 
 @export var damage: int = 100
-@export var knockback_str: float = 10.0
-@onready var timer: Timer = $Timer
+@export var knockback_x_str: float = 300.0
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.name == "Player":
+	if body.name.containsn("Player"):
 		body.take_damage(damage)
-		body.take_knockback(self, knockback_str)
-		
-		if body.health <= 0:
-			Engine.time_scale = 0.5
-			timer.start()
-
-func _on_timer_timeout() -> void:
-	get_tree().reload_current_scene()
-	Engine.time_scale = 1
+		body.take_knockback(self, knockback_x_str)

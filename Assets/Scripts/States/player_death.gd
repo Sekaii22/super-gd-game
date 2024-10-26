@@ -4,13 +4,20 @@ class_name PlayerDeath
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 
+@export var death_time: float = 3
+
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
 	
 	#print("Entering player death state")
 	animation_player.play("death")
 	
-	# TODO: Put the game loop functionality here instead of killzone script. Reset scene on death after timer.
+	# Restart scene after death_time
+	player.lock_direction = true
+	Engine.time_scale = 0.5
+	await get_tree().create_timer(death_time * Engine.time_scale).timeout
+	get_tree().reload_current_scene()
+	Engine.time_scale = 1
 	
 func exit():
 	pass
