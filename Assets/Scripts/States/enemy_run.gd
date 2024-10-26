@@ -4,7 +4,7 @@ class_name EnemyRun
 #var begin_storing: bool = false
 var jump_on_cooldown: bool = false
 var direction
-var player
+var player: CharacterBody2D
 @export var player_tracker: RayCast2D
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
@@ -80,7 +80,8 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 func _on_player_tracker_player_escaped() -> void:
-	Transition.emit(self, "idle")
+	Transition.emit(self, "survey")
+
 	#direction = player_tracker.target_position.normalized()
 	#if direction.x > 0 and enemy.global_position != player_tracker.target_position:
 		#enemy.velocity.x = direction.x * enemy.SPEED
@@ -88,7 +89,7 @@ func _on_player_tracker_player_escaped() -> void:
 	#elif direction.x < 0 and enemy.global_position != player_tracker.target_position:
 		#enemy.velocity.x = direction.x * enemy.SPEED
 		#animated_sprite.flip_h = false
-	#elif enemy.global_position == player_tracker.target_position:
+	#elif abs(enemy.global_position.x - player_tracker.get_collision_point().x) < 3:
 		#Transition.emit(self, "idle")
 
 func _on_timer_timeout() -> void:

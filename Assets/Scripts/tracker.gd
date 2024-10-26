@@ -49,6 +49,7 @@ func _on_player_detection_range_body_entered(body: Node2D) -> void:
 		player_detected.emit()
 
 func _on_player_detection_range_body_exited(body: Node2D) -> void:
+	print("collision point "+str(get_collision_point()))
 	if body.name.containsn("Player"): #This should detect the exiting body as player...
 		player_entered_area = false #Boolean check false for player within range to deactivate raycast position recording
 		player_escaped.emit()
