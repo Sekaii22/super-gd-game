@@ -6,13 +6,13 @@ var player: CharacterBody2D
 @onready var dash_particle: GPUParticles2D = $"../../DashParticle"
 
 # TODO: Put all these in a player class resource
+#@export var min_time_in_dash: float = 0.25
 @export var dash_factor: float = 6
-@export var min_time_in_dash: float = 0.25
 @export var dash_left_particle_tex: Texture2D
 @export var dash_right_particle_tex: Texture2D
 @export var dash_particle_offset_x: int = -22
 
-var dash_timer: float = 0
+#var dash_timer: float = 0
 var dash_str: float = 0
 
 func enter():
@@ -43,7 +43,8 @@ func enter():
 	dash_particle.restart()
 	
 	# Set up initial timer and dash strength
-	dash_timer = min_time_in_dash
+	#dash_timer = min_time_in_dash
+	#dash_timer = animation_player.current_animation_length * 0.85
 	dash_str = player.SPEED * dash_factor
 	
 func exit():
@@ -52,8 +53,9 @@ func exit():
 	player.set_collision_layer_value(7, false)
 	
 func update(_delta: float):
-	if dash_timer > 0:
-		dash_timer -= _delta
+	pass
+	#if dash_timer > 0:
+		#dash_timer -= _delta
 	
 func physics_update(_delta: float):
 	var direction := Input.get_axis("move-left", "move-right")
@@ -61,20 +63,23 @@ func physics_update(_delta: float):
 	dash_str = lerp(dash_str, 0.0, 0.1)
 	player.velocity.x = player.face_direction_x * dash_str
 	
-	if dash_timer <= 0:
+	# Dash action can be done without waiting for current dash to fully finish
+	#if dash_timer <= 0:
+		#if InputBuffer.is_action_press_buffered("dash") and player.can_dash():
+			#player.gravity_on = true
+			#Transition.emit(self, "dash")
+
+	if !animation_player.is_playing():
 		player.gravity_on = true
-		
+
 		if player.is_on_floor():
 			if direction == 0:
 				Transition.emit(self, "idle")
 			else:
 				Transition.emit(self, "run")
-			
+
 		elif player.velocity.y > 0 and !player.is_on_floor():
 			Transition.emit(self, "fall")
-			
-		elif InputBuffer.is_action_press_buffered("dash") and player.can_dash():
-			Transition.emit(self, "dash")
 
 	# Allow attack to cancel dash
 	if InputBuffer.is_action_press_buffered("attack"):

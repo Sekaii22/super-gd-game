@@ -135,6 +135,19 @@ func enter_chunk_transition_state():
 	ChunkTransition.emit()
 
 
+# Abilities
+func passive():
+	pass
+
+
+func ability_1():
+	pass
+
+
+func ability_2():
+	pass
+
+
 ## Signal Handlers
 func _on_dash_reset_timer_timeout() -> void:
 	dashes_left = no_of_dashes

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d3omnmynvuglo" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0010_1-export_h_lengthen.png" id="6_cpn2j"]
 [ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="6_pirg3"]
 [ext_resource type="Texture2D" uid="uid://be3amwdst7rdr" path="res://Assets/Sprites/Background/High Forest/Background_edit.png" id="7_7ovbf"]
-[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="7_fihna"]
+[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/Player/player.tscn" id="7_fihna"]
 [ext_resource type="Texture2D" uid="uid://c11u8ansojtua" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0009_2.png" id="9_rbncn"]
 [ext_resource type="Texture2D" uid="uid://djiiwlhwyw4it" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0008_3.png" id="10_v4mia"]
 [ext_resource type="Texture2D" uid="uid://3vsqw12ty707" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0007_Lights.png" id="11_yt5n1"]

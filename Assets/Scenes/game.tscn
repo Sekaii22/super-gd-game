@@ -1,6 +1,5 @@
 [gd_scene load_steps=18 format=3 uid="uid://cao8cinsjef6g"]
 
-[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/player.tscn" id="1_djm4j"]
 [ext_resource type="PackedScene" uid="uid://c5s1h7agcy8re" path="res://Assets/Scenes/map_manager.tscn" id="3_bimks"]
 [ext_resource type="PackedScene" uid="uid://bnoy87d42yyoj" path="res://Assets/Scenes/killzone.tscn" id="4_t1jmh"]
 [ext_resource type="PackedScene" uid="uid://xv0o7bw8axls" path="res://Assets/Scenes/camera_manager.tscn" id="5_g8fgt"]
@@ -16,13 +15,18 @@
 [ext_resource type="Texture2D" uid="uid://csurca8mfdm6v" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0002_7.png" id="13_30f1u"]
 [ext_resource type="Texture2D" uid="uid://csf0f0k4c7g2s" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0001_8.png" id="14_vmu0h"]
 [ext_resource type="Texture2D" uid="uid://c7l52ah7xttpc" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0000_9.png" id="15_fsgi3"]
+[ext_resource type="PackedScene" uid="uid://cw8xqndtb4i6m" path="res://Assets/Scenes/Player/fire_knight_player.tscn" id="17_3i78k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 
 [node name="game" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_djm4j")]
-position = Vector2(13, -51)
+[node name="Player" parent="." instance=ExtResource("17_3i78k")]
+position = Vector2(140, -122)
+
+[node name="MapManager" parent="." instance=ExtResource("3_bimks")]
+
+[node name="CameraManager" parent="." instance=ExtResource("5_g8fgt")]
 
 [node name="Killzone" parent="." instance=ExtResource("4_t1jmh")]
 position = Vector2(0, 400)
@@ -30,10 +34,6 @@ damage = 10000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 shape = SubResource("WorldBoundaryShape2D_obkfb")
-
-[node name="MapManager" parent="." instance=ExtResource("3_bimks")]
-
-[node name="CameraManager" parent="." instance=ExtResource("5_g8fgt")]
 
 [node name="ParallexBackground" type="Node2D" parent="."]
 z_index = -10
