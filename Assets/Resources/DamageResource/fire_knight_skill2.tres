@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AttackResource" load_steps=2 format=3 uid="uid://dhm87rse4xa2w"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/ResourceScript/damage_resource.gd" id="1_34b73"]
+
+[resource]
+script = ExtResource("1_34b73")
+damage = 80
+type = "FIRE"
+crit_rate_percent = 15.0
+crit_damage_percent = 150.0

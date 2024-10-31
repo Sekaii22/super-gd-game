@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://csurca8mfdm6v" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0002_7.png" id="13_30f1u"]
 [ext_resource type="Texture2D" uid="uid://csf0f0k4c7g2s" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0001_8.png" id="14_vmu0h"]
 [ext_resource type="Texture2D" uid="uid://c7l52ah7xttpc" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0000_9.png" id="15_fsgi3"]
-[ext_resource type="PackedScene" uid="uid://cw8xqndtb4i6m" path="res://Assets/Scenes/Player/fire_knight_player.tscn" id="17_3i78k"]
+[ext_resource type="PackedScene" uid="uid://cw8xqndtb4i6m" path="res://Assets/Scenes/Players/fire_knight_player.tscn" id="17_3i78k"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_obkfb"]
 

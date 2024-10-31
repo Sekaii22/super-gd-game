@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_kwufo"]
 [ext_resource type="TileSet" uid="uid://cmlrx70bhxuii" path="res://Assets/Tileset/Highforest.tres" id="3_6cvy2"]
 [ext_resource type="PackedScene" uid="uid://dnhfe8ng1lfu1" path="res://Assets/Scenes/enemy_spawner.tscn" id="4_1t8n6"]
-[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/Player/player.tscn" id="4_c83f7"]
+[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/Players/player.tscn" id="4_c83f7"]
 [ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="5_n8rq3"]
 [ext_resource type="Texture2D" uid="uid://d3omnmynvuglo" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0010_1-export_h_lengthen.png" id="6_anqj6"]
 [ext_resource type="Texture2D" uid="uid://be3amwdst7rdr" path="res://Assets/Sprites/Background/High Forest/Background_edit.png" id="7_os6af"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ChunkResource" load_steps=3 format=3 uid="uid://b5i1mg2r1jeum"]
 
 [ext_resource type="PackedScene" uid="uid://cnh34skb24prh" path="res://Assets/Scenes/stage1_chunk2.tscn" id="1_jgsu2"]
-[ext_resource type="Script" path="res://Assets/Scripts/chunk_resource.gd" id="1_oq38a"]
+[ext_resource type="Script" path="res://Assets/Scripts/ResourceScript/chunk_resource.gd" id="1_oq38a"]
 
 [resource]
 script = ExtResource("1_oq38a")

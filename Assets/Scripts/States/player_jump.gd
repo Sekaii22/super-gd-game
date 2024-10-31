@@ -19,6 +19,8 @@ func enter():
 	
 	# Jump animation and particle effect
 	animation_player.play("jump")
+	
+	# Not using is_on_floor cause of coyote time jumps
 	if player.jumps_left != player.no_of_jumps:
 		jump_particle.restart()
 		
@@ -60,7 +62,3 @@ func _on_player_damage_taken() -> void:
 
 func _on_player_death() -> void:
 	Transition.emit(self, "death")
-
-
-func _on_player_chunk_transition() -> void:
-	Transition.emit(self, "chunk_transition")

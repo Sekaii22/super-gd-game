@@ -1,6 +1,6 @@
 [gd_scene load_steps=90 format=3 uid="uid://xjxshr0c3you"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/player.gd" id="1_qd8uc"]
+[ext_resource type="Script" path="res://Assets/Scripts/Players/player.gd" id="1_qd8uc"]
 [ext_resource type="Texture2D" uid="uid://2r3b4s6ii3n7" path="res://Assets/Sprites/Characters/High Forest Character/Attack-01/Attack-01-Sheet.png" id="2_cc3ae"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_rxrcc"]
 [ext_resource type="Texture2D" uid="uid://ckwcvp6rgqcxj" path="res://Assets/Sprites/Characters/High Forest Character/Dead/Dead-Sheet_64x80.png" id="3_57w18"]

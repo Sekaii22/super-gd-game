@@ -45,7 +45,3 @@ func _on_player_damage_taken() -> void:
 
 func _on_player_death() -> void:
 	Transition.emit(self, "death")
-
-
-func _on_player_chunk_transition() -> void:
-	Transition.emit(self, "chunk_transition")

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c5s1h7agcy8re"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/map_manager.gd" id="2_yc477"]
-[ext_resource type="Script" path="res://Assets/Scripts/chunk_resource.gd" id="3_ohbnj"]
+[ext_resource type="Script" path="res://Assets/Scripts/ResourceScript/chunk_resource.gd" id="3_ohbnj"]
 [ext_resource type="Resource" uid="uid://dbbfwt6dp6sxm" path="res://Assets/Resources/MapResource/Stage1/temp_map_chunk.tres" id="4_63yng"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_2nnoy"]

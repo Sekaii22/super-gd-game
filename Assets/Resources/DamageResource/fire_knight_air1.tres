@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DamageResource" load_steps=2 format=3 uid="uid://b3uiyg736y3vp"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/ResourceScript/damage_resource.gd" id="1_bx3ko"]
+
+[resource]
+script = ExtResource("1_bx3ko")
+damage = 30
+type = "PHYSICAL"
+crit_rate_percent = 10.0
+crit_damage_percent = 150.0

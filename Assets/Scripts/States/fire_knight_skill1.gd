@@ -1,9 +1,10 @@
 extends State
-class_name PlayerAttack
+class_name FireKnightSkill1
 
 var player: CharacterBody2D
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var attack_area: CollisionShape2D = $"../../AttackArea/CollisionShape2D"
+@onready var skill_button_1: SkillButton = $"../../UI/ActionBar/SkillButton1"
 
 # TODO: Put all these in a player class resource
 @export var time_in_atk_factor: float = 0.7
@@ -13,27 +14,19 @@ var atk_timer: float
 
 func enter():
 	player = get_tree().get_first_node_in_group("Player")
-	
-	if player.is_on_floor() or !animation_player.has_animation("air_attack"):
-		player.current_atk_seq += 1
-		#print("Entering player attack " + str(player.current_atk_seq) + " state")
-		animation_player.play("attack" + str(player.current_atk_seq))
-		player.lock_direction = true
-	else:
-		animation_player.play("air_attack")
-		
+
+	skill_button_1.pressed.emit()
+	animation_player.play("skill1")
 
 	# Setup initial atk timer
 	atk_timer = animation_player.current_animation_length * time_in_atk_factor
+	
+	player.lock_direction = true
 
 
 func exit():
 	attack_area.set_deferred("disabled", true)
 	player.lock_direction = false
-	
-	# Reset attack sequence after if this is the last in the sequence
-	if player.current_atk_seq == player.no_of_basic_atks:
-		player.current_atk_seq = 0
 
 
 func update(_delta: float):
@@ -52,8 +45,7 @@ func physics_update(_delta: float):
 	
 	if atk_timer <= 0:
 		# Go to next attack sequence earlier
-		if InputBuffer.is_action_press_buffered("attack") \
-			and player.current_atk_seq < player.no_of_basic_atks:
+		if InputBuffer.is_action_press_buffered("attack"):
 				Transition.emit(self, "attack")
 		
 		# Allow dash and jump to cancel attack earlier
