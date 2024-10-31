@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 InputBuffer="*res://Assets/Scripts/input_buffer.gd"
 PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 Global="*res://Assets/Scripts/global.gd"
+DamageNumbers="*res://Assets/Scripts/damage_numbers.gd"
 
 [editor_plugins]
 

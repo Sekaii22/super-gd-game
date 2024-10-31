@@ -62,3 +62,11 @@ func _on_player_damage_taken() -> void:
 
 func _on_player_death() -> void:
 	Transition.emit(self, "death")
+
+
+func _on_player_skill_1_casted() -> void:
+	Transition.emit(self, "skill1")
+
+
+func _on_player_skill_2_casted() -> void:
+	Transition.emit(self, "skill2")

@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://ppr1piiutp3a"]
+[gd_scene load_steps=21 format=4 uid="uid://ppr1piiutp3a"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_6kjrb"]
-[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/Players/player.tscn" id="2_ot60j"]
 [ext_resource type="TileSet" uid="uid://cmlrx70bhxuii" path="res://Assets/Tileset/Highforest.tres" id="2_q1d1k"]
 [ext_resource type="PackedScene" uid="uid://dnhfe8ng1lfu1" path="res://Assets/Scenes/enemy_spawner.tscn" id="3_vdeok"]
 [ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="4_vkgdm"]
@@ -17,9 +16,17 @@
 [ext_resource type="Texture2D" uid="uid://csurca8mfdm6v" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0002_7.png" id="14_2lspt"]
 [ext_resource type="Texture2D" uid="uid://csf0f0k4c7g2s" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0001_8.png" id="15_j3i5h"]
 [ext_resource type="Texture2D" uid="uid://c7l52ah7xttpc" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0000_9.png" id="16_s3yyb"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="17_6v03t"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="18_fh38s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f2vxy"]
 size = Vector2(2384, 1221)
+
+[sub_resource type="Resource" id="Resource_e75ho"]
+script = ExtResource("18_fh38s")
+duration = 1.5
+transition = 1
+ease = 2
 
 [node name="Map" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
 script = ExtResource("1_6kjrb")
@@ -64,7 +71,6 @@ tile_map_data = PackedByteArray("AAD+////AwAMAC0AAACPAP//AwAOABgAAAA=")
 tile_set = ExtResource("2_q1d1k")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_vdeok")]
-visible = false
 enemy_dictionary = {
 "pig": ExtResource("4_vkgdm")
 }
@@ -72,28 +78,64 @@ enemy_dictionary = {
 [node name="SpawnPoints" type="Node2D" parent="EnemySpawner"]
 
 [node name="SP_1" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(7, -293)
+position = Vector2(192, -304)
 
 [node name="SP_2" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(436, -161)
+position = Vector2(280, 184)
 
 [node name="SP_3" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(669, -161)
+position = Vector2(704, 288)
 
 [node name="SP_4" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(1314, -265)
+position = Vector2(1040, 120)
 
 [node name="SP_5" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(1472, -382)
+position = Vector2(1184, 120)
 
 [node name="SP_6" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(1691, -382)
+position = Vector2(1736, 24)
 
 [node name="SP_7" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(1317, -31)
+position = Vector2(1864, -480)
 
 [node name="SP_8" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(1510, -31)
+position = Vector2(1984, -480)
+
+[node name="SP_9" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(2160, -32)
+
+[node name="SP_10" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(2304, -32)
+
+[node name="SP_11" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1832, -552)
+
+[node name="SP_12" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(2024, -552)
+
+[node name="SP_13" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1488, -512)
+
+[node name="SP_14" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1264, -576)
+
+[node name="SP_15" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1256, -392)
+
+[node name="SP_16" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(888, -272)
+
+[node name="SP_17" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(624, -520)
+
+[node name="SP_18" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(616, 160)
+
+[node name="SP_19" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(776, 160)
+
+[node name="SP_20" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(752, -144)
 
 [node name="ChunkZone" type="Area2D" parent="."]
 visible = false
@@ -105,10 +147,8 @@ monitorable = false
 position = Vector2(992, -93.5)
 shape = SubResource("RectangleShape2D_f2vxy")
 
-[node name="Player" parent="." instance=ExtResource("2_ot60j")]
-position = Vector2(-47, -45)
-
 [node name="ParallexBackground" type="Node2D" parent="."]
+visible = false
 z_index = -10
 
 [node name="Parallax2D0" type="Parallax2D" parent="ParallexBackground"]
@@ -229,5 +269,18 @@ repeat_times = 3
 [node name="Sprite2D" type="Sprite2D" parent="ParallexBackground/Parallax2D11"]
 texture = ExtResource("16_s3yyb")
 centered = false
+
+[node name="PhantomCamera" type="Node2D" parent="."]
+position = Vector2(136, -56)
+script = ExtResource("17_6v03t")
+follow_mode = 2
+zoom = Vector2(1.7, 1.7)
+tween_resource = SubResource("Resource_e75ho")
+tween_on_load = false
+follow_damping = true
+follow_damping_value = Vector2(0.1, 0)
+dead_zone_width = 0.2
+dead_zone_height = 0.5
+show_viewfinder_in_play = true
 
 [connection signal="body_entered" from="ChunkZone" to="." method="_on_chunk_zone_body_entered"]

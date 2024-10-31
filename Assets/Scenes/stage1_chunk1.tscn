@@ -1,9 +1,8 @@
-[gd_scene load_steps=19 format=4 uid="uid://c71d5brdhb7hw"]
+[gd_scene load_steps=21 format=4 uid="uid://c71d5brdhb7hw"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/map_chunk.gd" id="1_kwufo"]
 [ext_resource type="TileSet" uid="uid://cmlrx70bhxuii" path="res://Assets/Tileset/Highforest.tres" id="3_6cvy2"]
 [ext_resource type="PackedScene" uid="uid://dnhfe8ng1lfu1" path="res://Assets/Scenes/enemy_spawner.tscn" id="4_1t8n6"]
-[ext_resource type="PackedScene" uid="uid://xjxshr0c3you" path="res://Assets/Scenes/Players/player.tscn" id="4_c83f7"]
 [ext_resource type="PackedScene" uid="uid://c150bak61744y" path="res://Assets/Scenes/enemy2test.tscn" id="5_n8rq3"]
 [ext_resource type="Texture2D" uid="uid://d3omnmynvuglo" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0010_1-export_h_lengthen.png" id="6_anqj6"]
 [ext_resource type="Texture2D" uid="uid://be3amwdst7rdr" path="res://Assets/Sprites/Background/High Forest/Background_edit.png" id="7_os6af"]
@@ -16,10 +15,18 @@
 [ext_resource type="Texture2D" uid="uid://bdck7yayiykjf" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0003_6.png" id="14_xehb6"]
 [ext_resource type="Texture2D" uid="uid://csurca8mfdm6v" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0002_7.png" id="15_nj8nj"]
 [ext_resource type="Texture2D" uid="uid://csf0f0k4c7g2s" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0001_8.png" id="16_4k2nc"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="17_2jmxu"]
 [ext_resource type="Texture2D" uid="uid://c7l52ah7xttpc" path="res://Assets/Sprites/Background/Pixel Art Forest/Layer_0000_9.png" id="17_hqkmj"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="18_qea7s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ke0q6"]
 size = Vector2(2384, 1221)
+
+[sub_resource type="Resource" id="Resource_tujvj"]
+script = ExtResource("18_qea7s")
+duration = 1.5
+transition = 1
+ease = 2
 
 [node name="Map" type="Node2D" node_paths=PackedStringArray("obj_node_to_be_tracked")]
 script = ExtResource("1_kwufo")
@@ -76,6 +83,7 @@ waves = Array[Dictionary]([{
 6: "pig",
 7: "pig"
 }])
+waves_loops = Array[int]([1])
 
 [node name="SpawnPoints" type="Node2D" parent="EnemySpawner"]
 
@@ -89,7 +97,7 @@ position = Vector2(344, 24)
 position = Vector2(528, 24)
 
 [node name="SP_4" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
-position = Vector2(854, -168)
+position = Vector2(856, -168)
 
 [node name="SP_5" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
 position = Vector2(1280, -234)
@@ -103,6 +111,30 @@ position = Vector2(1280, -31)
 [node name="SP_8" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
 position = Vector2(1715, -31)
 
+[node name="SP_9" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1728, -384)
+
+[node name="SP_10" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1512, -384)
+
+[node name="SP_11" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(1304, -384)
+
+[node name="SP_12" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(856, -240)
+
+[node name="SP_13" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(560, -240)
+
+[node name="SP_15" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(320, -384)
+
+[node name="SP_16" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(64, -384)
+
+[node name="SP_14" type="Marker2D" parent="EnemySpawner/SpawnPoints"]
+position = Vector2(560, -168)
+
 [node name="ChunkZone" type="Area2D" parent="."]
 visible = false
 collision_mask = 96
@@ -112,9 +144,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChunkZone"]
 position = Vector2(992, -93.5)
 shape = SubResource("RectangleShape2D_ke0q6")
-
-[node name="Player" parent="." instance=ExtResource("4_c83f7")]
-position = Vector2(-48, -80)
 
 [node name="ParallexBackground" type="Node2D" parent="."]
 visible = false
@@ -238,5 +267,18 @@ repeat_times = 3
 [node name="Sprite2D" type="Sprite2D" parent="ParallexBackground/Parallax2D11"]
 texture = ExtResource("17_hqkmj")
 centered = false
+
+[node name="PhantomCamera" type="Node2D" parent="."]
+position = Vector2(136, -56)
+script = ExtResource("17_2jmxu")
+follow_mode = 2
+zoom = Vector2(1.7, 1.7)
+tween_resource = SubResource("Resource_tujvj")
+tween_on_load = false
+follow_damping = true
+follow_damping_value = Vector2(0.1, 0)
+dead_zone_width = 0.2
+dead_zone_height = 0.5
+show_viewfinder_in_play = true
 
 [connection signal="body_entered" from="ChunkZone" to="." method="_on_chunk_zone_body_entered"]

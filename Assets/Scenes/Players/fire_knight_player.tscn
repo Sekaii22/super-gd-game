@@ -1935,7 +1935,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath(".:collision_layer")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -2080,9 +2080,11 @@ dash_right_particle_tex = ExtResource("20_y5jlb")
 
 [node name="skill1" type="Node" parent="StateMachine"]
 script = ExtResource("18_856xf")
+time_in_atk_factor = 0.85
 
 [node name="skill2" type="Node" parent="StateMachine"]
 script = ExtResource("19_sdtpq")
+time_in_atk_factor = 0.85
 
 [node name="DoubleJumpParticle" type="GPUParticles2D" parent="."]
 show_behind_parent = true
@@ -2119,6 +2121,10 @@ one_shot = true
 wait_time = 0.2
 one_shot = true
 
+[node name="InvulnerabilityTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="ActionBar" type="HBoxContainer" parent="UI"]
@@ -2142,6 +2148,9 @@ texture_normal = ExtResource("26_hq5y1")
 layout_mode = 2
 texture_normal = ExtResource("26_3i6ak")
 
+[node name="DamageNumberOrigin" type="Node2D" parent="."]
+position = Vector2(0, -69)
+
 [connection signal="DamageTaken" from="." to="StateMachine/idle" method="_on_player_damage_taken"]
 [connection signal="DamageTaken" from="." to="StateMachine/run" method="_on_player_damage_taken"]
 [connection signal="DamageTaken" from="." to="StateMachine/jump" method="_on_player_damage_taken"]
@@ -2153,11 +2162,18 @@ texture_normal = ExtResource("26_3i6ak")
 [connection signal="Death" from="." to="StateMachine/attack" method="_on_player_death"]
 [connection signal="Death" from="." to="StateMachine/hurt" method="_on_player_death"]
 [connection signal="Death" from="." to="StateMachine/fall" method="_on_player_death"]
-[connection signal="Special1_Casted" from="." to="StateMachine/idle" method="_on_player_special_1_casted"]
-[connection signal="Special2_Casted" from="." to="StateMachine/idle" method="_on_player_special_2_casted"]
+[connection signal="Skill1_Casted" from="." to="StateMachine/idle" method="_on_player_skill_1_casted"]
+[connection signal="Skill1_Casted" from="." to="StateMachine/run" method="_on_player_skill_1_casted"]
+[connection signal="Skill1_Casted" from="." to="StateMachine/jump" method="_on_player_skill_1_casted"]
+[connection signal="Skill1_Casted" from="." to="StateMachine/fall" method="_on_player_skill_1_casted"]
+[connection signal="Skill2_Casted" from="." to="StateMachine/idle" method="_on_player_skill_2_casted"]
+[connection signal="Skill2_Casted" from="." to="StateMachine/run" method="_on_player_skill_2_casted"]
+[connection signal="Skill2_Casted" from="." to="StateMachine/jump" method="_on_player_skill_2_casted"]
+[connection signal="Skill2_Casted" from="." to="StateMachine/fall" method="_on_player_skill_2_casted"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_started" from="AnimationPlayer" to="." method="_on_animation_player_animation_started"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
 [connection signal="timeout" from="DashResetTimer" to="." method="_on_dash_reset_timer_timeout"]
 [connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
 [connection signal="timeout" from="AttackGraceTimer" to="." method="_on_attack_grace_timer_timeout"]
+[connection signal="timeout" from="InvulnerabilityTimer" to="." method="_on_invulnerability_timer_timeout"]

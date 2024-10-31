@@ -6,8 +6,8 @@ const JUMP_VELOCITY = -360.0
 
 signal DamageTaken
 signal Death
-signal Special1_Casted
-signal Special2_Casted
+signal Skill1_Casted
+signal Skill2_Casted
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -15,6 +15,8 @@ signal Special2_Casted
 @onready var coyote_timer: Timer = $CoyoteTimer					# Gives small window to execute jump after falling in run state
 @onready var dash_reset_timer: Timer = $DashResetTimer
 @onready var attack_grace_timer: Timer = $AttackGraceTimer		# Gives small window to continue attack chain after an attack animation is finished
+@onready var invulnerability_timer: Timer = $InvulnerabilityTimer
+@onready var damage_number_origin: Node2D = $DamageNumberOrigin
 
 # TODO: Some of these can be placed under player class resource
 @export var health = 100
@@ -37,6 +39,7 @@ var current_damage: DamageResource
 var knockback = Vector2.ZERO
 var face_direction_x: int = 1		# -1 = left, 1 = right
 var in_coyote_time: bool = false
+var is_invulnerable: bool = false
 
 ## GET and SET
 var jumps_left: int
@@ -96,19 +99,25 @@ func _physics_process(delta: float) -> void:
 
 # Call this method when you want the player to take damage
 func take_damage(dmg_taken: int, timescale_duration = 0.7):
-	health -= dmg_taken
-	print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")
-	
-	if health <= 0:
-		Death.emit()
-	else:
-		DamageTaken.emit()
-	
-	# Adjust timescale for more impact, duration < 0.8 is almost unnoticable
-	Engine.time_scale = 0.01
-	await get_tree().create_timer(timescale_duration * 0.01).timeout
-	Engine.time_scale = 1
-	
+	if !is_invulnerable:
+		health -= dmg_taken
+		DamageNumbers.display_number(dmg_taken, damage_number_origin.global_position)
+		print("You take " + str(dmg_taken) + " damage! From take_damage function in player script")
+		
+		if health <= 0:
+			Death.emit()
+		else:
+			invulnerability_timer.start()
+			is_invulnerable = true
+			set_collision_layer_value(6, false)
+			set_collision_layer_value(7, true)
+			DamageTaken.emit()
+		
+		# Adjust timescale for more impact, duration < 0.8 is almost unnoticable
+		Engine.time_scale = 0.01
+		await get_tree().create_timer(timescale_duration * 0.01).timeout
+		Engine.time_scale = 1
+		
 
 # Call this method when you want to give player some knockback
 func take_knockback(body: Node2D, knockback_x_str: float = 150.0, \
@@ -157,13 +166,13 @@ func switch_damage(key: String):
 func check_for_special_cast():
 	if Input.is_action_just_pressed("skill1"):
 		if !skill1_button.is_on_cooldown:
-			Special1_Casted.emit()
+			Skill1_Casted.emit()
 		else:
 			print("Skill 1 on cooldown")
 		
 	elif Input.is_action_just_pressed("skill2"):
 		if !skill2_button.is_on_cooldown:
-			Special2_Casted.emit()
+			Skill2_Casted.emit()
 		else:
 			print("skill 2 on cooldown")
 
@@ -199,3 +208,9 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		print(body.name + " has taken " + str(current_damage.damage) + " " \
 		+ current_damage.type + " damage!")
 		body.take_damage(current_damage.damage)
+
+
+func _on_invulnerability_timer_timeout() -> void:
+	set_collision_layer_value(6, true)
+	set_collision_layer_value(7, false)
+	is_invulnerable = false

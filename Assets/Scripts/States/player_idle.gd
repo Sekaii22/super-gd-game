@@ -52,9 +52,9 @@ func _on_player_death() -> void:
 	Transition.emit(self, "death")
 
 
-func _on_player_special_1_casted() -> void:
+func _on_player_skill_1_casted() -> void:
 	Transition.emit(self, "skill1")
 
 
-func _on_player_special_2_casted() -> void:
+func _on_player_skill_2_casted() -> void:
 	Transition.emit(self, "skill2")

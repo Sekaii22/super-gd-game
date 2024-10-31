@@ -44,12 +44,9 @@ func physics_update(_delta: float):
 		player.velocity.x = direction * player.SPEED
 	
 	if atk_timer <= 0:
-		# Go to next attack sequence earlier
-		if InputBuffer.is_action_press_buffered("attack"):
-				Transition.emit(self, "attack")
 		
 		# Allow dash and jump to cancel attack earlier
-		elif InputBuffer.is_action_press_buffered("dash") and player.can_dash():
+		if InputBuffer.is_action_press_buffered("dash") and player.can_dash():
 			Transition.emit(self, "dash")
 
 		elif InputBuffer.is_action_press_buffered("jump") and player.is_on_floor():
@@ -58,7 +55,9 @@ func physics_update(_delta: float):
 		# If attack animation is finished playing
 		elif !animation_player.is_playing():
 			
-			if player.is_on_floor():
+			if InputBuffer.is_action_press_buffered("attack"):
+				Transition.emit(self, "attack")
+			elif player.is_on_floor():
 				if direction == 0 :
 					Transition.emit(self, "idle")
 				elif direction != 0:

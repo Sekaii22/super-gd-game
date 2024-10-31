@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ChunkResource" load_steps=3 format=3 uid="uid://ehuddc8t4eyq"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/ResourceScript/chunk_resource.gd" id="1_f5n8y"]
+[ext_resource type="PackedScene" uid="uid://ppr1piiutp3a" path="res://Assets/Scenes/stage1_chunk3.tscn" id="1_wwmbi"]
+
+[resource]
+script = ExtResource("1_f5n8y")
+chunk_scene = ExtResource("1_wwmbi")
+start_point = Vector2(-208, 0)
+end_point = Vector2(2416, 0)

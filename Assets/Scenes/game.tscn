@@ -29,7 +29,8 @@ position = Vector2(140, -122)
 [node name="CameraManager" parent="." instance=ExtResource("5_g8fgt")]
 
 [node name="Killzone" parent="." instance=ExtResource("4_t1jmh")]
-position = Vector2(0, 400)
+position = Vector2(0, 577)
+collision_mask = 96
 damage = 10000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
