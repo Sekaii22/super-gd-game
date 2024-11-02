@@ -4,7 +4,8 @@ class_name EnemyRun
 #var begin_storing: bool = false
 var jump_on_cooldown: bool = false
 var direction
-var player
+var player: CharacterBody2D
+@export var player_tracker: RayCast2D
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
@@ -32,7 +33,7 @@ func exit():
 	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
-	direction = enemy.global_position.direction_to(player.global_position)
+	direction = player_tracker.target_position.normalized()
 	if direction.x > 0:
 		enemy.velocity.x = direction.x * enemy.SPEED
 		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
@@ -55,7 +56,7 @@ func physics_update(_delta: float):
 		jump_cooldown.start()
 		print("jump")
 		enemy.velocity.y = enemy.JUMP_VELOCITY
-	elif abs(snapped(enemy.global_position.x, 0.01) - snapped(player.global_position.x, 0.01)) < 64.0:
+	elif abs(snapped(enemy.global_position.x, 0.01) - snapped(player.global_position.x, 0.01)) < 32.0:
 		Transition.emit(self, "attack")
 #if it is too close, it won't jump? Or if it is too close, it will jump over the player?
 	#elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 16.0:
@@ -79,7 +80,17 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 func _on_player_tracker_player_escaped() -> void:
-	Transition.emit(self, "idle")
+	Transition.emit(self, "survey")
+
+	#direction = player_tracker.target_position.normalized()
+	#if direction.x > 0 and enemy.global_position != player_tracker.target_position:
+		#enemy.velocity.x = direction.x * enemy.SPEED
+		#animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
+	#elif direction.x < 0 and enemy.global_position != player_tracker.target_position:
+		#enemy.velocity.x = direction.x * enemy.SPEED
+		#animated_sprite.flip_h = false
+	#elif abs(enemy.global_position.x - player_tracker.get_collision_point().x) < 3:
+		#Transition.emit(self, "idle")
 
 func _on_timer_timeout() -> void:
 	jump_on_cooldown = false

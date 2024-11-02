@@ -4,7 +4,7 @@ class_name EnemyAttack
 var from_run: bool = false
 var attack_is_charging: bool = true
 var direction
-var player
+var player: CharacterBody2D
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var animation_player: AnimationPlayer = $"../../AnimationPlayer"
 @onready var animated_sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"

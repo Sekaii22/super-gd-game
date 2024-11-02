@@ -24,7 +24,7 @@ DamageNumbers="*res://Assets/Scripts/damage_numbers.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
