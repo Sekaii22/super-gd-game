@@ -56,7 +56,7 @@ func physics_update(_delta: float):
 		jump_cooldown.start()
 		print("jump")
 		enemy.velocity.y = enemy.JUMP_VELOCITY
-	elif abs(snapped(enemy.global_position.x, 0.01) - snapped(player.global_position.x, 0.01)) < 64.0:
+	elif abs(snapped(enemy.global_position.x, 0.01) - snapped(player.global_position.x, 0.01)) < 32.0:
 		Transition.emit(self, "attack")
 #if it is too close, it won't jump? Or if it is too close, it will jump over the player?
 	#elif abs(snapped(enemy.position.x, 0.01) - snapped(player.position.x, 0.01)) < 16.0:

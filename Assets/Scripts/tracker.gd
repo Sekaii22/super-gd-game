@@ -9,8 +9,9 @@ signal player_escaped
 var player_entered_area: bool = false
 var check_for_player: bool = false
 var player_close: bool = false
-var player
-var enemy
+var player_collision_point: Vector2
+var player: CharacterBody2D
+var enemy: CharacterBody2D
 #@export var raycast_scale: float
 @export var player_detection_range: Area2D
 @export var check_last_seen: Timer
@@ -21,23 +22,21 @@ func _ready() -> void:
 	check_last_seen.start()
 
 func _physics_process(_delta: float) -> void:
+	check_player() #May need to remove
 	if check_for_player == true and player_entered_area == true:
 		target_position = player.global_position - enemy.global_position
+		player_collision_point = get_collision_point()
 		check_for_player = false #reset tracking
 
-	#check_player() #May need to remove
-#
-#func check_player():
-	#if is_colliding() && get_collider().name == "Player":
-		##print("raycast to player collision true" +get_collider().name)
-		#player_close = true
-		#player_detected.emit()
-	#elif is_colliding() && get_collider().name != "Player":
-		#player_close = false
-		#player_escaped.emit() #keeps hitting the map when enemy is above player
-	#else:
-		#player_close = false
-		#player_escaped.emit()
+
+func check_player():
+	if is_colliding() && get_collider().name == "Player":
+		#print("raycast to player collision true " +get_collider().name)
+		player_close = true
+	elif is_colliding() && get_collider().name != "Player":
+		player_close = false
+	else:
+		player_close = false
 
 
 func _on_check_last_seen_timeout() -> void:

@@ -13,7 +13,7 @@ func exit():
 	enemy.velocity = Vector2(0, 0)
 
 func update(_delta: float):
-	if !animation_player.is_playing() && player_tracker.player_entered_area:
+	if !animation_player.is_playing() && player_tracker.player_entered_area and player_tracker.player_close == true:
 		Transition.emit(self, "run")
 		#Player escapes from raycast before animation ends
 

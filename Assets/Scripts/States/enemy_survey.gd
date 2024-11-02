@@ -30,17 +30,21 @@ func exit():
 	enemy.velocity = Vector2(0, 0)
 
 func physics_update(_delta: float):
-	#print("collision point check " +str(player_tracker.get_collision_point()))
-	#print("Enemy position check " +str(enemy.global_position.x))
+	print("collision point check " +str(player_tracker.player_collision_point))
+	print("Enemy position check " +str(enemy.global_position.x))
 	direction = player_tracker.target_position.normalized()
-	if abs(enemy.global_position.x - player_tracker.get_collision_point().x) < 16:
+	if abs(enemy.global_position.x - player_tracker.player_collision_point.x) < 16:
 		Transition.emit(self, "idle")
-	elif direction.x > 0 and abs(enemy.global_position.x - player_tracker.get_collision_point().x) > 16:
+	#elif player_tracker.player_close == true:
+		#print("raycast to player collision true " +player_tracker.get_collider().name)
+		#Transition.emit(self, "alert")
+	elif direction.x > 0 and abs(enemy.global_position.x - player_tracker.player_collision_point.x) > 16:
 		enemy.velocity.x = direction.x * enemy.SPEED * 0.6
 		animated_sprite.flip_h = true #changed for pig enemy since default is face left, thief face right
-	elif direction.x < 0 and abs(enemy.global_position.x - player_tracker.get_collision_point().x) > 16:
+	elif direction.x < 0 and abs(enemy.global_position.x - player_tracker.player_collision_point.x) > 16:
 		enemy.velocity.x = direction.x * enemy.SPEED * 0.6
 		animated_sprite.flip_h = false
+
 
 
 func _on_enemy_damage_taken() -> void:
