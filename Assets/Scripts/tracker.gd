@@ -24,8 +24,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	check_player() #May need to remove
 	if check_for_player == true and player_entered_area == true:
-		target_position = player.global_position - enemy.global_position
 		player_collision_point = get_collision_point()
+		target_position = player.global_position - enemy.global_position
+
 		check_for_player = false #reset tracking
 
 

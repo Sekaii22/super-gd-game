@@ -13,6 +13,8 @@ var exhausted: bool = false
 @export var damage = 10
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var attack_area: CollisionShape2D = $AttackRange/CollisionShape2D
+@onready var player_detection_shape: CollisionShape2D = $PlayerTracker/PlayerDetectionRange/CollisionShape2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 # Call this method when you want the 
@@ -27,6 +29,12 @@ func take_damage(dmg_taken: int):
 		damage_taken.emit()
 
 func _physics_process(delta: float) -> void:
+	#Flip player detection collision shape
+	if animated_sprite.flip_h == true:
+		player_detection_shape.position.x = abs(player_detection_shape.position.x)
+	if animated_sprite.flip_h == false:
+		player_detection_shape.position.x = -abs(player_detection_shape.position.x)
+	#movement
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	move_and_slide()

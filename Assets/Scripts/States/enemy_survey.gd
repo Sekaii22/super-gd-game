@@ -53,3 +53,11 @@ func _on_enemy_damage_taken() -> void:
 
 func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
+
+
+func _on_player_tracker_player_detected() -> void:
+	pass
+
+
+func _on_player_detection_range_body_entered(body: Node2D) -> void:
+	Transition.emit(self, "alert")

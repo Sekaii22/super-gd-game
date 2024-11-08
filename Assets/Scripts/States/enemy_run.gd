@@ -80,6 +80,7 @@ func _on_enemy_death() -> void:
 	Transition.emit(self, "death")
 
 func _on_player_tracker_player_escaped() -> void:
+	player_tracker.player_close = false
 	Transition.emit(self, "survey")
 
 	#direction = player_tracker.target_position.normalized()

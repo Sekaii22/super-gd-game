@@ -61,3 +61,11 @@ func _on_enemy_death() -> void:
 
 func _on_attack_duration_timeout() -> void:
 	Transition.emit(self, "idle")
+
+
+func _on_player_tracker_player_escaped() -> void:
+	pass
+
+
+func _on_player_detection_range_body_exited(body: Node2D) -> void:
+	pass
